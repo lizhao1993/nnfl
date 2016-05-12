@@ -8,12 +8,65 @@ Brief:  Convert pdev data and SemEval 2015 data to the required format
 import os
 import html
 import nltk
+import codecs
 from tools import*
 import logging
 logging.basicConfig(
     level=logging.DEBUG, 
     format=" [%(levelname)s]%(filename)s:%(lineno)s[function:%(funcName)s] %(message)s"
 )
+
+def convert_chn_text(detail=True):
+    """
+    Convert Chinese annotated text to the required format. The Chinese text 
+    should be utf-8 encoding
+    """
+    p = {
+        "data_path": "../data/data_literature", 
+        "output_dir": "../data/converted_data"
+    }
+    if detail:
+        gen_params_info(p)
+
+    os.system("rm -rf %s" % p["output_dir"])
+    os.system("mkdir -p %s" % p["output_dir"])
+    files = os.listdir(p["data_path"])
+    for file_name in files:
+        if detail:
+            print("to process %s" % file_name)
+        file_path = "%s/%s" % (p["data_path"], file_name)
+        out_file_path = "%s/%s" % (p["output_dir"], file_name)
+        fh_in = codecs.open(filename=file_path, mode="r", encoding='utf8')
+        fh_out = codecs.open(filename=out_file_path, mode="w", encoding='utf8')
+        line_idx = 1
+        verb = ""
+        for line in fh_in:
+            line = line.lstrip()
+            if line.find("\t") < 0:
+                print("Please check in file %s, line: %s\nsentence :%s\n"\
+                    "The above sentence has NO TAB and has been skiped!" \
+                        % (file_name, line_idx, line))
+                continue
+            items = line.split("\t")
+            if len(items) != 4:
+                print("Please check in file %s, line: %s\nsentence :%s\n"\
+                    "The above sentence has NO 4 TAB and has been skiped!" \
+                        % (file_name, line_idx, line))
+                continue
+            frame_id = items[0]
+            if frame_id.find(".") >= 0:
+                frame_id = frame_id.split(".")[0]
+            verb = items[2].strip()
+            left_sent = items[1].strip()
+            right_sent = items[3].strip()
+            out_line = "%s\t%s\t%s\t%s"\
+                    % (frame_id, left_sent, verb, right_sent)
+            print(out_line, file=fh_out)
+
+            line_idx += 1
+
+        fh_in.close()
+        fh_out.close()
 
 def convert_semeval_without_extraction(detail=True):
     """
@@ -194,5 +247,6 @@ def convert_pdev(detail=True):
 if __name__ == "__main__":
     # convert_semeval_without_extraction()
     # convert_semeval_with_extraction()
-    convert_pdev()
+    # convert_pdev()
+    convert_chn_text()
 
