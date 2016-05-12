@@ -76,7 +76,7 @@ def run_fnn():
         ("beta", 0.0001), 
         ("random_vectors", False), 
         ("\nOther parameters", ""), 
-        ("prediction_results", "../result/gated_fnn_results/up_vector") 
+        ("prediction_results", "../result/gated_fnn_results/nothing") 
     ])
 
     # Get vocabulary and word vectors

@@ -7,7 +7,6 @@ Brief:  Some commonly used functions in other modules
 
 import os
 import string
-import theano
 import numpy as np
 from random import shuffle
 import gensim
@@ -19,7 +18,7 @@ logging.basicConfig(
 )
 
 # Global data type
-FLOAT = theano.config.floatX
+FLOAT = 'float64'
 INT = "int32"
 
 def remove_punctuations(strg):
@@ -172,7 +171,7 @@ def get_vocab_and_vectors(word2vec_path, norm_only, oov,\
 
     # Load word vectors with gensim
     vec_model = gensim.models.Word2Vec.load_word2vec_format(
-        word2vec_path, binary=is_binary, norm_only=norm_only
+        word2vec_path, binary=is_binary 
     )
     vocab = {}
     for word, obj in vec_model.vocab.items():
