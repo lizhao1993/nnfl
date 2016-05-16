@@ -19,7 +19,7 @@ sys.path.append("../models/")
 from tools import*
 from data_loader import DataLoader
 from metrics import*
-from gated_fnn import FNN
+from gated_fnn2 import FNN
 
 np.random.seed(1)
 
@@ -43,7 +43,7 @@ def run_fnn():
     # Parameters
     p = OrderedDict([
         ("\nParameters for word vectors", ""), 
-        ("word2vec_path", "../data/data2vec.txt"), 
+        # ("word2vec_path", "../data/data2vec.txt"), 
         ("word2vec_path", "../../word2vec/vector_model/glove.6B.300d.txt"), 
         # ("word2vec_path", "../../word2vec/vector_model/glove.840B.300d.txt"), 
         ("norm_vec", False), 
@@ -69,14 +69,14 @@ def run_fnn():
         ("n_hidden", 30), 
         ("lambda1", 0), 
         ("lambda2", 1), 
-        ("up_wordvec", True), 
-        ("max_epochs", 100), 
+        ("up_wordvec", False), 
+        ("max_epochs", 1000), 
         ("minibatch", 5), 
-        ("lr", 0.01), 
+        ("lr", 0.1), 
         ("beta", 0.0001), 
         ("random_vectors", False), 
         ("\nOther parameters", ""), 
-        ("prediction_results", "../result/gated_fnn_results/nothing") 
+        ("prediction_results", "../result/gated_fnn_results/gate_normalize_lr0.1_1000epoch") 
     ])
 
     # Get vocabulary and word vectors
