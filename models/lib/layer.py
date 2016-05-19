@@ -10,6 +10,7 @@ sys.path.append("./lib/")
 from inc import*
 from gradient_checker import GradientChecker
 
+
 def sigmoid(x):
     """
     The sigmoid function. This is numerically-stable version

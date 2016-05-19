@@ -6,10 +6,9 @@ Brief:  Common headers
 """
 
 import numpy as np
+import logging
 
 np.random.seed(1)
-
-import logging
 
 logging.basicConfig(
     level=logging.DEBUG,

@@ -7,6 +7,7 @@ Brief:  The library module of neural network
 
 from inc import*
 
+
 class GradientChecker(object):
     """
     Gradient checker class
@@ -120,4 +121,3 @@ class GradientChecker(object):
         logging.info("Finish to check gradients")
 
         return
-
