@@ -5,20 +5,10 @@ Date:   2016-05-16
 Brief:  The library module of neural network
 """
 
-import numpy as np
-import logging
 import sys
-import operator
-sys.path.append("../utils/")
-
-logging.basicConfig(
-    level=logging.DEBUG,
-    format=" [%(levelname)s]%(filename)s:%(lineno)"
-    "s[function:%(funcName)s] %(message)s"
-)
-
-np.random.seed(1)
-
+sys.path.append("./lib/")
+from inc import*
+from gradient_checker import GradientChecker
 
 def sigmoid(x):
     """
@@ -59,7 +49,62 @@ class NormlizationLayer(Layer):
             Number of unit
         """
         self.n_unit = n_unit
-        # To be implementated
+        self.forward_out = None
+        self.x = None
+
+    def backprop(self, go):
+        """
+        Back propagation. Note that backprop is only based on the forward pass.
+        backprop will choose the lastest forward pass from Multiple forward
+        passes.
+        go: numpy.ndarray
+            Gradients on the output of current layer. The shape of go is
+            (num_instances, num_outputs)
+
+        output
+        --------
+        gnet: numpy.ndarray
+            Gradients on net the input of current layer.
+        """
+
+        if go.shape[1] != self.n_unit:
+            logging.error("shape doesn't match, go shape:%s, unit number:%s"
+                          % (go, self.n_unit))
+            raise Exception
+        if self.forward_out is None or self.x is None:
+            logging.error("No forward pass")
+            raise Exception
+
+        x_sum = self.x.sum(axis=1).reshape((self.x.shape[0], 1))
+        gox_sum = (go * self.x).sum(axis=1).reshape((self.x.shape[0], 1))
+        gnet = (go * x_sum - gox_sum) / (x_sum ** 2)
+
+        return gnet
+
+    def forward(self, x):
+        """
+        Compute forward pass
+        x: numpy.ndarray
+            x is the input data with the shape (num_instances, num_inputs)
+
+        output
+        --------
+        forward_out: numpy.ndarray
+            Output with the shape (num_instances, num_inputs)
+        """
+
+        if x.shape[1] != self.n_unit:
+            logging.error("input data shape:%s, not match input unit:%s"
+                          % (x.shape, self.n_unit))
+            raise Exception
+
+        forward_out = x / x.sum(axis=1).reshape((x.shape[0], 1))
+
+        # Keep track of output and input
+        self.forward_out = forward_out
+        self.x = x
+
+        return forward_out
 
 
 class GeneralLayer(Layer):
@@ -121,7 +166,7 @@ class GeneralLayer(Layer):
         output
         --------
         forward_out: numpy.ndarray
-            Output with the shape (num_instances, num_inputs)
+            Output with the shape (num_instances, num_outputs)
         """
 
         if x.shape[1] != self.n_i:
@@ -344,86 +389,24 @@ class HiddenLayer(GeneralLayer):
         return forward_out
 
 
-class GradientChecker(object):
-    """
-    Gradient checker class
-    """
-    def __init__(self, epsilon=1e-04):
-        """
-        Init GradientChecker
-        epsilon: float
-            used during checking
-        """
-
-        self.epsilon = epsilon
-
-    def check_layer(self, obj, x, check_params=None):
-        """
-        Checking gradients of layers
-        obj: class instance
-            Object to check. obj must provide its params, param_names, forward.
-            GradientChecker will use forward function and construct a simple
-            loss function (sum function) to test obj's gradients.
-        x: numpy.ndarray
-            x is the input data of obj
-        check_params: list of string
-            Parameter names in check_params will be checked. If it is None, all
-            parameters will be checked
-        """
-
-        if check_params is None:
-            check_params = [param_name for param_name in obj.param_names]
-        for param_name in check_params:
-            param_index = obj.param_names.index(param_name)
-            param = obj.params[param_index]
-            it = np.nditer(param, flags=['multi_index'],
-                           op_flags=['readwrite'])
-            gradient_problem = "No problems"
-            while not it.finished:
-                val_idx = it.multi_index
-                val_bak = param[val_idx]
-                # Estimated gradients
-                param[val_idx] += self.epsilon
-                inc_loss = obj.forward(x).sum()
-                param[val_idx] = val_bak
-                param[val_idx] -= self.epsilon
-                dec_loss = obj.forward(x).sum()
-                estimated_gradient = (inc_loss - dec_loss) / (2 * self.epsilon)
-
-                # Backprop gradients
-                param[val_idx] = val_bak
-                obj.forward(x)
-                # Gradients on output unit onf obj
-                go = np.ones((x.shape[0], obj.n_o), dtype=np.float64)
-                obj.backprop(go)
-                gparam = obj.gparams[param_index]
-                gradient = gparam[val_idx]
-                abs_error = abs(gradient - estimated_gradient)
-                if (abs_error > 1e-06):
-                    # logging.warn("%s gradient problem! error:%f"
-                    # % (param_name, abs_error))
-                    gradient_problem = "HAVE Problems"
-                    break
-                it.iternext()
-            logging.info("Checking %s, gradient: %s"
-                         % (param_name, gradient_problem))
-
-        logging.info("Finish to check gradients")
-
-        return
-
-
 def layer_test():
     n_i = 5
     n_o = 10
     use_bias = False
     x_num = 20
     x = np.random.uniform(low=0, high=5, size=(x_num, n_i))
+
     # layer = SoftmaxLayer(n_i, n_o, use_bias)
-    layer = HiddenLayer(n_i, n_o, act_func='tanh', use_bias=use_bias)
+    # layer = HiddenLayer(n_i, n_o, act_func='tanh', use_bias=use_bias)
     # layer = GeneralLayer(n_i, n_o)
+
     gc = GradientChecker()
-    gc.check_layer(layer, x)
+
+    # gc.check_layer_params(layer, x)
+
+    layer = NormlizationLayer(x.shape[1])
+
+    gc.check_layer_net_input(layer, x)
 
 
 if __name__ == "__main__":
