@@ -2,11 +2,9 @@
 """
 Authors: fengyukun
 Date:   2016-05-16
-Brief:  The library module of neural network
+Brief:  The library of layer
 """
 
-import sys
-sys.path.append("./lib/")
 from inc import*
 from gradient_checker import GradientChecker
 
@@ -112,9 +110,45 @@ class GeneralLayer(Layer):
     """
     General layer class.
     """
-    def __init__(self, n_i, n_o, use_bias=True, tfloat='float64'):
+    def __init__(self):
+        # Keep track of lastest forward pass variables
+        self.forward_out = None
+        self.x = None
+
+    def set_layer(self, w, b=None, use_bias=False):
         """
-        Initialize parameters of softmax layer
+        Set layer with given params
+        w: numpy.ndarry
+            The weight of layer which has the shape (n_o, n_i)
+        b: numpy.ndarry
+            The bias of layer which has the shape (n_o, )
+        use_bias: boolean
+            Whether to use bias vector on this layer. If b is given and
+            use_bias will force to change True. If b is None and use_bias is
+            True, the class will init bias
+        """
+        self.w = w
+        self.n_i = w.shape[1]
+        self.n_o = w.shape[0]
+        self.params = [self.w]
+        self.param_names = ['w']
+        if b is not None:
+            if b.shape[0] != self.n_o:
+                logging.error("b is given, but the shape not match w")
+                raise Exception
+            self.b = b
+            self.use_bias = True
+        if b is None and use_bias:
+            self.use_bias = use_bias
+            self.b = np.zeros(shape=self.n_o, dtype=w.dtype)
+
+        if self.use_bias:
+            self.params.append(self.b)
+            self.param_names.append('b')
+
+    def init_layer(self, n_i, n_o, use_bias=True, tfloat='float64'):
+        """
+        Initialize parameters of layer.
         n_i: int.
             The number of units of the previous layer
         n_o: int.
@@ -130,8 +164,19 @@ class GeneralLayer(Layer):
         self.use_bias = use_bias
         self.tfloat = tfloat
 
-        # Init weights
-        self.w = self.init_weigths()
+        # Init parameters
+        self.init_params()
+
+    def init_params(self):
+        """
+        Init parameters
+        """
+
+        self.w = np.random.uniform(
+            low=-np.sqrt(1. / self.n_i),
+            high=np.sqrt(1. / self.n_i),
+            size=(self.n_o, self.n_i)
+        ).astype(dtype=self.tfloat, copy=False)
 
         self.params = [self.w]
         self.param_names = ['w']
@@ -140,23 +185,6 @@ class GeneralLayer(Layer):
             self.b = np.zeros(shape=self.n_o, dtype=self.tfloat)
             self.params.append(self.b)
             self.param_names.append('b')
-
-        # Keep track of lastest forward pass variables
-        self.forward_out = None
-        self.x = None
-        self.gparams = []   # Gradients on parameters
-
-    def init_weigths(self):
-        """
-        Init weights
-        """
-
-        w = np.random.uniform(
-            low=-np.sqrt(1. / self.n_i),
-            high=np.sqrt(1. / self.n_i),
-            size=(self.n_o, self.n_i)
-        ).astype(dtype=self.tfloat, copy=False)
-        return w
 
     def forward(self, x):
         """
@@ -179,7 +207,12 @@ class GeneralLayer(Layer):
         if self.use_bias:
             net_input += self.b
 
-        forward_out = self.net_input_to_out(net_input)
+        try:
+            forward_out = self.net_input_to_out(net_input)
+        except:
+            logging.error("Failed to compute forward out")
+            raise Exception
+
         # Keep track it. This will be used in backprop
         self.forward_out = forward_out
         self.x = x
@@ -227,7 +260,7 @@ class GeneralLayer(Layer):
 
         if go.shape[1] != self.n_o:
             logging.error("gradients on output shape:%s, "
-                          "not match output unit:%s" % (x.shape, self.n_i))
+                          "not match output unit:%s" % (go.shape, self.n_o))
             raise Exception
         if self.forward_out is None or self.x is None:
             logging.error("No forward computing")
@@ -256,7 +289,10 @@ class SoftmaxLayer(GeneralLayer):
     """
     Softmax layer class(Numerically-stable)
     """
-    def __init__(self, n_i, n_o, use_bias=True, tfloat='float64'):
+    def __init__(self):
+        GeneralLayer.__init__(self)
+
+    def init_layer(self, n_i, n_o, use_bias=True, tfloat='float64'):
         """
         Initialize parameters of softmax layer
         n_i: int.
@@ -269,7 +305,7 @@ class SoftmaxLayer(GeneralLayer):
             Type of float used on the weights
         """
 
-        GeneralLayer.__init__(self, n_i, n_o, use_bias, tfloat)
+        GeneralLayer.init_layer(self, n_i, n_o, use_bias, tfloat)
 
     def net_input_to_out(self, net_input):
         """
@@ -277,6 +313,7 @@ class SoftmaxLayer(GeneralLayer):
         net_input: numpy.ndarray
             Net input
         """
+        # return GeneralLayer.net_input_to_out(self, net_input)
 
         stable_input = (net_input -
                         np.max(net_input, axis=1)
@@ -300,7 +337,6 @@ class SoftmaxLayer(GeneralLayer):
         gradients on the net input
         """
 
-        # Gradients on net input
         gnet = np.zeros(go.shape)
         for t in range(0, go.shape[0]):
             go_t = go[t]
@@ -316,10 +352,13 @@ class HiddenLayer(GeneralLayer):
     """
     Hidden layer class
     """
-    def __init__(self, n_i, n_o, act_func='tanh',
-                 use_bias=True, tfloat='float64'):
+    def __init__(self):
+        GeneralLayer.__init__(self)
+
+    def init_layer(self, n_i, n_o, act_func='tanh',
+                   use_bias=True, tfloat='float64'):
         """
-        Initialize parameters of softmax layer
+        Initialize parameters of hidden layer
         n_i: int.
             The number of units of the previous layer
         n_o: int.
@@ -337,22 +376,28 @@ class HiddenLayer(GeneralLayer):
             raise Exception
 
         self.act_func = act_func
-        GeneralLayer.__init__(self, n_i, n_o, use_bias, tfloat)
+        GeneralLayer.init_layer(self, n_i, n_o, use_bias, tfloat)
 
-    def init_weigths(self):
+    def init_params(self):
         """
-        Init weights
+        Init parameters
         """
 
-        w = np.random.uniform(
+        self.w = np.random.uniform(
             low=-np.sqrt(6. / (self.n_i + self.n_o)),
             high=np.sqrt(6. / (self.n_i + self.n_o)),
             size=(self.n_o, self.n_i)
         ).astype(dtype=self.tfloat, copy=False)
         if self.act_func == 'sigmoid':
-            w *= 4
+            self.w *= 4
 
-        return w
+        self.params = [self.w]
+        self.param_names = ['w']
+        # Init bias on output layer
+        if self.use_bias:
+            self.b = np.zeros(shape=self.n_o, dtype=self.tfloat)
+            self.params.append(self.b)
+            self.param_names.append('b')
 
     def grad_out_to_net_input(self, go):
         """
@@ -377,7 +422,7 @@ class HiddenLayer(GeneralLayer):
 
     def net_input_to_out(self, net_input):
         """
-        Net input to out. Numerically-stable softmax function
+        Net input to out.
         net_input: numpy.ndarray
             Net input
         """
@@ -393,21 +438,30 @@ class HiddenLayer(GeneralLayer):
 def layer_test():
     n_i = 5
     n_o = 10
-    use_bias = False
-    x_num = 20
+    use_bias = True
+    x_num = 1
     x = np.random.uniform(low=0, high=5, size=(x_num, n_i))
 
-    # layer = SoftmaxLayer(n_i, n_o, use_bias)
-    # layer = HiddenLayer(n_i, n_o, act_func='tanh', use_bias=use_bias)
-    # layer = GeneralLayer(n_i, n_o)
+    softmax_layer = SoftmaxLayer()
+    softmax_layer.init_layer(n_i=n_i, n_o=n_o, use_bias=use_bias)
+    hidden_layer = HiddenLayer()
+    hidden_layer.init_layer(n_i=n_i, n_o=n_o, act_func='tanh',
+                            use_bias=use_bias)
+    norm_layer = NormlizationLayer(x.shape[1])
+    general_layer = GeneralLayer()
+    general_layer.init_layer(n_i=n_i, n_o=n_o, use_bias=use_bias)
+    general_layer_list = [softmax_layer, hidden_layer, general_layer]
+    norm_layer_list = [norm_layer]
 
     gc = GradientChecker()
 
-    # gc.check_layer_params(layer, x)
+    for layer in general_layer_list:
+        gc.check_layer_params(layer, x)
+        gc.check_layer_input(layer, x)
+        logging.info("")
 
-    layer = NormlizationLayer(x.shape[1])
-
-    gc.check_layer_net_input(layer, x)
+    for layer in norm_layer_list:
+        gc.check_layer_input(layer, x)
 
 
 if __name__ == "__main__":

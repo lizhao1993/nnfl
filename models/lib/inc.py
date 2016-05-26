@@ -12,6 +12,6 @@ np.random.seed(1)
 
 logging.basicConfig(
     level=logging.DEBUG,
-    format=" [%(levelname)s]%(filename)s:%(lineno)"
+    format="[%(levelname)s]%(filename)s:%(lineno)"
     "s[function:%(funcName)s] %(message)s"
 )
