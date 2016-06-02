@@ -9,27 +9,6 @@ from inc import*
 from gradient_checker import GradientChecker
 
 
-def sigmoid(x):
-    """
-    The sigmoid function. This is numerically-stable version
-    x: float
-    """
-    if x >= 0:
-        return 1 / (1 + np.exp(-x))
-    else:
-        exp_x = np.exp(x)
-        return exp_x / (exp_x + 1)
-
-
-def sigmoid_array(x):
-    """
-    Numerically-stable sigmoid function
-    x: ndarray (float)
-    """
-    vfunc = np.vectorize(sigmoid)
-    return vfunc(x)
-
-
 class Layer(object):
     """
     Base layer(empty)
@@ -372,7 +351,7 @@ class HiddenLayer(GeneralLayer):
         """
 
         if act_func not in ['tanh', 'sigmoid']:
-            logging.error("act_func:%s, not available")
+            logging.error("act_func:%s, not available" % act_func)
             raise Exception
 
         self.act_func = act_func
@@ -445,7 +424,7 @@ def layer_test():
     softmax_layer = SoftmaxLayer()
     softmax_layer.init_layer(n_i=n_i, n_o=n_o, use_bias=use_bias)
     hidden_layer = HiddenLayer()
-    hidden_layer.init_layer(n_i=n_i, n_o=n_o, act_func='tanh',
+    hidden_layer.init_layer(n_i=n_i, n_o=n_o, act_func='sigmoid',
                             use_bias=use_bias)
     norm_layer = NormlizationLayer(x.shape[1])
     general_layer = GeneralLayer()

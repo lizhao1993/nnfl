@@ -169,7 +169,7 @@ def layer_test():
     # Construct x and go
     for i in range(0, x_num):
         # Random column
-        col = np.random.randint(low=1, high=100)
+        col = np.random.randint(low=1, high=10)
         x_row = []
         go_row = []
         for j in range(0, col):
