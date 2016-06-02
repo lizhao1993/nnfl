@@ -337,11 +337,15 @@ class LSTMLayer(Layer):
 
         return (gxt, ght_1, gct_1)
 
-    def forward(self, x):
+    def forward(self, x, output_opt='full'):
         """
-        x: 3d array-like, In the whole it usually is jagged array. The first
-        loop is sample numbers. The second is unit representation numbers. The
-        third is float numbers in one unit
+        x: 3d array-like
+            In the whole it usually is jagged array. The first
+            loop is sample numbers. The second is unit representation numbers.
+            The third is float numbers in one unit
+        output_opt: str
+            'full': return full out of all blocks at all time
+            'last': return out of all blocks at last time
         --------
         """
 
@@ -389,15 +393,21 @@ class LSTMLayer(Layer):
             self.hts.append(hts)
             self.fts.append(fts)
 
-        return self.hts
+        if output_opt == 'full':
+            return self.hts
+        else:
+            return get_col_from_jagged_array(-1, self.hts)
 
-    def backprop(self, go):
+    def backprop(self, go, ginput_opt='full'):
         """
         Back propagation. Note that backprop is only based on the forward pass.
         backprop will choose the lastest forward pass from Multiple forward
         passes.
-        go: 3d array-like
+        go: 3d array-like or 2d numpy array(when ginput_opt is set to 'last')
             Gradients on the output of current layer.
+        ginput_opt: str
+            'full': go are full gradients on all blocks at all time
+            'last': go are gradents on all blocks at last time
 
         output
         --------
@@ -448,12 +458,14 @@ class LSTMLayer(Layer):
         self.gwho = np.zeros(self.who.shape)
         self.gparams.append(self.gwho)
 
-        for i in range(0, len(go)):
+        for i in range(0, len(self.hts)):
             ght = np.zeros((self.n_o, ))
             gct = np.zeros((self.n_o, ))
-            for t in range(len(go[i]) - 1, -1, -1):
-                if go[i][t] is not None:
+            for t in range(len(self.hts[i]) - 1, -1, -1):
+                if ginput_opt == 'full' and go[i][t] is not None:
                     ght += go[i][t]
+                if ginput_opt == 'last' and t == len(self.hts[i]) - 1:
+                    ght += go[i]
                 if t == 0:
                     ht_1 = np.zeros((self.n_o, ))
                     ct_1 = np.zeros((self.n_o, ))

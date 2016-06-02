@@ -192,3 +192,52 @@ class GradientChecker(object):
         logging.info("Finish to check gradients")
 
         return
+
+    def check_nn(self, nn, x, y, check_params=None):
+        """
+        Check nn 
+        x: numpy.ndarray
+            x is the input data of nn
+        x: numpy.ndarray
+            y is the right label of nn
+        check_params: list of string
+            Parameter names in check_params will be checked. If it is None, all
+            parameters will be checked
+        """
+
+        if check_params is None:
+            check_params = [param_name for param_name in nn.param_names]
+        for param_name in check_params:
+            param_index = nn.param_names.index(param_name)
+            param = nn.params[param_index]
+            it = np.nditer(param, flags=['multi_index'],
+                           op_flags=['readwrite'])
+            gradient_problem = "No problems"
+            while not it.finished:
+                val_idx = it.multi_index
+                val_bak = param[val_idx]
+                # Estimated gradients
+                param[val_idx] += self.epsilon
+                inc_loss = nn.cost(x, y)
+                param[val_idx] = val_bak
+                param[val_idx] -= self.epsilon
+                dec_loss = nn.cost(x, y)
+                estimated_gradient = (inc_loss - dec_loss) / (2 * self.epsilon)
+
+                # Backprop gradients
+                param[val_idx] = val_bak
+                nn.forward(x)
+                nn.backprop(y)
+                gradient = nn.gparams[param_index][val_idx]
+                abs_error = abs(gradient - estimated_gradient)
+                if (abs_error > 1e-06):
+                    gradient_problem = "HAVE PROBLEMS(WARN)"
+                    print(abs_error)
+                    break
+                it.iternext()
+            logging.info("Checking %s, gradient: %s"
+                         % (param_name, gradient_problem))
+
+        logging.info("Finish to check gradients")
+
+        return

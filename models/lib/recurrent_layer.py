@@ -59,11 +59,14 @@ class RecurrentLayer(HiddenLayer):
         self.params.append(self.rw)
         self.param_names.append("rw")
 
-    def forward(self, x):
+    def forward(self, x, output_opt='full'):
         """
         x: 3d array-like, In the whole it usually is jagged array. The first
         loop is sample numbers. The second is unit representation numbers. The
         third is float numbers in one unit
+        output_opt: str
+            'full': return full out of all hidden state at all time
+            'last': return out of hidden state at last time
         --------
         forward_out: which has the same shape as x
         """
@@ -84,7 +87,10 @@ class RecurrentLayer(HiddenLayer):
             self.forward_out.append(hidden_outs)
         # Keep track of x
         self.x = x
-        return self.forward_out
+        if output_opt == 'full':
+            return self.forward_out
+        else:
+            return get_col_from_jagged_array(-1, self.forward_out)
 
     def grad_out_to_net_input(self, go, forward_out):
         """
@@ -102,13 +108,16 @@ class RecurrentLayer(HiddenLayer):
 
         return gnet
 
-    def backprop(self, go):
+    def backprop(self, go, ginput_opt='full'):
         """
         Back propagation. Note that backprop is only based on the forward pass.
         backprop will choose the lastest forward pass from Multiple forward
         passes.
-        go: 3d array-like
+        go: 3d array-like or 2d numpy array(when ginput_opt is set to 'last')
             Gradients on the output of current layer.
+        ginput_opt: str
+            'full': go are full gradients on all blocks at all time
+            'last': go are gradents on all blocks at last time
 
         output
         --------
@@ -127,15 +136,15 @@ class RecurrentLayer(HiddenLayer):
         if self.use_bias:
             self.gb = np.zeros(shape=self.b.shape)
         self.grw = np.zeros(shape=self.rw.shape)
-        for t in range(0, len(go)):
+        for t in range(0, len(self.forward_out)):
             previous_grad = np.zeros(shape=(self.n_o, ))
-            for i in range(len(go[t]) - 1, -1, -1):
-                if i == len(go[t]) - 1 and go[t][i] is None:
-                    logging.error("No gradients provied at the output")
-                    raise Exception
+            for i in range(len(self.forward_out[t]) - 1, -1, -1):
                 gout = previous_grad
-                if go[t][i] is not None:
+                if ginput_opt == 'full' and go[t][i] is not None:
                     gout += np.asarray(go[t][i])
+                if ginput_opt == 'last' and i == len(self.forward_out[t]) - 1:
+                    gout += go[t]
+
                 gnet = self.grad_out_to_net_input(gout, self.forward_out[t][i])
                 # Accumulated gradients on parameters
                 self.gw += gnet.reshape((self.n_o, 1)).dot(
