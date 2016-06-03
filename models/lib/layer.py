@@ -414,6 +414,101 @@ class HiddenLayer(GeneralLayer):
         return forward_out
 
 
+class EmbeddingLayer(Layer):
+    """
+    EmbeddingLayer class
+    """
+    def __init__(self):
+        pass
+
+    def init_layer(self, word2vec):
+        """
+        word2vec: numpy.ndarray, 2d array
+            Word vectors. each row represents word vectors.
+            E.g., word_vectors = word2vec[word_index]
+        """
+
+        self.word2vec = word2vec
+
+    def forward(self, x, input_opt='regular'):
+        """
+        Compute forward pass
+        x: numpy.ndarray, 2d array or 2d jagged array(input_opt=='jagged')
+            Train data. each element in x is word index(int). Word index
+            should start from 0 and correspond with row numbers of word2vec.
+            one row of  x represents a sentence
+        input_opt: str
+            'regular': x is 2d numpy array.
+            'jagged': x is 2d jagged array.
+
+        Return
+        -----------
+        forward_out: 2d numpy array if input_opt == 'regular'. If input_opt
+        is jagged, output will be 3d array which is used for recurrent layer.
+
+        """
+
+        if input_opt == 'regular':
+            vectorized_x = self.word2vec[x].reshape(
+                (x.shape[0], self.word2vec.shape[1] * x.shape[1])
+            )
+        else:
+            vectorized_x = []
+            for row in x:
+                vecx_row = []
+                for word_index in row:
+                    word_vector = self.word2vec[word_index]
+                    vecx_row.append(word_vector)
+                vectorized_x.append(vecx_row)
+
+        # Keep track of x
+        self.x = x
+        self.input_opt = input_opt
+        self.vectorized_x = vectorized_x
+        return vectorized_x
+
+    def backprop(self, go):
+        """
+        Backprop pass. Note that backprop is only based on the last forward
+        pass.
+
+        go: 3d array-like or 2d numpy array(when input_opt is regular)
+            Gradients on the output of current layer.
+
+        Return
+        ---------
+        if input_opt is 'regular', the word indexs used in forward pass and its
+        gradients will be returned. If input_opt is not regular, vectorized_x
+        and go will be returned
+
+        """
+
+        if not hasattr(self, 'x'):
+            logging.error("No forward pass is computed")
+            raise Exception
+
+        if self.input_opt == 'regular':
+            word_indexs = []     # word vectors index
+            gword_vectors = []   # gradients on vectors
+            for row, grow in zip(self.x, go):
+                for i in range(0, len(row)):
+                    word_index = row[i]
+                    # Dimension of word vectors
+                    word_dim = self.word2vec.shape[1]
+                    gword_vector = grow[i * word_dim:(i + 1) * word_dim]
+                    # Accumulate gradients on the same vector
+                    if word_index in word_indexs:
+                        gword_vectors[word_indexs.index(word_index)] += (
+                            gword_vector
+                        )
+                    else:
+                        word_indexs.append(word_index)
+                        gword_vectors.append(gword_vector)
+            return (word_indexs, gword_vectors)
+        else:
+            return (self.vectorized_x, go)
+
+
 def layer_test():
     n_i = 5
     n_o = 10
@@ -441,6 +536,17 @@ def layer_test():
 
     for layer in norm_layer_list:
         gc.check_layer_input(layer, x)
+
+    # EmbeddingLayer logic test
+    embedding_layer = EmbeddingLayer()
+
+    word2vec_size = (10, 5)
+    embedding_x_size = (word2vec_size[0], 4)
+    word2vec = np.random.uniform(-4, 4, size=word2vec_size)
+    embedding_x = np.random.randint(0, word2vec_size[0], size=embedding_x_size)
+    embedding_layer.init_layer(word2vec)
+    vectorized_x = embedding_layer.forward(embedding_x, input_opt='jagged')
+    embedding_layer.backprop(vectorized_x)
 
 
 if __name__ == "__main__":
