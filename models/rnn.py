@@ -247,7 +247,7 @@ def rnn_test():
     minibatch = 5
     max_epochs = 100
     verbose = True
-    # nntest.minibatch_train(lr, minibatch, max_epochs, verbose)
+    nntest.minibatch_train(lr, minibatch, max_epochs, verbose)
     # Gradient testing
     y = np.array([nntest.label_to_y[i] for i in label_y])
     gc = GradientChecker(epsilon=1e-05)

@@ -148,8 +148,10 @@ class BRNN(object):
         go = self.softmax_layer.backprop(go)
         self.gparams = []
         self.gparams = self.softmax_layer.gparams + self.gparams
-        # gx = self.left_layer.backprop(go) + self.right_layer.backprop(go)
-        gx = np.concatenate((self.left_layer.backprop(go), self.right_layer.backprop(go)), axis=1)
+        gx = merge_jagged_array(
+            self.left_layer.backprop(go),
+            inverse_jagged_array(self.right_layer.backprop(go))
+        )
         recurrent_gparams = []
         for i in range(0, len(self.left_layer.gparams)):
             recurrent_gparams.append(
@@ -201,6 +203,7 @@ class BRNN(object):
 
         for epoch in range(1, max_epochs + 1):
             n_batches = int(self.y.shape[0] / minibatch)
+            batch_i = 0
             for batch_i in range(0, n_batches):
                 self.batch_train(
                     self.x[batch_i * minibatch:(batch_i + 1) * minibatch],
@@ -240,19 +243,19 @@ class BRNN(object):
         return np.array([self.y_to_label[i] for i in y])
 
 
-def rnn_test():
-    x_col = 5
+def brnn_test():
+    x_col = 10
     no_softmax = 5
     n_h = 30
     up_wordvec = True
     use_bias = True
     act_func = 'tanh'
-    use_lstm = True
-    x_row = 10
+    use_lstm = False
+    x_row = 100
     voc_size = 20
-    word_dim = 10
+    word_dim = 4
     x = np.random.randint(low=0, high=voc_size, size=(x_row, x_col))
-    # x = make_jagged_array(n_row=x_row, min_col=1, max_col=5,
+    # x = make_jagged_array(n_row=x_row, min_col=2, max_col=5,
                           # max_int=voc_size, min_int=0, dim_unit=None)
     label_y = np.random.randint(low=0, high=20, size=x_row)
     word2vec = np.random.uniform(low=0, high=5, size=(voc_size, word_dim))
@@ -260,11 +263,32 @@ def rnn_test():
                  act_func, use_lstm=use_lstm)
 
     # Training
-    lr = 0.015
+    lr = 0.01
     minibatch = 5
     max_epochs = 100
     verbose = True
-    # nntest.minibatch_train(lr, minibatch, max_epochs, verbose)
+    nntest.minibatch_train(lr, minibatch, max_epochs, verbose)
+
+
+def brnn_gradient_test():
+    x_col = 3
+    no_softmax = 5
+    n_h = 2
+    up_wordvec = False
+    use_bias = True
+    act_func = 'tanh'
+    use_lstm = True
+    x_row = 4
+    voc_size = 20
+    word_dim = 2
+    # x = np.random.randint(low=0, high=voc_size, size=(x_row, x_col))
+    x = make_jagged_array(n_row=x_row, min_col=2, max_col=5,
+                          max_int=voc_size, min_int=0, dim_unit=None)
+    label_y = np.random.randint(low=0, high=20, size=x_row)
+    word2vec = np.random.uniform(low=0, high=5, size=(voc_size, word_dim))
+    nntest = BRNN(x, label_y, word2vec, n_h, up_wordvec, use_bias,
+                 act_func, use_lstm=use_lstm)
+
     # Gradient testing
     y = np.array([nntest.label_to_y[i] for i in label_y])
     gc = GradientChecker(epsilon=1e-05)
@@ -272,4 +296,5 @@ def rnn_test():
 
 
 if __name__ == "__main__":
-    rnn_test()
+    brnn_test()
+    # brnn_gradient_test()

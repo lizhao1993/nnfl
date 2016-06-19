@@ -5,6 +5,7 @@ Date:  2016-05-26
 Brief:  The implementation of long short-term memory (LSTM) layer
 """
 
+import copy
 from inc import*
 from gradient_checker import GradientChecker
 from layer import Layer
@@ -455,7 +456,7 @@ class LSTMLayer(Layer):
             logging.error("No forward pass is computed")
             raise Exception
 
-        gop = np.copy(self.x)
+        gop = copy.copy(self.x)
         # Init gradients on parameters
         self.gparams = []
         self.gwxi = np.zeros(self.wxi.shape)

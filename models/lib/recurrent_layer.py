@@ -5,6 +5,7 @@ Date:  2016-05-21
 Brief:  The implementation of recurrent layer
 """
 
+import copy
 from inc import*
 from gradient_checker import GradientChecker
 from layer import HiddenLayer
@@ -126,7 +127,7 @@ class RecurrentLayer(HiddenLayer):
             (dim_unit, )
         """
         # Gradients on net input
-        gnet = np.copy(go)
+        gnet = copy.copy(go)
         if self.act_func == 'tanh':
             gnet = go * (1 - forward_out ** 2)
         else:
@@ -154,7 +155,7 @@ class RecurrentLayer(HiddenLayer):
             logging.error("No forward pass is computed")
             raise Exception
 
-        gop = np.copy(self.x)
+        gop = copy.copy(self.x)
         self.gw = np.zeros(shape=self.w.shape)
         if self.use_bias:
             self.gb = np.zeros(shape=self.b.shape)
