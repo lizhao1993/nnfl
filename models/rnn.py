@@ -228,14 +228,14 @@ class RNN(object):
 def rnn_test():
     x_col = 5
     no_softmax = 5
-    n_h = 30
+    n_h = 10
     up_wordvec = False
     use_bias = True
     act_func = 'tanh'
     use_lstm = False
-    x_row = 100
+    x_row = 5
     voc_size = 20
-    word_dim = 10
+    word_dim = 3
     x = np.random.randint(low=0, high=voc_size, size=(x_row, x_col))
     label_y = np.random.randint(low=0, high=20, size=x_row)
     word2vec = np.random.uniform(low=0, high=5, size=(voc_size, word_dim))
