@@ -15,7 +15,6 @@ class RecurrentLayer(HiddenLayer):
     Recurrent layer class
     """
     def __init__(self):
-        HiddenLayer.__init__(self)
         self.forward_out = None
         self.x = None
 
@@ -35,11 +34,33 @@ class RecurrentLayer(HiddenLayer):
             Type of float used on the weights
         """
 
+        HiddenLayer.__init__(self)
         try:
             HiddenLayer.init_layer(self, n_i, n_o, act_func, use_bias, tfloat)
         except:
             logging.error("Failed to init HiddenLayer")
             raise Exception
+
+    def share_layer(self, recurrent_layer):
+        """
+        Sharing layer with given layer. Parameters are shared with two layers.
+        recurrent_layer: RecurrentLayer
+            The parameters of layer to be shared
+        """
+
+        self.params = recurrent_layer.params
+        self.param_names = recurrent_layer.param_names
+
+        self.n_i = recurrent_layer.n_i
+        self.n_o = recurrent_layer.n_o
+        self.act_func = recurrent_layer.act_func
+        self.use_bias = recurrent_layer.use_bias
+        self.tfloat = recurrent_layer.tfloat
+
+        self.w = recurrent_layer.w
+        self.rw = recurrent_layer.rw
+        if self.use_bias:
+            self.b = recurrent_layer.b
 
     def init_params(self):
         """
@@ -71,23 +92,28 @@ class RecurrentLayer(HiddenLayer):
         forward_out: which has the same shape as x
         """
 
+        # Keep track them
+        self.x = x
+        self.output_opt = output_opt
         # Iterate each sample over x
         self.forward_out = []
         for t in range(0, len(x)):
             # Iterate each unit over x[t]
             hidden_outs = []
-            for i in range(0, len(x[t])):
-                hidden_out = self.w.dot(np.asarray(x[t][i]))
-                if i != 0:
-                    hidden_out += self.rw.dot(hidden_outs[i - 1])
+            start = 0
+            end = len(self.x[t])
+            stop = 1
+            previous_hidden = np.zeros(shape=self.n_o)
+            for i in range(start, end, stop):
+                hidden_out = (self.w.dot(np.asarray(x[t][i])) +
+                              self.rw.dot(previous_hidden))
                 if self.use_bias:
                     hidden_out += self.b
                 hidden_out = HiddenLayer.net_input_to_out(self, hidden_out)
                 hidden_outs.append(hidden_out)
+                previous_hidden = hidden_out
             self.forward_out.append(hidden_outs)
-        # Keep track of x
-        self.x = x
-        if output_opt == 'full':
+        if self.output_opt == 'full':
             return self.forward_out
         else:
             return get_col_from_jagged_array(-1, self.forward_out)
@@ -108,16 +134,13 @@ class RecurrentLayer(HiddenLayer):
 
         return gnet
 
-    def backprop(self, go, ginput_opt='full'):
+    def backprop(self, go):
         """
         Back propagation. Note that backprop is only based on the forward pass.
         backprop will choose the lastest forward pass from Multiple forward
         passes.
-        go: 3d array-like or 2d numpy array(when ginput_opt is set to 'last')
+        go: 3d array-like or 2d numpy array(when output_opt is set to 'last')
             Gradients on the output of current layer.
-        ginput_opt: str
-            'full': go are full gradients on all blocks at all time
-            'last': go are gradents on all blocks at last time
 
         output
         --------
@@ -138,11 +161,14 @@ class RecurrentLayer(HiddenLayer):
         self.grw = np.zeros(shape=self.rw.shape)
         for t in range(0, len(self.forward_out)):
             previous_grad = np.zeros(shape=(self.n_o, ))
-            for i in range(len(self.forward_out[t]) - 1, -1, -1):
+            start = len(self.forward_out[t]) - 1
+            end = -1
+            stop = -1
+            for i in range(start, end, stop):
                 gout = previous_grad
-                if ginput_opt == 'full' and go[t][i] is not None:
+                if self.output_opt == 'full' and go[t][i] is not None:
                     gout += np.asarray(go[t][i])
-                if ginput_opt == 'last' and i == len(self.forward_out[t]) - 1:
+                if (self.output_opt == 'last' and i == start):
                     gout += go[t]
 
                 gnet = self.grad_out_to_net_input(gout, self.forward_out[t][i])
@@ -150,7 +176,7 @@ class RecurrentLayer(HiddenLayer):
                 self.gw += gnet.reshape((self.n_o, 1)).dot(
                     self.x[t][i].reshape(1, self.n_i)
                 )
-                if i != 0:
+                if i != end + 1:
                     self.grw += gnet.reshape((self.n_o, 1)).dot(
                         self.forward_out[t][i - 1].reshape(1, self.n_o)
                     )
@@ -190,6 +216,7 @@ def layer_test():
     recurrent_layer = RecurrentLayer()
     recurrent_layer.init_layer(n_i=n_i, n_o=n_o, act_func='tanh',
                                use_bias=use_bias)
+    print(recurrent_layer.param_names)
     recurrent_layer.forward(x)
     recurrent_layer.backprop(go)
 
