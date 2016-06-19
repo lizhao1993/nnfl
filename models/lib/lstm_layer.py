@@ -42,6 +42,37 @@ class LSTMLayer(Layer):
         self.tfloat = tfloat
         self.init_params()
 
+    def share_layer(self, lstm_layer):
+        """
+        Sharing layer with given layer. Parameters are shared with two layers.
+        lstm_layer: LSTMLayer
+            The parameters of layer to be shared
+        """
+
+        self.params = lstm_layer.params
+        self.param_names = lstm_layer.param_names
+
+        self.n_i = lstm_layer.n_i
+        self.n_o = lstm_layer.n_o
+        self.act_func = lstm_layer.act_func
+        self.use_bias = lstm_layer.use_bias
+        self.tfloat = lstm_layer.tfloat
+
+        self.wxi = lstm_layer.wxi
+        self.wxf = lstm_layer.wxf
+        self.wxc = lstm_layer.wxc
+        self.wxo = lstm_layer.wxo
+        self.whi = lstm_layer.whi
+        self.whc = lstm_layer.whc
+        self.whf = lstm_layer.whf
+        self.who = lstm_layer.who
+
+        if self.use_bias:
+            self.ib = lstm_layer.ib
+            self.fb = lstm_layer.fb
+            self.cb = lstm_layer.cb
+            self.ob = lstm_layer.ob
+
     def init_params(self):
         """
         Init parameters
@@ -349,6 +380,10 @@ class LSTMLayer(Layer):
         --------
         """
 
+        # Keep track them
+        self.x = x
+        self.output_opt = output_opt
+
         self.cts = []
         self.ots = []
         self.scaled_octs = []
@@ -369,7 +404,10 @@ class LSTMLayer(Layer):
             # Iterate each unit over x[i]
             ht_1 = np.zeros((self.n_o, ))
             ct_1 = np.zeros((self.n_o, ))
-            for t in range(0, len(x[i])):
+            start = 0
+            end = len(self.x[i])
+            stop = 1
+            for t in range(start, end, stop):
                 (ct, ot, scaled_oct, scaled_incellt, it, ht, ft) = (
                     self.single_forward(np.asarray(x[i][t]), ht_1, ct_1)
                 )
@@ -384,7 +422,6 @@ class LSTMLayer(Layer):
                 fts.append(ft)
 
             # Keep track middle varibles
-            self.x = x
             self.cts.append(cts)
             self.ots.append(ots)
             self.scaled_octs.append(scaled_octs)
@@ -393,21 +430,18 @@ class LSTMLayer(Layer):
             self.hts.append(hts)
             self.fts.append(fts)
 
-        if output_opt == 'full':
+        if self.output_opt == 'full':
             return self.hts
         else:
             return get_col_from_jagged_array(-1, self.hts)
 
-    def backprop(self, go, ginput_opt='full'):
+    def backprop(self, go):
         """
         Back propagation. Note that backprop is only based on the forward pass.
         backprop will choose the lastest forward pass from Multiple forward
         passes.
-        go: 3d array-like or 2d numpy array(when ginput_opt is set to 'last')
+        go: 3d array-like or 2d numpy array(when output_opt is set to 'last')
             Gradients on the output of current layer.
-        ginput_opt: str
-            'full': go are full gradients on all blocks at all time
-            'last': go are gradents on all blocks at last time
 
         output
         --------
@@ -461,12 +495,15 @@ class LSTMLayer(Layer):
         for i in range(0, len(self.hts)):
             ght = np.zeros((self.n_o, ))
             gct = np.zeros((self.n_o, ))
-            for t in range(len(self.hts[i]) - 1, -1, -1):
-                if ginput_opt == 'full' and go[i][t] is not None:
+            start = len(self.hts[i]) - 1
+            end = -1
+            stop = -1
+            for t in range(start, end, stop):
+                if self.output_opt == 'full' and go[i][t] is not None:
                     ght += go[i][t]
-                if ginput_opt == 'last' and t == len(self.hts[i]) - 1:
+                if self.output_opt == 'last' and t == start:
                     ght += go[i]
-                if t == 0:
+                if t == end + 1:
                     ht_1 = np.zeros((self.n_o, ))
                     ct_1 = np.zeros((self.n_o, ))
                 else:
@@ -509,6 +546,7 @@ def layer_test():
     lstm_layer.init_layer(n_i=n_i, n_o=n_o, act_func='sigmoid',
                           use_bias=use_bias)
 
+    print(lstm_layer.param_names)
     gc = GradientChecker(epsilon=1e-05)
     gc.check_jagged_input(lstm_layer, x)
     check_params = None
