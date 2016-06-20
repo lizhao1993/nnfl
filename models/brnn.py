@@ -237,9 +237,9 @@ class BRNN(object):
                     lr,
                     split_pos[(batch_i + 1) * minibatch:]
                 )
-            label_preds = self.predict(self.x)
+            label_preds = self.predict(self.x, split_pos)
             error = metrics.zero_one_loss(self.label_y, label_preds)
-            cost = self.cost(self.x, self.y)
+            cost = self.cost(self.x, self.y, split_pos)
             if verbose:
                 logging.info("epoch: %d training,on train data, "
                              "cross-entropy:%f, zero-one loss: %f"
@@ -270,7 +270,7 @@ class BRNN(object):
 
 
 def brnn_test():
-    x_col = 10
+    x_col = 20
     no_softmax = 5
     n_h = 30
     up_wordvec = True
@@ -287,7 +287,7 @@ def brnn_test():
     word2vec = np.random.uniform(low=0, high=5, size=(voc_size, word_dim))
     nntest = BRNN(x, label_y, word2vec, n_h, up_wordvec, use_bias,
                  act_func, use_lstm=use_lstm)
-    split_pos = np.random.randint(low=6, high=7, size=(x_row, ))
+    split_pos = np.random.randint(low=3, high=4, size=(x_row, ))
 
     # Training
     lr = 0.01
