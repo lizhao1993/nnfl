@@ -50,18 +50,18 @@ def run_fnn():
          # "../data/semeval_mic_test_and_pdev_train/test/"),
         ("train_data_path", "../data/split_pdev/train/"),
         ("test_data_path", "../data/split_pdev/test/"),
-        ("left_win", 6),
-        ("right_win", 6),
+        ("left_win", -1),
+        ("right_win", -1),
         ("use_verb", True),
         ("lower", True),
         ("use_padding", False),
-        ("verb_index", False),
+        ("verb_index", True),
         # Validation part and train_part are from train_data_path
         ("train_part", 0.9),
         ("validation_part", 0.1),
         ("test_part", 1.0),
         # Minimum number of sentences of training data
-        ("minimum_sent_num", 70),
+        ("minimum_sent_num", 490),
         # Minimum frame of verb of training data
         ("minimum_frame", 2),
         ("\nParameters for rnn model", ""),
@@ -76,7 +76,7 @@ def run_fnn():
         ("random_vectors", False),
         ("\nOther parameters", ""),
         ("prediction_results",
-         "../result/rnn_results/not_use_padding_lr0.1_lstm_win66")
+         "../result/brnn_results/490train_blstm_0.1lr_nopadding_win11")
     ])
 
     # Get vocabulary and word vectors
@@ -111,7 +111,7 @@ def run_fnn():
         use_verb=p["use_verb"], lower=p["lower"], use_padding=p["use_padding"]
     )
     _, test, _ = test_loader.get_data(
-        0.0, p["test_part"], 0.0
+        0.0, p["test_part"], 0.0, verb_index=p["verb_index"]
     )
 
     field_names = [
@@ -148,7 +148,7 @@ def run_fnn():
             verbose=False
         )
 
-        y_pred = rnn.predict(test[verb][0])
+        y_pred = rnn.predict(test[verb][0], split_pos=test[verb][2])
         precision, recall, f_score, _, _ = standard_score(
             y_true=test[verb][1], y_pred=y_pred
         )

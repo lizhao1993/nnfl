@@ -145,7 +145,7 @@ class DataLoader(object):
                 datas[i][verb] = [np.array(data_x), np.array(data_y)]
                 if verb_index:
                     data_vindex = [row[2] for row in items[i]]
-                    datas[i][verb].append(data_vindex)
+                    datas[i][verb].append(np.array(data_vindex))
 
         return [train, test, validation]
 

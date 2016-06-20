@@ -13,7 +13,7 @@ import gensim
 from gensim.models import Word2Vec
 import logging
 logging.basicConfig(
-    level=logging.DEBUG, 
+    level=logging.DEBUG,
     format=" [%(levelname)s]%(filename)s:%(lineno)s[function:%(funcName)s] %(message)s"
 )
 
@@ -75,7 +75,7 @@ def indexs2sents(sents_indexs, index2word_vocab):
     sents_indexs: sentences, a list of list where each element is a word index
     index2word_vocab: index to word
     return: list of list
-    
+
     """
     sents = []
     for sent_indexs in sents_indexs:
@@ -86,27 +86,33 @@ def indexs2sents(sents_indexs, index2word_vocab):
         sents.append(sent)
     return sents
 
-def sent_indexs_trunc(sent, window, direction, padding_index):
+def sent_indexs_trunc(sent, window, direction, padding_index,
+                      use_padding=True):
     """
     Sentence indexs truncation, padding padding_index where necessary
 
     sent: sentence, a list where each element is a word index
-    window: int, the length of truncation window. 
+    window: int, the length of truncation window.
         If window==-1, truncation will include all words in sentence
-    direction: two option values. If direction=="left", truncation will begin 
+    direction: two option values. If direction=="left", truncation will begin
         from right to left. Otherwise it will begin from left to right
     padding_index: int, padding padding_index where necessary
+    use_padding: bool, whether padding padding_index when window is bigger than
+                sent
     return: a list
     """
     if window == -1:
         return sent + []
 
     if window > len(sent):
-        padding = [padding_index for i in range(0, window - len(sent))]
-        if direction == "left":
-            return padding + sent
+        if not use_padding:
+            return sent + []
         else:
-            return sent + padding
+            padding = [padding_index for i in range(0, window - len(sent))]
+            if direction == "left":
+                return padding + sent
+            else:
+                return sent + padding
     else:
         if direction == "left":
             return sent[len(sent) - window:] + []
@@ -137,7 +143,7 @@ def shuffle_two_lists(lista, listb):
 def get_vocab_and_vectors(word2vec_path, norm_only, oov,\
         oov_vec_padding, dtype='float', file_format='auto'):
     """
-    Get vocabulary and word vectors from pre-trained word vectors, 
+    Get vocabulary and word vectors from pre-trained word vectors,
     such as GoogleNews-vectors-negative300.bin, Glove word vectors
 
     word2vec_path: string, path of pre-trained word vectors
@@ -145,10 +151,10 @@ def get_vocab_and_vectors(word2vec_path, norm_only, oov,\
     oov: string, out of vocabulary, specify oov for model
     oov_vec_padding: float, oov vector padding value
     dtype: date type in word vectors, default value : float
-    file_format: three optional values: 
+    file_format: three optional values:
         binary: the file of word vectors is binary
         text: the file of word vectors is text
-        auto: this function will infer its format automaticly from file name. 
+        auto: this function will infer its format automaticly from file name.
             The file name of word vectors in binary format must be end with '.bin'
             and this is same for '.txt' with text format
 
@@ -171,7 +177,7 @@ def get_vocab_and_vectors(word2vec_path, norm_only, oov,\
 
     # Load word vectors with gensim
     vec_model = gensim.models.Word2Vec.load_word2vec_format(
-        word2vec_path, binary=is_binary 
+        word2vec_path, binary=is_binary
     )
     vocab = {}
     for word, obj in vec_model.vocab.items():
@@ -182,7 +188,7 @@ def get_vocab_and_vectors(word2vec_path, norm_only, oov,\
     invocab = {k:v for v, k in vocab.items()}
     # Get word vectors
     word2vec = np.append(
-        vec_model.syn0, 
+        vec_model.syn0,
         [[oov_vec_padding for i in range(0, vec_model.syn0.shape[1])]],
         axis=0
     ).astype(dtype=dtype, copy=False)
@@ -221,7 +227,7 @@ def sigmoid(x):
 
 def sigmoid_array(x):
     """
-    Numerically-stable sigmoid function    
+    Numerically-stable sigmoid function
     x: ndarray (float)
     """
     vfunc = np.vectorize(sigmoid)

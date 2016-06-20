@@ -52,26 +52,38 @@ def get_col_from_jagged_array(pos, jagged_array):
     column: numpy.ndarray
     """
 
-    # Count the shape at first
-    axis0 = 0
-    axis1 = 0
+    res = []
     for row in jagged_array:
+        item = []
         if len(row) == 0:
-            logging.error("Empty row found in jagged_array")
-            raise Exception
-        if pos in range(0, len(row)) or pos == -1:
-            axis0 += 1
-    if axis0 != 0 and len(jagged_array[0]) != 0:
-        axis1 = len(jagged_array[0][0])
+            res.append([])
+        else:
+            res.append(row[pos])
 
-    column = np.zeros((axis0, axis1))
-    col_i = 0
-    for i in range(0, len(jagged_array)):
-        if pos in range(0, len(jagged_array[i])) or pos == -1:
-            column[col_i] = jagged_array[i][pos]
-            col_i += 1
+    return np.asarray(res)
 
-    return column
+
+def add_two_array(left_array, right_array):
+    """
+    Add two array.
+    left_array: 2d array like
+        Each row in left_array is 1d numpy array or empty list
+    right_array: 2d array like
+        Each row in right_array is 1d numpy array or empty list
+    Return
+    ----
+    added_array: 2d numpy array
+    """
+
+    res = []
+    for left_row, right_row in zip(left_array, right_array):
+        if len(left_row) == 0:
+            res.append(right_row)
+        elif len(right_row) == 0:
+            res.append(left_row)
+        else:
+            res.append(right_row + left_row)
+    return np.array(res)
 
 
 def merge_jagged_array(left_array, right_array):
@@ -156,9 +168,12 @@ def split_jagged_array(jagged_array, split_pos=None):
     """
 
     if split_pos is None:
-        split_pos = np.zeros(shape=len(jagged_array), dtype=np.int64)
-        for i in range(0, len(jagged_array)):
-            split_pos[i] = int(len(jagged_array[i]) / 2)
+        logging.error("Split position is None")
+        raise Exception
+    # if split_pos is None:
+        # split_pos = np.zeros(shape=len(jagged_array), dtype=np.int64)
+        # for i in range(0, len(jagged_array)):
+            # split_pos[i] = int(len(jagged_array[i]) / 2)
     left_array = []
     right_array = []
     for i in range(0, len(jagged_array)):

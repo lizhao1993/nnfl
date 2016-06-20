@@ -130,7 +130,8 @@ class BRNN(object):
         right_array = inverse_jagged_array(right_array)
         left_out = self.left_layer.forward(left_array, output_opt='last')
         right_out = self.right_layer.forward(right_array, output_opt='last')
-        recurrent_out = left_out + right_out
+        # Avoiding empty output due to empty input caused by spliting
+        recurrent_out = add_two_array(left_out, right_out)
         self.forward_out = self.softmax_layer.forward(recurrent_out)
         self.split_pos = split_pos
 
@@ -270,7 +271,7 @@ class BRNN(object):
 
 
 def brnn_test():
-    x_col = 20
+    x_col = 10
     no_softmax = 5
     n_h = 30
     up_wordvec = True
@@ -287,7 +288,7 @@ def brnn_test():
     word2vec = np.random.uniform(low=0, high=5, size=(voc_size, word_dim))
     nntest = BRNN(x, label_y, word2vec, n_h, up_wordvec, use_bias,
                  act_func, use_lstm=use_lstm)
-    split_pos = np.random.randint(low=3, high=4, size=(x_row, ))
+    split_pos = np.random.randint(low=4, high=8, size=(x_row, ))
 
     # Training
     lr = 0.01
@@ -304,7 +305,7 @@ def brnn_gradient_test():
     up_wordvec = False
     use_bias = True
     act_func = 'tanh'
-    use_lstm = True
+    use_lstm = False
     x_row = 4
     voc_size = 20
     word_dim = 2
