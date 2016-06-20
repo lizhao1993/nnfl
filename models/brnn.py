@@ -95,11 +95,17 @@ class BRNN(object):
         self.params += self.softmax_layer.params
         self.param_names += self.softmax_layer.param_names
 
-    def cost(self, x, y):
+    def cost(self, x, y, split_pos=None):
         """
         Cost function
+        split_pos: 1d array like
+            Start position in x. BRNN will compute from split_pos. The
+            left_layer will compute from 0 to split_pos(not included)
+            and the right_layer will compute from split_pos to last.
+            If split_pos is None, split_pos will
+            be the half of current row of x.
         """
-        py = self.forward(x)
+        py = self.forward(x, split_pos)
         cross_entropy = -np.sum(
             np.log(py[np.arange(0, y.shape[0]), y])
         )
@@ -160,7 +166,7 @@ class BRNN(object):
         self.gparams = recurrent_gparams + self.gparams
         return gx
 
-    def batch_train(self, x, y, lr):
+    def batch_train(self, x, y, lr, split_pos):
         """
         Batch training on x given right label y
         x: numpy.ndarray, 2d arry
@@ -169,8 +175,14 @@ class BRNN(object):
             Normalized correct label of x
         lr: float
             Learning rate
+        split_pos: 1d array like
+            Start position in x. BRNN will compute from split_pos. The
+            left_layer will compute from 0 to split_pos(not included)
+            and the right_layer will compute from split_pos to last.
+            If split_pos is None, split_pos will
+            be the half of current row of x.
         """
-        self.forward(x)
+        self.forward(x, split_pos)
         gx = self.backprop(y)
         # Update parameters
         for gparam, param in zip(self.gparams, self.params):
@@ -182,7 +194,7 @@ class BRNN(object):
                     vectorized_x[i][j] -= lr * go[i][j]
 
     def minibatch_train(self, lr=0.1, minibatch=5, max_epochs=100,
-                        verbose=False):
+                        split_pos=None, verbose=False):
         """
         Minibatch training over x. Training will be stopped when the zero-one
         loss is zero on x.
@@ -193,6 +205,12 @@ class BRNN(object):
             Mini batch size
         max_epochs: int
             the max epoch
+        split_pos: 1d array like
+            Start position in x. BRNN will compute from split_pos. The
+            left_layer will compute from 0 to split_pos(not included)
+            and the right_layer will compute from split_pos to last.
+            If split_pos is None, split_pos will
+            be the half of current row of x.
         verbose: bool
             whether to print information during each epoch training
         Return
@@ -208,14 +226,16 @@ class BRNN(object):
                 self.batch_train(
                     self.x[batch_i * minibatch:(batch_i + 1) * minibatch],
                     self.y[batch_i * minibatch:(batch_i + 1) * minibatch],
-                    lr
+                    lr,
+                    split_pos[batch_i * minibatch:(batch_i + 1) * minibatch]
                 )
             # Train the rest if it has
             if n_batches * minibatch != self.y.shape[0]:
                 self.batch_train(
                     self.x[(batch_i + 1) * minibatch:],
                     self.y[(batch_i + 1) * minibatch:],
-                    lr
+                    lr,
+                    split_pos[(batch_i + 1) * minibatch:]
                 )
             label_preds = self.predict(self.x)
             error = metrics.zero_one_loss(self.label_y, label_preds)
@@ -228,17 +248,23 @@ class BRNN(object):
                 break
         return epoch
 
-    def predict(self, x):
+    def predict(self, x, split_pos=None):
         """
         Prediction of FNN on x
 
         x: numpy.ndarray, 2d arry
             The input data. The index of words
+        split_pos: 1d array like
+            Start position in x. BRNN will compute from split_pos. The
+            left_layer will compute from 0 to split_pos(not included)
+            and the right_layer will compute from split_pos to last.
+            If split_pos is None, split_pos will
+            be the half of current row of x.
         Return
         -----
         numpy.ndarray, 1d array. The predict label on x
         """
-        py = self.forward(x)
+        py = self.forward(x, split_pos)
         y = py.argmax(axis=1)
         return np.array([self.y_to_label[i] for i in y])
 
@@ -261,13 +287,14 @@ def brnn_test():
     word2vec = np.random.uniform(low=0, high=5, size=(voc_size, word_dim))
     nntest = BRNN(x, label_y, word2vec, n_h, up_wordvec, use_bias,
                  act_func, use_lstm=use_lstm)
+    split_pos = np.random.randint(low=6, high=7, size=(x_row, ))
 
     # Training
     lr = 0.01
     minibatch = 5
     max_epochs = 100
     verbose = True
-    nntest.minibatch_train(lr, minibatch, max_epochs, verbose)
+    nntest.minibatch_train(lr, minibatch, max_epochs, split_pos, verbose)
 
 
 def brnn_gradient_test():
