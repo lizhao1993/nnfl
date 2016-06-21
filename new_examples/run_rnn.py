@@ -50,11 +50,11 @@ def run_fnn():
          # "../data/semeval_mic_test_and_pdev_train/test/"),
         ("train_data_path", "../data/split_pdev/train/"),
         ("test_data_path", "../data/split_pdev/test/"),
-        ("left_win", 5),
-        ("right_win", 5),
+        ("left_win", -1),
+        ("right_win", -1),
         ("use_verb", True),
         ("lower", True),
-        ("use_padding", True),
+        ("use_padding", False),
         # Validation part and train_part are from train_data_path
         ("train_part", 0.9),
         ("validation_part", 0.1),
@@ -68,14 +68,14 @@ def run_fnn():
         ("up_wordvec", False),
         ("use_bias", True),
         ("act_func", "tanh"),
-        ("use_lstm", True),
+        ("use_lstm", False),
         ("max_epochs", 100),
         ("minibatch", 5),
-        ("lr", 0.1),
+        ("lr", 0.01),
         ("random_vectors", False),
         ("\nOther parameters", ""),
         ("prediction_results",
-         "../result/rnn_results/490train_use_padding_lr0.1_lstm_win55")
+         "../result/rnn_results/490train_nopadding_lr0.01_rnn_win11")
     ])
 
     # Get vocabulary and word vectors

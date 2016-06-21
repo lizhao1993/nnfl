@@ -50,8 +50,8 @@ def run_fnn():
          # "../data/semeval_mic_test_and_pdev_train/test/"),
         ("train_data_path", "../data/split_pdev/train/"),
         ("test_data_path", "../data/split_pdev/test/"),
-        ("left_win", -1),
-        ("right_win", -1),
+        ("left_win", 5),
+        ("right_win", 5),
         ("use_verb", True),
         ("lower", True),
         ("use_padding", False),
@@ -61,7 +61,7 @@ def run_fnn():
         ("validation_part", 0.1),
         ("test_part", 1.0),
         # Minimum number of sentences of training data
-        ("minimum_sent_num", 490),
+        ("minimum_sent_num", 70),
         # Minimum frame of verb of training data
         ("minimum_frame", 2),
         ("\nParameters for rnn model", ""),
@@ -76,7 +76,7 @@ def run_fnn():
         ("random_vectors", False),
         ("\nOther parameters", ""),
         ("prediction_results",
-         "../result/brnn_results/490train_blstm_0.1lr_nopadding_win11")
+         "../result/brnn_results/70train_blstm_0.1lr_nopadding_win55")
     ])
 
     # Get vocabulary and word vectors

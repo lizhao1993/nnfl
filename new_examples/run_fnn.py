@@ -59,11 +59,11 @@ def run_fnn():
         ("validation_part", 0.1),
         ("test_part", 1.0),
         # Minimum number of sentences of training data
-        ("minimum_sent_num", 70),
+        ("minimum_sent_num", 490),
         # Minimum frame of verb of training data
         ("minimum_frame", 2),
         ("\nParameters for FNN model", ""),
-        ("n_hs", [30, 20]),
+        ("n_hs", []),
         ("up_wordvec", False),
         ("use_bias", True),
         ("act_func", "tanh"),
@@ -73,7 +73,7 @@ def run_fnn():
         ("random_vectors", False),
         ("\nOther parameters", ""),
         ("prediction_results",
-         "../result/new_fnn_results/pdev_hidden30_20_result")
+         "../result/new_fnn_results/490train_fnn_0.1lr_win55")
     ])
 
     # Get vocabulary and word vectors
