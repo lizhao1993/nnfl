@@ -39,6 +39,22 @@ def sigmoid_array(x):
     return vfunc(x)
 
 
+def softmax(x):
+    """
+    Numerically-stable softmax function
+    x: 2d numpy.ndarray
+        The input data.
+    """
+    stable_input = (x - np.max(x, axis=1) .reshape(x.shape[0], 1))
+    stable_input_exp = np.exp(stable_input)
+    forward_out = (
+        stable_input_exp /
+        np.sum(stable_input_exp, axis=1).reshape(stable_input_exp.shape[0], 1)
+    )
+
+    return forward_out
+
+
 def get_col_from_jagged_array(pos, jagged_array):
     """
     Get column from jagged array

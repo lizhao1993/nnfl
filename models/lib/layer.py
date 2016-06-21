@@ -85,6 +85,88 @@ class NormlizationLayer(Layer):
         return forward_out
 
 
+class FuncNormLayer(NormlizationLayer):
+    """
+    Normlization layer by using activation function.
+    """
+    def __init__(self, n_unit, act_func='softmax'):
+        """
+        Init layer.
+        n_unit: int
+            Number of unit
+        act_func: str
+            'softmax': Using softmax function to normalize
+            'sigmoid': Using sigmoid function to normalize
+        """
+        
+        if act_func not in ['softmax', 'sigmoid']:
+            logging.error("act_func:%s, not available")
+            raise Exception
+
+        NormlizationLayer.__init__(self, n_unit)
+        self.act_func = act_func
+        
+    def forward(self, x):
+        """
+        Compute forward pass
+        x: numpy.ndarray
+            x is the input data with the shape (num_instances, num_inputs)
+
+        output
+        --------
+        forward_out: numpy.ndarray
+            Output with the shape (num_instances, num_inputs)
+        """
+
+        if self.act_func == 'softmax':
+            # Numerically-stable softmax input
+            stable_input = (x - np.max(x, axis=1) .reshape(x.shape[0], 1))
+            stable_input = np.exp(stable_input)
+        elif self.act_func == 'sigmoid':
+            stable_input = sigmoid_array(x)
+        else:
+            logging.error("Unknown act_func:%s" % (act_func, ))
+            raise Exception
+        forward_out = NormlizationLayer.forward(self, stable_input)
+
+        # Keep track of stable input
+        self.stable_input = stable_input
+
+        return forward_out
+
+    def backprop(self, go):
+        """
+        Back propagation. Note that backprop is only based on the forward pass.
+        backprop will choose the lastest forward pass from Multiple forward
+        passes.
+        go: numpy.ndarray
+            Gradients on the output of current layer. The shape of go is
+            (num_instances, num_outputs)
+
+        output
+        --------
+        gnet: numpy.ndarray
+            Gradients on net the input of current layer.
+        """
+
+        if go.shape[1] != self.n_unit:
+            logging.error("shape doesn't match, go shape:%s, unit number:%s"
+                          % (go, self.n_unit))
+            raise Exception
+        if not hasattr(self, 'stable_input'):
+            logging.error("No forward pass")
+            raise Exception
+        gnet = NormlizationLayer.backprop(self, go)
+        if self.act_func == 'softmax':
+            gnet *= self.stable_input 
+        elif self.act_func == 'sigmoid':
+            gnet *= self.stable_input * (1 - self.stable_input)
+        else:
+            logging.error("Unknown act_func:%s" % (act_func, ))
+            raise Exception
+        return gnet
+
+
 class GeneralLayer(Layer):
     """
     General layer class.
@@ -292,15 +374,8 @@ class SoftmaxLayer(GeneralLayer):
         net_input: numpy.ndarray
             Net input
         """
-        # return GeneralLayer.net_input_to_out(self, net_input)
 
-        stable_input = (net_input -
-                        np.max(net_input, axis=1)
-                        .reshape(net_input.shape[0], 1))
-        stable_input_exp = np.exp(stable_input)
-        forward_out = (stable_input_exp /
-                       np.sum(stable_input_exp, axis=1)
-                       .reshape(stable_input_exp.shape[0], 1))
+        forward_out = softmax(net_input)
 
         return forward_out
 
@@ -522,10 +597,11 @@ def layer_test():
     hidden_layer.init_layer(n_i=n_i, n_o=n_o, act_func='sigmoid',
                             use_bias=use_bias)
     norm_layer = NormlizationLayer(x.shape[1])
+    funcnorm_layer = FuncNormLayer(x.shape[1], act_func='softmax')
     general_layer = GeneralLayer()
     general_layer.init_layer(n_i=n_i, n_o=n_o, use_bias=use_bias)
     general_layer_list = [softmax_layer, hidden_layer, general_layer]
-    norm_layer_list = [norm_layer]
+    norm_layer_list = [norm_layer, funcnorm_layer]
 
     gc = GradientChecker()
 
