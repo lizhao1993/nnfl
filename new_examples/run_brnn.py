@@ -15,6 +15,7 @@ from data_loader import DataLoader
 from metrics import*
 from brnn import BRNN
 from collections import OrderedDict
+from parameter_setting import*
 
 
 def gen_print_info(field_names, values):
@@ -35,50 +36,15 @@ def gen_print_info(field_names, values):
 
 
 def run_fnn():
-    # Parameters
-    p = OrderedDict([
-        ("\nParameters for word vectors", ""),
-        # ("word2vec_path", "../data/sample_word2vec.txt"),
-        ("word2vec_path", "../../word2vec/vector_model/glove.6B.300d.txt"),
-        # ("word2vec_path", "../../word2vec/vector_model/glove.840B.300d.txt"),
-        ("norm_vec", False),
-        ("oov", "O_O_V"),
-        ("\nParameters for loading data", ""),
-        # ("train_data_path",
-         # "../data/semeval_mic_test_and_pdev_train/train/"),
-        # ("test_data_path",
-         # "../data/semeval_mic_test_and_pdev_train/test/"),
-        ("train_data_path", "../data/split_pdev/train/"),
-        ("test_data_path", "../data/split_pdev/test/"),
-        ("left_win", 5),
-        ("right_win", 5),
-        ("use_verb", True),
-        ("lower", True),
-        ("use_padding", False),
-        ("verb_index", True),
-        # Validation part and train_part are from train_data_path
-        ("train_part", 0.9),
-        ("validation_part", 0.1),
-        ("test_part", 1.0),
-        # Minimum number of sentences of training data
-        ("minimum_sent_num", 70),
-        # Minimum frame of verb of training data
-        ("minimum_frame", 2),
-        ("\nParameters for rnn model", ""),
-        ("n_h", 30),
-        ("up_wordvec", False),
-        ("use_bias", True),
-        ("act_func", "tanh"),
-        ("use_lstm", True),
-        ("max_epochs", 100),
-        ("minibatch", 5),
-        ("lr", 0.1),
-        ("random_vectors", False),
-        ("\nOther parameters", ""),
-        ("prediction_results",
-         "../result/brnn_results/70train_blstm_0.1lr_nopadding_win55")
-    ])
-
+    p = p_bilstm
+    # p = p_birnn_logic_test
+    p["left_win"] = -1 
+    p["right_win"] = -1
+    p["lr"] = 0.1
+    p["n_h"] = 40
+    p["prediction_results"] = "../result/brnn_results/bilstm_nh40_lr01_win11wsj_propbank.test"
+    on_validation = False
+    training_detail = False
     # Get vocabulary and word vectors
     vocab, invocab, word2vec = get_vocab_and_vectors(
         p["word2vec_path"], norm_only=p["norm_vec"], oov=p["oov"],
@@ -95,24 +61,18 @@ def run_fnn():
 
     # Get data
     train_loader = DataLoader(
-        data_path=p["train_data_path"], vocab=vocab, oov=p["oov"],
+        data_path=p["data_path"], vocab=vocab, oov=p["oov"],
         left_win=p["left_win"], right_win=p["right_win"],
         use_verb=p["use_verb"], lower=p["lower"], use_padding=p["use_padding"]
     )
-    train, _, validation = train_loader.get_data(
-        p["train_part"], 0.0, p["validation_part"],
+    train, test, validation = train_loader.get_data(
+        p["train_part"], p["test_part"], p["validation_part"],
         sent_num_threshold=p["minimum_sent_num"],
         frame_threshold=p["minimum_frame"], 
         verb_index=p["verb_index"]
     )
-    test_loader = DataLoader(
-        data_path=p["test_data_path"], vocab=vocab, oov=p["oov"],
-        left_win=p["left_win"], right_win=p["right_win"],
-        use_verb=p["use_verb"], lower=p["lower"], use_padding=p["use_padding"]
-    )
-    _, test, _ = test_loader.get_data(
-        0.0, p["test_part"], 0.0, verb_index=p["verb_index"]
-    )
+    if on_validation:
+        test = validation
 
     field_names = [
         'precision', 'recall', 'f-score',
@@ -145,7 +105,7 @@ def run_fnn():
             minibatch=p["minibatch"],
             max_epochs=p["max_epochs"],
             split_pos=train[verb][2],
-            verbose=False
+            verbose=training_detail
         )
 
         y_pred = rnn.predict(test[verb][0], split_pos=test[verb][2])

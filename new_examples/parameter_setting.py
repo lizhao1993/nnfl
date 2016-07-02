@@ -9,6 +9,8 @@ import copy
 from collections import OrderedDict
 
 
+data_path = "../data/wsj_propbank/"
+
 # Parameters
 p_fnn = OrderedDict([
     ("\nParameters for word vectors", ""),
@@ -18,7 +20,7 @@ p_fnn = OrderedDict([
     ("norm_vec", False),
     ("oov", "O_O_V"),
     ("\nParameters for loading data", ""),
-    ("data_path", "../data/pdev/"),
+    ("data_path",data_path),
     ("left_win", 5),
     ("right_win", 5),
     ("use_verb", True),
@@ -58,7 +60,7 @@ p_rnn = OrderedDict([
     ("norm_vec", False),
     ("oov", "O_O_V"),
     ("\nParameters for loading data", ""),
-    ("data_path", "../data/pdev/"),
+    ("data_path",data_path),
     ("left_win", -1),
     ("right_win", -1),
     ("use_verb", True),
@@ -106,7 +108,7 @@ p_birnn = OrderedDict([
     ("norm_vec", False),
     ("oov", "O_O_V"),
     ("\nParameters for loading data", ""),
-    ("data_path", "../data/pdev/"),
+    ("data_path",data_path),
     ("left_win", -1),
     ("right_win", -1),
     ("use_verb", True),

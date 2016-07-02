@@ -183,13 +183,13 @@ def split_jagged_array(jagged_array, split_pos=None):
     right_array: jagged_array
     """
 
-    if split_pos is None:
-        logging.error("Split position is None")
-        raise Exception
     # if split_pos is None:
-        # split_pos = np.zeros(shape=len(jagged_array), dtype=np.int64)
-        # for i in range(0, len(jagged_array)):
-            # split_pos[i] = int(len(jagged_array[i]) / 2)
+        # logging.error("Split position is None")
+        # raise Exception
+    if split_pos is None:
+        split_pos = np.zeros(shape=len(jagged_array), dtype=np.int64)
+        for i in range(0, len(jagged_array)):
+            split_pos[i] = int(len(jagged_array[i]) / 2)
     left_array = []
     right_array = []
     for i in range(0, len(jagged_array)):

@@ -277,7 +277,7 @@ def brnn_test():
     up_wordvec = True
     use_bias = True
     act_func = 'tanh'
-    use_lstm = False
+    use_lstm = True
     x_row = 100
     voc_size = 20
     word_dim = 4
@@ -291,7 +291,7 @@ def brnn_test():
     split_pos = np.random.randint(low=4, high=8, size=(x_row, ))
 
     # Training
-    lr = 0.01
+    lr = 0.1
     minibatch = 5
     max_epochs = 100
     verbose = True

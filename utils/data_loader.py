@@ -62,7 +62,7 @@ class DataLoader(object):
                 if len(items) != 4:
                     logging.error("data format error: %s" % line)
                     raise Exception
-                frame_id = int(items[0])
+                frame_id = items[0].strip()
                 # sents[0](left sentences), sents[1](verb), sents[2](right sentence)
                 sents = [nltk.word_tokenize(items[i]) for i in range(1, len(items))]
                 sents_indexs = sents2indexs(sents, vocab, oov)

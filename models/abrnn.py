@@ -25,7 +25,7 @@ class ABRNN(object):
                  use_bias=True, act_func='tanh', use_lstm=False,
                  attention_norm_func='softmax'):
         """
-        Init BRNN
+        Init BRNN(up_wordvec is not supported now)
         x: numpy.ndarray, 2d jagged arry
             The input data. The index of words
         label_y: numpy.ndarray, 1d array
@@ -86,13 +86,19 @@ class ABRNN(object):
         else:
             self.left_layer = recurrent_layer.RecurrentLayer()
             self.right_layer = recurrent_layer.RecurrentLayer()
-        self.left_layer.init_layer(self.n_i, self.n_h,
+        self.left_layer.init_layer(self.n_i, self.word2vec.shape[1],
                                    act_func=self.act_func,
                                    use_bias=self.use_bias)
         self.right_layer.share_layer(self.left_layer)
 
         self.params += self.left_layer.params
         self.param_names += self.left_layer.param_names
+
+        self.hidden = layer.HiddenLayer()
+        self.hidden.init_layer(self.word2vec.shape[1], self.n_h,
+                               act_func=self.act_func)
+        self.params += self.hidden.params
+        self.param_names += self.hidden.param_names
 
         # Output layer
         self.softmax_layer = layer.SoftmaxLayer()
@@ -146,29 +152,31 @@ class ABRNN(object):
         # Each layer for one row in the jagged array. Keep track of layers
         # for backprop.
         self.attention_norm_layers = []
-        # The normalization factor to apply for each unit in the input vectors 
+        # The normalization factor to apply for each unit in the input vectors
         alphas = []
         for embedding_row, sum_row in zip(embedding_out, sum_vecs):
             betas = np.zeros(shape=(1, len(embedding_row)))
-            norm_layer = FuncNormLayer(self.word2vec.shape[1],
+            norm_layer = layer.FuncNormLayer(len(embedding_row),
                                        self.attention_norm_func)
             for i in range(0, len(embedding_row)):
                 # Mix up global information with input.
                 betas[0][i] = embedding_row[i].dot(sum_row)
-            alpha = norm_layer.forward(betas).reshape(len(embedding_row), )
+            alpha = norm_layer.forward(betas).reshape(len(embedding_row))
             alphas.append(alpha)
             self.attention_norm_layers.append(norm_layer)
 
         # Computing the weighted arithmetic mean of the input.
 
-        weighted_out = np.zeros(len(x), shape=(self.word2vec.shape[1]))
-        for embedding_row, alpha in zip(embedding_out, alphas):
-            for i in range(0, len(embedding_row)):
-                weighted_out[i] += (alpha * embedding_row[i])
+        weighted_out = np.zeros(shape=(len(x), self.word2vec.shape[1]))
+        for i in range(0, len(embedding_out)):
+            for j in range(0, len(embedding_out[i])):
+                weighted_out[i] += (alphas[i][j] * embedding_out[i][j])
+
+        hidden_out = self.hidden.forward(weighted_out)
 
         self.sum_vecs = sum_vecs
         self.embedding_out = embedding_out
-        self.forward_out = self.softmax_layer.forward(weighted_out)
+        self.forward_out = self.softmax_layer.forward(hidden_out)
         self.split_pos = split_pos
 
         return self.forward_out
@@ -192,6 +200,8 @@ class ABRNN(object):
         self.gparams = []
         go = self.softmax_layer.backprop(go)
         self.gparams = self.softmax_layer.gparams + self.gparams
+        go = self.hidden.backprop(go)
+        self.gparams = self.hidden.gparams + self.gparams
 
         # Computing gradients on alphas
         galphas = []
@@ -205,8 +215,8 @@ class ABRNN(object):
         gsum_vecs = np.zeros(shape=self.sum_vecs.shape)
         for i in range(0, len(galphas)):
             gbeta = self.attention_norm_layers[i].backprop(galphas[i])
-            for embedding_unit in self.embedding_out[i]:
-                gsum_vecs[i] += (gbeta * embedding_unit)
+            for j in range(0, len(self.embedding_out[i])):
+                gsum_vecs[i] += (gbeta[0][j] * self.embedding_out[i][j])
 
         gx = merge_jagged_array(
             self.left_layer.backprop(gsum_vecs),
@@ -218,7 +228,7 @@ class ABRNN(object):
                 self.left_layer.gparams[i] + self.right_layer.gparams[i]
             )
         self.gparams = recurrent_gparams + self.gparams
-        return gx
+        return None
 
     def batch_train(self, x, y, lr, split_pos):
         """
@@ -323,51 +333,51 @@ class ABRNN(object):
         return np.array([self.y_to_label[i] for i in y])
 
 
-def brnn_test():
+def abrnn_test():
     x_col = 10
     no_softmax = 5
-    n_h = 30
-    up_wordvec = True
+    up_wordvec = False
     use_bias = True
     act_func = 'tanh'
     use_lstm = False
     x_row = 100
     voc_size = 20
-    word_dim = 4
+    word_dim = 10
+    n_h = 50
     x = np.random.randint(low=0, high=voc_size, size=(x_row, x_col))
     # x = make_jagged_array(n_row=x_row, min_col=2, max_col=5,
                           # max_int=voc_size, min_int=0, dim_unit=None)
     label_y = np.random.randint(low=0, high=20, size=x_row)
     word2vec = np.random.uniform(low=0, high=5, size=(voc_size, word_dim))
-    nntest = BRNN(x, label_y, word2vec, n_h, up_wordvec, use_bias,
+    nntest = ABRNN(x, label_y, word2vec, n_h, up_wordvec, use_bias,
                  act_func, use_lstm=use_lstm)
     split_pos = np.random.randint(low=4, high=8, size=(x_row, ))
 
     # Training
-    lr = 0.01
-    minibatch = 5
-    max_epochs = 100
+    lr = 0.08
+    minibatch = 1
+    max_epochs = 1000
     verbose = True
     nntest.minibatch_train(lr, minibatch, max_epochs, split_pos, verbose)
 
 
-def brnn_gradient_test():
+def abrnn_gradient_test():
     x_col = 3
     no_softmax = 5
-    n_h = 2
     up_wordvec = False
     use_bias = True
-    act_func = 'tanh'
-    use_lstm = False
+    act_func = 'sigmoid'
+    use_lstm = True
     x_row = 4
     voc_size = 20
     word_dim = 2
+    n_h = 3
     # x = np.random.randint(low=0, high=voc_size, size=(x_row, x_col))
     x = make_jagged_array(n_row=x_row, min_col=2, max_col=5,
                           max_int=voc_size, min_int=0, dim_unit=None)
     label_y = np.random.randint(low=0, high=20, size=x_row)
     word2vec = np.random.uniform(low=0, high=5, size=(voc_size, word_dim))
-    nntest = BRNN(x, label_y, word2vec, n_h, up_wordvec, use_bias,
+    nntest = ABRNN(x, label_y, word2vec, n_h, up_wordvec, use_bias,
                  act_func, use_lstm=use_lstm)
 
     # Gradient testing
@@ -377,5 +387,6 @@ def brnn_gradient_test():
 
 
 if __name__ == "__main__":
-    brnn_test()
-    # brnn_gradient_test()
+    print("in abrnn")
+    abrnn_test()
+    # abrnn_gradient_test()

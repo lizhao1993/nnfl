@@ -14,7 +14,7 @@ from tools import*
 from data_loader import DataLoader
 from metrics import*
 from fnn import FNN
-from collections import OrderedDict
+from parameter_setting import*
 
 
 def gen_print_info(field_names, values):
@@ -36,46 +36,14 @@ def gen_print_info(field_names, values):
 
 def run_fnn():
     # Parameters
-    p = OrderedDict([
-        ("\nParameters for word vectors", ""),
-        ("word2vec_path", "../data/sample_word2vec.txt"),
-        ("word2vec_path", "../../word2vec/vector_model/glove.6B.300d.txt"),
-        # ("word2vec_path", "../../word2vec/vector_model/glove.840B.300d.txt"),
-        ("norm_vec", False),
-        ("oov", "O_O_V"),
-        ("\nParameters for loading data", ""),
-        # ("train_data_path",
-         # "../data/semeval_mic_test_and_pdev_train/train/"),
-        # ("test_data_path",
-         # "../data/semeval_mic_test_and_pdev_train/test/"),
-        ("train_data_path", "../data/split_pdev/train/"),
-        ("test_data_path", "../data/split_pdev/test/"),
-        ("left_win", 5),
-        ("right_win", 5),
-        ("use_verb", True),
-        ("lower", True),
-        # Validation part and train_part are from train_data_path
-        ("train_part", 0.9),
-        ("validation_part", 0.1),
-        ("test_part", 1.0),
-        # Minimum number of sentences of training data
-        ("minimum_sent_num", 490),
-        # Minimum frame of verb of training data
-        ("minimum_frame", 2),
-        ("\nParameters for FNN model", ""),
-        ("n_hs", []),
-        ("up_wordvec", False),
-        ("use_bias", True),
-        ("act_func", "tanh"),
-        ("max_epochs", 100),
-        ("minibatch", 5),
-        ("lr", 0.1),
-        ("random_vectors", False),
-        ("\nOther parameters", ""),
-        ("prediction_results",
-         "../result/new_fnn_results/490train_fnn_0.1lr_win55")
-    ])
-
+    p = p_fnn
+    # p = p_fnn_logic_test
+    p["prediction_results"] = "../result/new_fnn_results/win22framnet.test"
+    p["left_win"] = 2
+    p["right_win"] = 2
+    p["max_epochs"] = 400
+    on_validation = False
+    training_detail = True
     # Get vocabulary and word vectors
     vocab, invocab, word2vec = get_vocab_and_vectors(
         p["word2vec_path"], norm_only=p["norm_vec"], oov=p["oov"],
@@ -92,23 +60,17 @@ def run_fnn():
 
     # Get data
     train_loader = DataLoader(
-        data_path=p["train_data_path"], vocab=vocab, oov=p["oov"],
+        data_path=p["data_path"], vocab=vocab, oov=p["oov"],
         left_win=p["left_win"], right_win=p["right_win"],
         use_verb=p["use_verb"], lower=p["lower"]
     )
-    train, _, validation = train_loader.get_data(
-        p["train_part"], 0.0, p["validation_part"],
+    train, test, validation = train_loader.get_data(
+        p["train_part"], p["test_part"], p["validation_part"],
         sent_num_threshold=p["minimum_sent_num"],
         frame_threshold=p["minimum_frame"]
     )
-    test_loader = DataLoader(
-        data_path=p["test_data_path"], vocab=vocab, oov=p["oov"],
-        left_win=p["left_win"], right_win=p["right_win"],
-        use_verb=p["use_verb"], lower=p["lower"]
-    )
-    _, test, _ = test_loader.get_data(
-        0.0, p["test_part"], 0.0
-    )
+    if on_validation:
+        test = validation
 
     field_names = [
         'precision', 'recall', 'f-score',
@@ -140,7 +102,7 @@ def run_fnn():
             lr=p["lr"],
             minibatch=p["minibatch"],
             max_epochs=p["max_epochs"],
-            verbose=False
+            verbose=training_detail
         )
 
         y_pred = fnn.predict(test[verb][0])

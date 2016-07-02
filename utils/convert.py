@@ -8,21 +8,344 @@ Brief:  Convert pdev data and SemEval 2015 data to the required format
 import os
 import html
 import nltk
+from nltk.corpus import ptb
+from nltk.corpus import propbank
+from nltk.stem import WordNetLemmatizer
 import codecs
 from tools import*
 import logging
 logging.basicConfig(
-    level=logging.DEBUG, 
+    level=logging.DEBUG,
     format=" [%(levelname)s]%(filename)s:%(lineno)s[function:%(funcName)s] %(message)s"
 )
 
+
+def convert_propbank(detail=True):
+    """
+    Convert Wall Street Journal (wsj) to the input data combined with
+    propbank
+    """
+
+    out_dir = "../data/wsj_propbank/"
+    os.system("rm -rf %s" % (out_dir, ))
+    os.system("mkdir -p %s" % (out_dir, ))
+
+    pb_instances = propbank.instances()
+    # Count at first
+    verb2idx = {}
+    verb2frames = {}
+    for i in range(0, len(pb_instances)):
+        inst = pb_instances[i]
+        verb_lemma, frame = inst.roleset.split(".")
+        if verb_lemma not in verb2idx:
+           verb2idx[verb_lemma] = []
+        verb2idx[verb_lemma].append(i)
+        if verb_lemma not in verb2frames:
+            verb2frames[verb_lemma] = []
+        if frame not in verb2frames[verb_lemma]:
+            verb2frames[verb_lemma].append(frame)
+    verb_nums = len(verb2idx.keys())
+    verb_counter = 0
+
+    pair_label = {'-LRB-':'(', '-RRB-':')', '-LCB-':'(', '-RCB-':')'}
+    for verb_lemma, idxs in verb2idx.items():
+        verb_counter += 1
+        if len(verb2frames[verb_lemma]) < 2:
+            continue
+        fh = open("%s/%s" % (out_dir, verb_lemma), "w")
+        if detail:
+            print("processing %s(%s/%s)"
+                  % (verb_lemma, verb_counter, verb_nums))
+        for i in idxs:
+            inst = pb_instances[i]
+            fileid = inst.fileid
+            sent_num = inst.sentnum
+            verb_pos = inst.wordnum
+            verb_lemma, frame = inst.roleset.split(".")
+            section = [x for x in fileid if x.isdigit()][0:2]
+            section = "".join(section)
+            fileid_for_ptb = "WSJ/%s/%s" % (section, fileid.upper())
+
+            tagged_sent = ptb.tagged_sents(fileid_for_ptb)[sent_num]
+            # Change tagged_sent from [tuples] to [list]
+            tagged_sent = [[x[0], x[1]]for x in tagged_sent]
+            verb_bak = tagged_sent[verb_pos][0]
+            verb_identifier = "verb_identifier_xxxxx"
+            tagged_sent[verb_pos][0] = verb_identifier
+            sent = []
+            for (token, tag)in tagged_sent:
+                if tag != '-NONE-':
+                    if token in pair_label:
+                        token = pair_label[token]
+                    sent.append(token)
+            sent = " ".join(sent)
+            sent_toks = nltk.sent_tokenize(sent)
+            candidate_sent = None
+            for sent_tok in sent_toks:
+                if sent_tok.find(verb_identifier) >= 0:
+                    candidate_sent = sent_tok
+            left_sent, right_sent = candidate_sent.split(verb_identifier)
+            left_sent = left_sent.strip()
+            right_sent = right_sent.strip()
+            out_line = "%s\t%s\t%s\t%s" % (frame, left_sent, verb_bak, right_sent)
+            out_line = remove_punctuations(out_line)
+            print(out_line, file=fh)
+        fh.close()
+
+
+def load_semlink(detail=True):
+    """
+    Load Semlink WSJ files
+    """
+
+    # Load wsjTokens in semlink (sl)
+    sl_wsj_path = "../../../nltk_data/corpora/semlink1.2.2c/wsjTokens/"
+    # wsj sections
+    wsj_secs = os.listdir(sl_wsj_path)
+    sl_wsj_labels = {}
+    sentid_labelidx_map = {}
+    for wsj_sec in wsj_secs:
+        wsj_sec_path = "%s/%s" % (sl_wsj_path, wsj_sec)
+        sec_files = os.listdir(wsj_sec_path)
+        if detail:
+            print("wsj section: %s" % (wsj_sec, ))
+        for sec_file in sec_files:
+            sec_file_path = "%s/%s" % (wsj_sec_path, sec_file)
+            # Skip hide file, e.g., ".xx.swp"
+            if sec_file.startswith("."):
+                continue
+            if detail:
+                print("file: %s" % sec_file)
+
+            doc = ("WSJ/%s/%s.MRG"
+                   % (wsj_sec, sec_file.replace(".sl", "").upper()))
+            if doc not in sl_wsj_labels:
+                sl_wsj_labels[doc] = []
+            if doc not in sentid_labelidx_map:
+                sentid_labelidx_map[doc] = {}
+
+            fh = open(sec_file_path, "r")
+            for line in fh:
+                line = line.strip()
+                # Skip empty lines
+                if line == '':
+                    continue
+                items = line.split()
+                sent_id = items[1]
+                verb_pos = items[2]
+                verb = items[4].split("-")[0]
+                verbnet_class = items[5]
+                framenet_frame = items[6]
+                pb_grouping = items[7]
+                si_grouping = items[8]
+                sl_wsj_labels[doc].append([sent_id, verb_pos, verb, verbnet_class,
+                                          framenet_frame, pb_grouping,
+                                          si_grouping])
+                sentid_labelidx_map[doc]["%s_%s" % (sent_id, verb)] = (
+                    len(sl_wsj_labels[doc]) - 1
+                )
+            fh.close()
+
+    return sl_wsj_labels, sentid_labelidx_map
+
+
+def convert_semlink_wsj2(detail=True):
+    """
+    (Current version of Semlink have some problems to be fixed.)
+    This version 2 make use of propbank annotation on penn treebank. It will
+    use the word number(in PropBank) to index in Semlink WSJ files instead of
+    using token number(in Semlink WSJ files)
+    """
+
+    sl_wsj_labels, sentid_labelidx_map = load_semlink()
+    sl_counters = summary_semlink_wsj(sl_wsj_labels, is_print=False)
+
+    out_dirs = ["../data/wsj_framnet/", "../data/wsj_verbnet/",
+               "../data/wsj_sense"]
+    sents_thresholds = [300, 300, 300]
+    out_files = ["wsj.framenet", "wsj.verbnet", "wsj.sense"]
+    frame_indexs = [4, 3, 6]
+    corpus_names = ["framenet_frame", "verbnet_class", "si_grouping"]
+    excludes = []
+    for t in range(0, len(out_dirs)):
+        if t in excludes:
+            continue
+        out_dir = out_dirs[t]
+        os.system("rm -rf %s" % (out_dir, ))
+        os.system("mkdir -p %s" % (out_dir, ))
+
+
+    pb_instances = propbank.instances()
+    pair_label = {'-LRB-':'(', '-RRB-':')', '-LCB-':'(', '-RCB-':')'}
+
+    for t in range(0, len(out_dirs)):
+        if t in excludes:
+            continue
+        if detail:
+            print("To process %s" % (corpus_names[t]))
+
+        out_dir = out_dirs[t]
+        out_file = out_files[t]
+        sents_threshold = sents_thresholds[t]
+        fh = open("%s/%s" % (out_dir, out_file), "w")
+
+        for i in range(0, len(pb_instances)):
+            inst = pb_instances[i]
+            fileid = inst.fileid
+            sent_num = inst.sentnum
+            verb_pos = inst.wordnum
+            verb_lemma, _ = inst.roleset.split(".")
+            section = [x for x in fileid if x.isdigit()][0:2]
+            section = "".join(section)
+            fileid_for_ptb = "WSJ/%s/%s" % (section, fileid.upper())
+            key = "%s_%s" % (sent_num, verb_lemma)
+            # Annotation in propbank not exists in Semlink
+            if fileid_for_ptb not in sl_wsj_labels:
+                continue
+            # Labelled instance in PropBank not exist in Semlink WSJ files
+            if key not in sentid_labelidx_map[fileid_for_ptb]:
+                continue
+            sl_idx = sentid_labelidx_map[fileid_for_ptb][key]
+            sl_taginfo = sl_wsj_labels[fileid_for_ptb][sl_idx]
+            frame_index = frame_indexs[t]
+            frame = sl_taginfo[frame_index]
+            # Too little sentences
+            corpus_name = corpus_names[t]
+            if (sl_counters[corpus_name][frame][0]
+                <= sents_thresholds[t]):
+                continue
+
+            tagged_sent = ptb.tagged_sents(fileid_for_ptb)[sent_num]
+            # Change tagged_sent from [tuples] to [list]
+            tagged_sent = [[x[0], x[1]]for x in tagged_sent]
+            verb_bak = tagged_sent[verb_pos][0]
+            verb_identifier = "verb_identifier_xxxxx"
+            tagged_sent[verb_pos][0] = verb_identifier
+            sent = []
+            for (token, tag)in tagged_sent:
+                if tag != '-NONE-':
+                    if token in pair_label:
+                        token = pair_label[token]
+                    sent.append(token)
+            sent = " ".join(sent)
+            sent_toks = nltk.sent_tokenize(sent)
+            candidate_sent = None
+            for sent_tok in sent_toks:
+                if sent_tok.find(verb_identifier) >= 0:
+                    candidate_sent = sent_tok
+            left_sent, right_sent = candidate_sent.split(verb_identifier)
+            left_sent = left_sent.strip()
+            right_sent = right_sent.strip()
+            out_line = ("%s\t%s\t%s\t%s"
+                        % (frame, left_sent, verb_bak, right_sent))
+            out_line = remove_punctuations(out_line)
+            print(out_line, file=fh)
+        fh.close()
+
+def convert_semlink_wsj(detail=True):
+    """
+    (Current version of Semlink have some problems to be fixed. This function
+    does not correctly convert the wsj to the input data)
+    Convert Wall Street Journal (wsj) to the input data combined with SemLink.
+    It will generate three dataset:
+        1. wsj corpus labelled by PropBank
+        2. wsj corpus labelled by FrameNet
+        3. wsj corpus labelled by VerbNet
+    """
+
+    sl_wsj_labels = load_semlink()
+
+    # print_semlink_wsj(sl_wsj_labels)
+    wnl = WordNetLemmatizer()
+
+    # Generate labelled data (framenet label)
+    recover_label = {'-LRB-':'(', '-RRB-':')', '-LCB-':'(', '-RCB-':')'}
+    framnet_out_dir = "../data/wsj_framnet/"
+    framnet_out_file = "%s/wsj_label.framnet" % (framnet_out_dir, )
+    os.system("rm -rf %s" % (framnet_out_dir, ))
+    os.system("mkdir -p %s" % (framnet_out_dir, ))
+    fh = open(framnet_out_file, "w")
+    for doc_name in sl_wsj_labels.keys():
+        sents = ptb.sents(doc_name)
+        # sents = ptb.tagged_sents(doc_name)
+        doc = sl_wsj_labels[doc_name]
+        for i in range(0, len(doc)):
+            sent_idx = int(doc[i][0])
+            frame = doc[i][4]
+            # Not used because some error correspondings between semlink and
+            # penn treebank corpus.
+            verb_pos = int(doc[i][1])
+            # verb_pos = -1
+            verb_lemma = doc[i][2]
+            sent = sents[sent_idx]
+            # sent = []
+            # for tokens in sents[sent_idx]:
+                # if tokens[1] != '-NONE-':
+                    # token = tokens[0]
+                    # if tokens[0] in recover_label:
+                        # token = recover_label[token]
+                    # if wnl.lemmatize(token, pos='v') == verb_lemma:
+                        # verb_pos = len(sent)
+                    # sent.append(token)
+            # if verb_pos == -1:
+                # print("\n")
+                # print("doc_name:%s\tdoc[%s]:%s" % (doc_name, i, doc[i]))
+                # print("len(sent):%s, sent:%s" % (len(sent), sent))
+            if verb_pos >= len(sent):
+                print("\n")
+                print("doc_name:%s\tdoc[%s]:%s" % (doc_name, i, doc[i]))
+                print("len(sent):%s, sent:%s" % (len(sent), sent))
+                continue
+
+            verb = sent[verb_pos]
+
+            left_sent = " ".join(sent[0:verb_pos])
+            right_sent = " ".join(sent[verb_pos + 1:])
+            out_line = "%s\t%s\t%s\t%s" % (frame, left_sent, verb, right_sent)
+            out_line = remove_punctuations(out_line)
+            print(out_line, file=fh)
+    fh.close()
+
+
+def summary_semlink_wsj(sl_wsj_labels, is_print=True):
+    """
+    The summary statistics of semlink labels on wsj corpus
+    """
+
+    counters = {
+        "verbnet_class":{}, "framenet_frame":{}, "pb_grouping":{},
+        "si_grouping":{}
+    }
+    for doc_name in sl_wsj_labels.keys():
+        doc = sl_wsj_labels[doc_name]
+        for i in range(0, len(doc)):
+            field_idxs = [3, 4, 5, 6]
+            field_names = ["verbnet_class", "framenet_frame", "pb_grouping",
+                           "si_grouping"]
+            for field_idx, field_name in zip(field_idxs, field_names):
+                if doc[i][field_idx] not in counters[field_name]:
+                    counters[field_name][doc[i][field_idx]] = [0, {}]
+                counters[field_name][doc[i][field_idx]][0] += 1
+                if doc[i][2] not in counters[field_name][doc[i][field_idx]][1]:
+                    counters[field_name][doc[i][field_idx]][1][doc[i][2]] = 0
+                counters[field_name][doc[i][field_idx]][1][doc[i][2]] += 1
+
+    if is_print:
+        for field_name, counter_info in counters.items():
+            print("######%s:\t\t%s" % (field_name, len(counter_info.keys())))
+            for label, number in counter_info.items():
+                print("%s:\t%s verbs, %s instances, \t%s"
+                      % (label, len(number[1].keys()), number[0], number[1]))
+
+    return counters
+
 def convert_chn_text(detail=True):
     """
-    Convert Chinese annotated text to the required format. The Chinese text 
+    Convert Chinese annotated text to the required format. The Chinese text
     should be utf-8 encoding
     """
     p = {
-        "data_path": "../data/data_literature", 
+        "data_path": "../data/data_literature",
         "output_dir": "../data/converted_data"
     }
     if detail:
@@ -75,7 +398,7 @@ def convert_semeval_without_extraction(detail=True):
 
     # Parameters
     p = {
-        "data_sets": ["../cpa_data/Microcheck/", "../cpa_data/testdata/Microcheck"], 
+        "data_sets": ["../cpa_data/Microcheck/", "../cpa_data/testdata/Microcheck"],
         "output_dir": "../data/semeval_mic_train_and_test_no_extraction"
     }
     if detail:
@@ -128,10 +451,10 @@ def convert_semeval_with_extraction(detail=True):
 
     # Parameters
     p = {
-        "data_sets": ["../cpa_data/Microcheck/", "../cpa_data/testdata/Microcheck/"], 
-        "output_dir": "../data/semeval_mic_train_and_test_with_extraction", 
-        "normalized_units": False, 
-        "relations": ["subj", "obj", "iobj", "advprep", "acomp", "scomp"], 
+        "data_sets": ["../cpa_data/Microcheck/", "../cpa_data/testdata/Microcheck/"],
+        "output_dir": "../data/semeval_mic_train_and_test_with_extraction",
+        "normalized_units": False,
+        "relations": ["subj", "obj", "iobj", "advprep", "acomp", "scomp"],
         "padding": "_"  # Used for normalized_units
     }
     if detail:
@@ -199,7 +522,7 @@ def convert_semeval_with_extraction(detail=True):
                             cluster_id = verb_id2cluster_id[tokens[0]]
                         else:
                             syn2word[tokens[2]] = tokens[1]
-            
+
             fh.close()
             fh_out.close()
 
@@ -208,7 +531,7 @@ def convert_pdev(detail=True):
     Convert pdev data
     """
     p = {
-        "pdev_dir": "../split_pdev/train_pdev/", 
+        "pdev_dir": "../split_pdev/train_pdev/",
         "output_dir": "../data/split_pdev/train"
     }
     os.system("rm %s -rf" % p["output_dir"])
@@ -233,7 +556,7 @@ def convert_pdev(detail=True):
             try:
                 frame = int(frame)
             except:
-                logging.warn("Skip frame: %s" % frame) 
+                logging.warn("Skip frame: %s" % frame)
                 continue
             verb = items[1].strip()
             left_sent = remove_punctuations(nltk.sent_tokenize(items[0])[-1])
@@ -248,5 +571,7 @@ if __name__ == "__main__":
     # convert_semeval_without_extraction()
     # convert_semeval_with_extraction()
     # convert_pdev()
-    convert_chn_text()
+    # convert_chn_text()
+    # convert_propbank()
+    convert_semlink_wsj2()
 
