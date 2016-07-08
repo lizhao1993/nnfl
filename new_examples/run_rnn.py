@@ -38,12 +38,13 @@ def run_fnn():
     # Parameters
     p = p_lstm
     # p = p_rnn_logic_test
-    p["data_path"] = "../data/wsj_propbank/"
-    p["left_win"] = 2
-    p["right_win"] = 2
+    p["left_win"] = -1
+    p["right_win"] = -1
     p["lr"] = 0.1
-    p["prediction_results"] = "../result/rnn_results/lstm_nh30_lr01_win22wsj_propbank.test"
+    p["n_h"] = 35
+    p["prediction_results"] = "../result/rnn_results/lstm_nh35_lr01_win11wsj_propbank.test"
     on_validation = False
+    training_detail = False
     # Get vocabulary and word vectors
     vocab, invocab, word2vec = get_vocab_and_vectors(
         p["word2vec_path"], norm_only=p["norm_vec"], oov=p["oov"],
@@ -102,7 +103,7 @@ def run_fnn():
             lr=p["lr"],
             minibatch=p["minibatch"],
             max_epochs=p["max_epochs"],
-            verbose=False
+            verbose=training_detail
         )
 
         y_pred = rnn.predict(test[verb][0])

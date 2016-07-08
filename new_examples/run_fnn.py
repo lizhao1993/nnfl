@@ -38,12 +38,13 @@ def run_fnn():
     # Parameters
     p = p_fnn
     # p = p_fnn_logic_test
-    p["prediction_results"] = "../result/new_fnn_results/win22framnet.test"
-    p["left_win"] = 2
-    p["right_win"] = 2
-    p["max_epochs"] = 400
+    p["prediction_results"] = "../result/new_fnn_results/win44pdev100sent.test"
+    p["minimum_sent_num"] = 100
+    p["left_win"] = 4
+    p["right_win"] = 4
+    p["max_epochs"] = 100
     on_validation = False
-    training_detail = True
+    training_detail = False
     # Get vocabulary and word vectors
     vocab, invocab, word2vec = get_vocab_and_vectors(
         p["word2vec_path"], norm_only=p["norm_vec"], oov=p["oov"],

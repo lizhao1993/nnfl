@@ -41,8 +41,9 @@ def run_fnn():
     p["left_win"] = -1 
     p["right_win"] = -1
     p["lr"] = 0.1
-    p["n_h"] = 40
-    p["prediction_results"] = "../result/brnn_results/bilstm_nh40_lr01_win11wsj_propbank.test"
+    p["n_h"] = 35
+    # p["minimum_sent_num"] = 100
+    p["prediction_results"] = "../result/brnn_results/bilstm_nh35_lr01_win11wsj_propbank.test"
     on_validation = False
     training_detail = False
     # Get vocabulary and word vectors
