@@ -43,26 +43,29 @@ def run_fnn():
     # Parameters
     p = OrderedDict([
         ("\nParameters for word vectors", ""), 
-        ("word2vec_path", "../data/data2vec.txt"), 
-        ("word2vec_path", "../../word2vec/vector_model/glove.6B.300d.txt"), 
+        ("word2vec_path", "../data/sample_word2vec.txt"), 
+        # ("word2vec_path", "../../word2vec/vector_model/glove.6B.300d.txt"), 
         # ("word2vec_path", "../../word2vec/vector_model/glove.840B.300d.txt"), 
         ("norm_vec", False), 
         ("oov", "O_O_V"), 
         ("\nParameters for loading data", ""), 
         # ("train_data_path", "../data/semeval_mic_test_and_pdev_train/train/"), 
         # ("test_data_path", "../data/semeval_mic_test_and_pdev_train/test/"), 
-        ("train_data_path", "../data/split_pdev/train/"), 
-        ("test_data_path", "../data/split_pdev/test/"), 
+        # ("train_data_path", "../data/split_pdev/train/"), 
+        ("train_data_path", "../data/semeval_mic_test_and_pdev_train/train/"), 
+        ("test_data_path", "../data/semeval_mic_test_and_pdev_train/test"), 
+        ("left_win", 5), 
+        # ("test_data_path", "../data/split_pdev/test/"), 
         ("left_win", 5), 
         ("right_win", 5), 
         ("use_verb", False), 
         ("lower", True), 
         # Validation part and train_part are from train_data_path
-        ("train_part", 0.9), 
-        ("validation_part", 0.1),   
+        ("train_part", 1.0), 
+        ("validation_part", 0),   
         ("test_part", 1.0), 
         # Minimum number of sentences of training data
-        ("minimum_sent_num", 70), 
+        ("minimum_sent_num", 0), 
         # Minimum frame of verb of training data
         ("minimum_frame", 2),  
         ("\nParameters for FNN model", ""), 
@@ -76,7 +79,7 @@ def run_fnn():
         ("beta", 0.0001), 
         ("random_vectors", False), 
         ("\nOther parameters", ""), 
-        ("prediction_results", "../result/numpy_fnn_results/direct_connection_test/3_layer_1") 
+        ("prediction_results", "../result/numpy_fnn_results/direct_connection_test/nothing") 
     ])
 
     # Get vocabulary and word vectors

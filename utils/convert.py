@@ -20,6 +20,31 @@ logging.basicConfig(
 )
 
 
+def merge_split_data(detail=True):
+    """
+    Merge the split data.
+    """
+
+    merge_dirs = ["../data/split_semeval_mic_train_and_test_by_parser"]
+    out_dirs = ["../data/merge_semeval_mic_train_and_test_by_parser"]
+
+    for out_dir in out_dirs:
+        os.system("rm -rf %s" % out_dir)
+        os.system("mkdir -p %s" % out_dir)
+
+    for i in range(0, len(merge_dirs)):
+        merge_dir = merge_dirs[i]
+        if detail:
+            print("To merge %s" % merge_dir)
+        file_names = os.listdir("%s/train/" % (merge_dir, ))
+        for file_name in file_names:
+            train_path = "%s/train/%s" % (merge_dir, file_name)
+            test_path = "%s/test/%s" % (merge_dir, file_name)
+            out_file = "%s/%s" % (out_dirs[i], file_name)
+            os.system("cat %s >> %s; cat %s >> %s"
+                      % (train_path, out_file, test_path, out_file))
+
+
 def convert_propbank(detail=True):
     """
     Convert Wall Street Journal (wsj) to the input data combined with
@@ -573,5 +598,6 @@ if __name__ == "__main__":
     # convert_pdev()
     # convert_chn_text()
     # convert_propbank()
-    convert_semlink_wsj2()
+    # convert_semlink_wsj2()
+    merge_split_data()
 

@@ -9,7 +9,7 @@ import copy
 from collections import OrderedDict
 
 
-data_path = "../data/wsj_propbank/"
+data_path = "../data/semeval_mic_train_and_test_with_extraction/"
 
 # Parameters
 p_fnn = OrderedDict([

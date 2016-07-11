@@ -38,10 +38,14 @@ def run_fnn():
     # Parameters
     p = p_fnn
     # p = p_fnn_logic_test
-    p["prediction_results"] = "../result/new_fnn_results/win44pdev100sent.test"
-    p["minimum_sent_num"] = 100
-    p["left_win"] = 4
-    p["right_win"] = 4
+    p["prediction_results"] = "../result/new_fnn_results/semeval_gold"
+    p["minimum_sent_num"] = 0
+    p["minimum_frame"] = 0
+    p["train_part"] = 0.7
+    p["test_part"] = 0.3
+    p["validation_part"] = 0.0
+    p["left_win"] = 5
+    p["right_win"] = 5
     p["max_epochs"] = 100
     on_validation = False
     training_detail = False

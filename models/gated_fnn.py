@@ -20,7 +20,7 @@ logging.basicConfig(
         "s[function:%(funcName)s] %(message)s"
 )
 
-np.random.seed(0)
+np.random.seed(1)
 
 class FNN(object):
     """ Feedward Neural Network class with the direct connection from input to 
@@ -500,13 +500,19 @@ def gated_fnn_test1():
         lr=lr, minibatch=minibatch, verbose=verbose
     )
     preds_res = fnn.predict(x)
-    print(preds_res[1])
+    for gates, x_i in zip(preds_res[1], x):
+        for gate, x_ij in zip(gates, x_i):
+            print("(%s:%s)\t" % (x_ij, gate), end='')
+        print('')
+
     # return
     # Test
-    print("Doing test")
+    print("\n\nDoing test\n\n")
     preds_res = fnn.predict(test_x)
-    print(preds_res[1])
-    print(preds_res[0])
+    for gates, x_i in zip(preds_res[1], test_x):
+        for gate, x_ij in zip(gates, x_i):
+            print("(%s:%s)\t" % (x_ij, gate), end='')
+        print('')
     print(metrics.zero_one_loss(y_true, preds_res[0]))
 
 if __name__ == "__main__":

@@ -55,7 +55,7 @@ def run_fnn():
         ("test_data_path", "../data/split_pdev/test/"), 
         ("left_win", 5), 
         ("right_win", 5), 
-        ("use_verb", False), 
+        ("use_verb", True), 
         ("lower", True), 
         # Validation part and train_part are from train_data_path
         ("train_part", 0.9), 
@@ -70,13 +70,13 @@ def run_fnn():
         ("lambda1", 0), 
         ("lambda2", 1), 
         ("up_wordvec", False), 
-        ("max_epochs", 1000), 
+        ("max_epochs", 100), 
         ("minibatch", 5), 
         ("lr", 0.1), 
         ("beta", 0.0001), 
         ("random_vectors", False), 
         ("\nOther parameters", ""), 
-        ("prediction_results", "../result/gated_fnn_results/gate_normalize_lr0.1_1000epoch") 
+        ("prediction_results", "../result/gated_fnn_results/norm_lr0.1_useverb") 
     ])
 
     # Get vocabulary and word vectors

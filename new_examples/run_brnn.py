@@ -41,9 +41,14 @@ def run_fnn():
     p["left_win"] = -1 
     p["right_win"] = -1
     p["lr"] = 0.1
-    p["n_h"] = 35
+    p["n_h"] = 55
     # p["minimum_sent_num"] = 100
-    p["prediction_results"] = "../result/brnn_results/bilstm_nh35_lr01_win11wsj_propbank.test"
+    p["prediction_results"] = "../result/brnn_results/bilstm_semeval_parser"
+    p["minimum_sent_num"] = 0
+    p["minimum_frame"] = 0
+    p["train_part"] = 0.7
+    p["test_part"] = 0.3
+    p["validation_part"] = 0.0
     on_validation = False
     training_detail = False
     # Get vocabulary and word vectors
