@@ -2,11 +2,10 @@
 """
 Authors: fengyukun
 Date:   2016/03/29
-Brief:  Examples of running models
+Brief:  Examples of running baselines
 """
 
 import sys
-import os
 sys.path.append("../models/lib/")
 sys.path.append("../utils/")
 sys.path.append("../models/")
@@ -14,8 +13,8 @@ from inc import*
 from tools import*
 from data_loader import DataLoader
 from metrics import*
-from rnn import RNN
 from parameter_setting import*
+from baselines import*
 
 
 def gen_print_info(field_names, values):
@@ -37,47 +36,31 @@ def gen_print_info(field_names, values):
 
 def run_fnn():
     # Parameters
-    p = p_lstm
-    # p = p_rnn_logic_test
-    p["left_win"] = -1
-    p["right_win"] = -1
-    p["lr"] = 0.1
-    p["n_h"] = 55
-    p["prediction_results"] = "../result/rnn_results/win11_semeval_parser"
-    p["minimum_sent_num"] = 0
-    p["minimum_frame"] = 0
-    p["train_part"] = 0.7
-    p["test_part"] = 0.3
-    p["validation"] = 0.0
-    on_validation = False
-    training_detail = False
+    # p = p_fnn
+    p = p_fnn_logic_test
+    p["prediction_results"] = "../result/baselines/null"
+    # p["minimum_sent_num"] = 100
+    # Use MF baseline
+    use_mf = False
+    rs_set = False
+
     # Get vocabulary and word vectors
     vocab, invocab, word2vec = get_vocab_and_vectors(
         p["word2vec_path"], norm_only=p["norm_vec"], oov=p["oov"],
         oov_vec_padding=0., dtype=FLOAT, file_format="auto"
     )
-    if p["random_vectors"]:
-        word2vec = np.array(
-            np.random.uniform(low=-0.5, high=0.5, size=word2vec.shape)
-        )
-    # Updating word vectors only happens for one verb
-    #   So when one verb is done, word vectors should recover
-    if p["up_wordvec"]:
-        word2vec_bak = np.array(word2vec, copy=True)
 
     # Get data
     train_loader = DataLoader(
         data_path=p["data_path"], vocab=vocab, oov=p["oov"],
         left_win=p["left_win"], right_win=p["right_win"],
-        use_verb=p["use_verb"], lower=p["lower"], use_padding=p["use_padding"]
+        use_verb=p["use_verb"], lower=p["lower"]
     )
     train, test, validation = train_loader.get_data(
         p["train_part"], p["test_part"], p["validation_part"],
         sent_num_threshold=p["minimum_sent_num"],
         frame_threshold=p["minimum_frame"]
     )
-    if on_validation:
-        test = validation
 
     field_names = [
         'precision', 'recall', 'f-score',
@@ -93,29 +76,18 @@ def run_fnn():
     verbs = train.keys()
     for verb in verbs:
         verb_counter += 1
-        # Recover the word vectors
-        if p["up_wordvec"] and verb_counter != 1:
-            word2vec = np.array(word2vec_bak, copy=True)
-        # Build RNN model for each verb
-        rnn = RNN(
-            x=train[verb][0], label_y=train[verb][1],
-            word2vec=word2vec, n_h=p["n_h"],
-            up_wordvec=p["up_wordvec"], use_bias=p["use_bias"],
-            act_func=p["act_func"], use_lstm=p["use_lstm"]
+        label_y = train[verb][1]
+        if use_mf:
+            mf = MostFrequent(label_y)
+            y_pred = mf.select(len(test[verb][0]))
+        else:
+            rs = RandomSelector(label_y)
+            y_pred = rs.select_array(len(test[verb][0]), rs_set)
 
-        )
-
-        epoch = rnn.minibatch_train(
-            lr=p["lr"],
-            minibatch=p["minibatch"],
-            max_epochs=p["max_epochs"],
-            verbose=training_detail
-        )
-
-        y_pred = rnn.predict(test[verb][0])
         precision, recall, f_score, _, _ = standard_score(
             y_true=test[verb][1], y_pred=y_pred
         )
+        epoch = 0
         scores = [
             precision, recall, f_score,
             len(train[verb][1]),
