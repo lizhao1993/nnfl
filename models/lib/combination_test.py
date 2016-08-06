@@ -125,7 +125,9 @@ class RecurrentNNTest(object):
         Compute forward pass
         """
 
-        hidden_out = self.recurrent_layer.forward(x, output_opt='last')
+        hidden_out = self.recurrent_layer.forward(
+            x, start=0, end=None, reverse=True, output_opt='last'
+        )
 
         softmax_out = self.softmax_layer.forward(hidden_out)
 
@@ -149,7 +151,7 @@ class RecurrentNNTest(object):
             go[i][y[i]] = (-1) / self.softmax_out[i][y[i]]
 
         ghidden = self.softmax_layer.backprop(go)
-        gx = self.recurrent_layer.backprop(ghidden, ginput_opt='last')
+        gx = self.recurrent_layer.backprop(ghidden)
 
         self.gparams = (self.recurrent_layer.gparams +
                         self.softmax_layer.gparams)
@@ -178,11 +180,11 @@ def recurrent_nntest():
     no_softmax = 5
     use_bias = True
     act_func = 'tanh'
-    x_num = 10
+    x_num = 3
     x = []
     for i in range(0, x_num):
         # Random column
-        col = np.random.randint(low=1, high=4)
+        col = np.random.randint(low=4, high=8)
         x_row = []
         go_row = []
         for j in range(0, col):

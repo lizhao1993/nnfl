@@ -369,21 +369,41 @@ class LSTMLayer(Layer):
 
         return (gxt, ght_1, gct_1)
 
-    def forward(self, x, output_opt='full'):
+    def forward(self, x, start=0, end=None, reverse=False, output_opt='full'):
         """
+        Forward pass on [start, end) of each row in x.
         x: 3d array-like
-            In the whole it usually is jagged array. The first
-            loop is sample numbers. The second is unit representation numbers.
-            The third is float numbers in one unit
+            In the whole it usually is jagged array. The first dimension
+            is the number of samples. The second is the number of unit
+            representation. The third are float numbers in one unit
+        start: int
+            Start position (included) in each row of x. Its default value is
+            zero. 
+        end: int
+            End position (not included) in each row of x. Its default value
+            None represents the last position (included) in each row of x.
+        reverse: boolean
+            False: keep the order in [start, end)
+            True: keep in a reverse order (end, start]
         output_opt: str
             'full': return full out of all blocks at all time
             'last': return out of all blocks at last time
         --------
         """
 
+        # Check
+        if end is not None and start >= end:
+            logging.error("position error. start:%s, end:%s" % (start, end))
+            raise Exception
         # Keep track them
         self.x = x
         self.output_opt = output_opt
+        self.start = start
+        self.end = end
+        self.reverse = reverse
+        # The offset position which is the left position of the selected
+        # interval in the row of x.
+        self.offset_pos = self.start
 
         self.cts = []
         self.ots = []
@@ -405,12 +425,16 @@ class LSTMLayer(Layer):
             # Iterate each unit over x[i]
             ht_1 = np.zeros((self.n_o, ))
             ct_1 = np.zeros((self.n_o, ))
-            start = 0
-            end = len(self.x[i])
-            stop = 1
-            for t in range(start, end, stop):
+            end = self.end
+            if self.end is None:
+                end = len(self.x[i])
+            start = self.start
+            sub_x = x[i][start:end]
+            if self.reverse == True:
+                sub_x = reversed(sub_x)
+            for x_t in sub_x:
                 (ct, ot, scaled_oct, scaled_incellt, it, ht, ft) = (
-                    self.single_forward(np.asarray(x[i][t]), ht_1, ct_1)
+                    self.single_forward(np.asarray(x_t), ht_1, ct_1)
                 )
                 ht_1 = ht
                 ct_1 = ct
@@ -456,7 +480,8 @@ class LSTMLayer(Layer):
             logging.error("No forward pass is computed")
             raise Exception
 
-        gop = copy.copy(self.x)
+        gop = copy.deepcopy(self.hts)
+        
         # Init gradients on parameters
         self.gparams = []
         self.gwxi = np.zeros(self.wxi.shape)
@@ -510,14 +535,22 @@ class LSTMLayer(Layer):
                 else:
                     ht_1 = self.hts[i][t - 1]
                     ct_1 = self.cts[i][t - 1]
+                if self.reverse == False:
+                    x_pos = t + self.offset_pos
+                else:
+                    x_pos = self.offset_pos + len(self.hts[i]) - 1 - t
                 (gxt, ght_1, gct_1) = self.single_backprop(
                     ght, gct, self.cts[i][t], self.ots[i][t],
                     ct_1, self.scaled_octs[i][t],
-                    self.scaled_incellts[i][t], self.its[i][t], self.x[i][t],
-                    ht_1, self.fts[i][t]
+                    self.scaled_incellts[i][t], self.its[i][t],
+                    self.x[i][x_pos], ht_1, self.fts[i][t]
                 )
+                if self.reverse:
+                    pos = len(self.hts[i]) - 1 - t
+                    gop[i][pos] = gxt
+                else:
+                    gop[i][t] = gxt
 
-                gop[i][t] = gxt
                 ght = ght_1
                 gct = gct_1
 
