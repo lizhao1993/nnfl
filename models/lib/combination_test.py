@@ -126,7 +126,7 @@ class RecurrentNNTest(object):
         """
 
         hidden_out = self.recurrent_layer.forward(
-            x, start=0, end=None, reverse=True, output_opt='last'
+            x, starts=None, ends=None, reverse=False, output_opt='last'
         )
 
         softmax_out = self.softmax_layer.forward(hidden_out)

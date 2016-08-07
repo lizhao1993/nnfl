@@ -126,10 +126,14 @@ class BRNN(object):
 
         embedding_out = self.embedding_layer.forward(x, input_opt='jagged')
 
-        left_array, right_array = split_jagged_array(embedding_out, split_pos)
-        right_array = inverse_jagged_array(right_array)
-        left_out = self.left_layer.forward(left_array, output_opt='last')
-        right_out = self.right_layer.forward(right_array, output_opt='last')
+        left_out = self.left_layer.forward(
+            embedding_out, starts=None, ends=split_pos, reverse=False,
+            output_opt='last'
+        )
+        right_out = self.right_layer.forward(
+            embedding_out, starts=split_pos, ends=None,
+            reverse=True, output_opt='last'
+        )
         # Avoiding empty output due to empty input caused by spliting
         recurrent_out = add_two_array(left_out, right_out)
         self.forward_out = self.softmax_layer.forward(recurrent_out)
@@ -157,7 +161,7 @@ class BRNN(object):
         self.gparams = self.softmax_layer.gparams + self.gparams
         gx = merge_jagged_array(
             self.left_layer.backprop(go),
-            inverse_jagged_array(self.right_layer.backprop(go))
+            self.right_layer.backprop(go)
         )
         recurrent_gparams = []
         for i in range(0, len(self.left_layer.gparams)):
@@ -274,7 +278,7 @@ def brnn_test():
     x_col = 10
     no_softmax = 5
     n_h = 30
-    up_wordvec = True
+    up_wordvec = False
     use_bias = True
     act_func = 'tanh'
     use_lstm = True
@@ -305,7 +309,7 @@ def brnn_gradient_test():
     up_wordvec = False
     use_bias = True
     act_func = 'tanh'
-    use_lstm = False
+    use_lstm = True
     x_row = 4
     voc_size = 20
     word_dim = 2
@@ -324,5 +328,5 @@ def brnn_gradient_test():
 
 
 if __name__ == "__main__":
-    brnn_test()
-    # brnn_gradient_test()
+    # brnn_test()
+    brnn_gradient_test()

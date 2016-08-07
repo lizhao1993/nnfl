@@ -369,19 +369,20 @@ class LSTMLayer(Layer):
 
         return (gxt, ght_1, gct_1)
 
-    def forward(self, x, start=0, end=None, reverse=False, output_opt='full'):
+    def forward(self, x, starts=None, ends=None, reverse=False, output_opt='full'):
         """
         Forward pass on [start, end) of each row in x.
         x: 3d array-like
             In the whole it usually is jagged array. The first dimension
             is the number of samples. The second is the number of unit
             representation. The third are float numbers in one unit
-        start: int
-            Start position (included) in each row of x. Its default value is
-            zero. 
-        end: int
+        starts: list of int
+            Start positions (included) in each row of x. Its default value
+            None means zeros.
+        ends: list of int
             End position (not included) in each row of x. Its default value
-            None represents the last position (included) in each row of x.
+            None represents the last position plus 1 (not included) in each
+            row of x.
         reverse: boolean
             False: keep the order in [start, end)
             True: keep in a reverse order (end, start]
@@ -391,19 +392,18 @@ class LSTMLayer(Layer):
         --------
         """
 
-        # Check
-        if end is not None and start >= end:
-            logging.error("position error. start:%s, end:%s" % (start, end))
-            raise Exception
         # Keep track them
         self.x = x
         self.output_opt = output_opt
-        self.start = start
-        self.end = end
+        self.starts = starts
+        self.ends = ends
         self.reverse = reverse
-        # The offset position which is the left position of the selected
+        # The offset positions which are the left positions of the selected
         # interval in the row of x.
-        self.offset_pos = self.start
+        if self.starts is None:
+            self.offsets_pos = [0 for i in range(0, len(x))]
+        else:
+            self.offsets_pos = self.starts
 
         self.cts = []
         self.ots = []
@@ -425,10 +425,14 @@ class LSTMLayer(Layer):
             # Iterate each unit over x[i]
             ht_1 = np.zeros((self.n_o, ))
             ct_1 = np.zeros((self.n_o, ))
-            end = self.end
-            if self.end is None:
+            if self.ends is None:
                 end = len(self.x[i])
-            start = self.start
+            else:
+                end = self.ends[i]
+            if self.starts is None:
+                start = 0
+            else:
+                start = self.starts[i]
             sub_x = x[i][start:end]
             if self.reverse == True:
                 sub_x = reversed(sub_x)
@@ -481,7 +485,7 @@ class LSTMLayer(Layer):
             raise Exception
 
         gop = copy.deepcopy(self.hts)
-        
+
         # Init gradients on parameters
         self.gparams = []
         self.gwxi = np.zeros(self.wxi.shape)
@@ -536,9 +540,9 @@ class LSTMLayer(Layer):
                     ht_1 = self.hts[i][t - 1]
                     ct_1 = self.cts[i][t - 1]
                 if self.reverse == False:
-                    x_pos = t + self.offset_pos
+                    x_pos = t + self.offsets_pos[i]
                 else:
-                    x_pos = self.offset_pos + len(self.hts[i]) - 1 - t
+                    x_pos = self.offsets_pos[i] + len(self.hts[i]) - 1 - t
                 (gxt, ght_1, gct_1) = self.single_backprop(
                     ght, gct, self.cts[i][t], self.ots[i][t],
                     ct_1, self.scaled_octs[i][t],

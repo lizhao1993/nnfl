@@ -43,7 +43,7 @@ def run_fnn():
     p["lr"] = 0.1
     p["n_h"] = 55
     # p["minimum_sent_num"] = 100
-    p["prediction_results"] = "../result/brnn_results/bilstm_semeval_parser"
+    p["prediction_results"] = "../result/brnn_results/bilstm_semeval_parser.refactored_brnn"
     p["minimum_sent_num"] = 0
     p["minimum_frame"] = 0
     p["train_part"] = 0.7
