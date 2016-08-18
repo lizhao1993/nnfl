@@ -487,7 +487,9 @@ class LSTMLayer(Layer):
             logging.error("No forward pass is computed")
             raise Exception
 
-        if self.reverse:
+        # Only in reverse and 'full' model, go need be inversed
+        # In 'last' mode, go is 2d array and do not need be inversed
+        if self.reverse and self.output_opt == 'full':
             go = inverse_jagged_array(go)
         gop = copy.deepcopy(self.hts)
 
