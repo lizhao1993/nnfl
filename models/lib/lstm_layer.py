@@ -487,6 +487,8 @@ class LSTMLayer(Layer):
             logging.error("No forward pass is computed")
             raise Exception
 
+        if self.reverse:
+            go = inverse_jagged_array(go)
         gop = copy.deepcopy(self.hts)
 
         # Init gradients on parameters

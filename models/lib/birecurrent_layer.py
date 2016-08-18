@@ -180,11 +180,16 @@ class BiRecurrentLayer(Layer):
             same as x
         gparams: self.gparams
         """
-        gop = add_two_array(
-            self.upper_layer.backprop(go),
-            self.lower_layer.backprop(inverse_jagged_array(go))
-        )
+
+        # Add the gradients on previous layer together
+        upper_gop = self.upper_layer.backprop(go)
+        lower_gop = self.lower_layer.backprop(go)
+        gop = copy.deepcopy(upper_gop)
+        for i in range(0, len(upper_gop)):
+            for j in range(0, len(upper_gop[i])):
+                gop[i][j] = upper_gop[i][j] + lower_gop[i][j]
     
+        # Add the gradients on parameters together
         self.gparams = []
         for i in range(0, len(self.upper_layer.gparams)):
             self.gparams.append(
@@ -197,7 +202,7 @@ def layer_test():
     n_i = 3
     n_o = 5
     use_bias = True
-    x_num = 3
+    x_num = 5
     x = []
     # Construct x
     for i in range(0, x_num):
