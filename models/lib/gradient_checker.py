@@ -54,7 +54,11 @@ class GradientChecker(object):
                     abs_error = abs(gradient - estimated_gradient)
                     if (abs_error > 1e-06):
                         gradient_problem = "HAVE PROBLEMS(WARN)"
-                        break
+                        logging.debug("absolute error:%s" % abs_error)
+                        logging.info(
+                            "Finish to check, gradients:%s" % gradient_problem
+                        )
+                        return
 
         logging.info("Finish to check, gradients:%s" % gradient_problem)
         return
@@ -183,7 +187,7 @@ class GradientChecker(object):
                 abs_error = abs(gradient - estimated_gradient)
                 if (abs_error > 1e-06):
                     gradient_problem = "HAVE PROBLEMS(WARN)"
-                    print(abs_error)
+                    logging.debug("absolute error:%s" % abs_error)
                     break
                 it.iternext()
             logging.info("Checking %s, gradient: %s"

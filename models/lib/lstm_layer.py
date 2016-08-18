@@ -460,7 +460,10 @@ class LSTMLayer(Layer):
             self.fts.append(fts)
 
         if self.output_opt == 'full':
-            return self.hts
+            if self.reverse:
+                return inverse_jagged_array(self.hts)
+            else:
+                return self.hts
         else:
             return get_col_from_jagged_array(-1, self.hts)
 
