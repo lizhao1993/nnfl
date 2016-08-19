@@ -12,8 +12,8 @@ from inc import*
 from gradient_checker import GradientChecker
 import layer
 import metrics
-import recurrent_layer
-import lstm_layer
+import birecurrent_layer
+from layer import FuncNormLayer
 
 
 class ABiRNN(object):
@@ -21,7 +21,8 @@ class ABiRNN(object):
     Attention-based Bidirectional Recurrent Neural Network (BRNN) class
     """
     def __init__(self, x, label_y, word2vec, n_h, up_wordvec=False,
-                 use_bias=True, act_func='tanh', use_lstm=True):
+                 use_bias=True, act_func='tanh',
+                 use_lstm=True, norm_func='softmax'):
         """
         Init ABRiNN
         x: numpy.ndarray, 2d jagged arry
@@ -42,6 +43,9 @@ class ABiRNN(object):
             Two values are tanh and sigmoid
         use_lstm: bool
             Whether use lstm layer, default is lstm layer
+        norm_func: str
+            Attention normalization function.
+            Two options are 'softmax' and 'sigmoid'
         """
 
         self.x = x
@@ -51,6 +55,7 @@ class ABiRNN(object):
         self.act_func = act_func
         self.use_bias = use_bias
         self.use_lstm = use_lstm
+        self.norm_func = norm_func
 
         # label_y should be normalized to continuous integers starting from 0
         self.label_y = label_y
@@ -74,19 +79,14 @@ class ABiRNN(object):
         self.param_names = []
 
         # Init hidden layers
-        if self.use_lstm:
-            self.left_layer = lstm_layer.LSTMLayer()
-            self.right_layer = lstm_layer.LSTMLayer()
-        else:
-            self.left_layer = recurrent_layer.RecurrentLayer()
-            self.right_layer = recurrent_layer.RecurrentLayer()
-        self.left_layer.init_layer(self.n_i, self.n_h,
-                                   act_func=self.act_func,
-                                   use_bias=self.use_bias)
-        self.right_layer.share_layer(self.left_layer)
+        self.bir_layer = birecurrent_layer.BiRecurrentLayer()
+        self.bir_layer.init_layer(n_i=self.n_i, n_o=self.n_o,
+                                  act_func=self.act_func,
+                                  use_bias=self.use_bias,
+                                  use_lstm=self.use_lstm)
 
-        self.params += self.left_layer.params
-        self.param_names += self.left_layer.param_names
+        self.params += self.bir_layer.params
+        self.param_names += self.bir_layer.param_names
 
         # Output layer
         self.softmax_layer = layer.SoftmaxLayer()
@@ -117,25 +117,34 @@ class ABiRNN(object):
         x: numpy.ndarray, 2d arry
             The input data. The index of words
         split_pos: 1d array like
-            Start position in x. BRNN will compute from split_pos. The
-            left_layer will compute from 0 to split_pos(not included)
-            and the right_layer will compute from split_pos to last.
-            If split_pos is None, split_pos will
-            be the half of current row of x.
+            Start position in x. These positions are used to compute the global
+            infomation. If it is None, half of each row in x will be used as
+            default.
         """
 
         embedding_out = self.embedding_layer.forward(x, input_opt='jagged')
+        birlayer_out = self.bir_layer.forward(embedding_out)
 
-        left_out = self.left_layer.forward(
-            embedding_out, starts=None, ends=None, reverse=False,
-            output_opt='full'
-        )
-        right_out = self.right_layer.forward(
-            embedding_out, starts=split_pos, ends=None,
-            reverse=True, output_opt='last'
-        )
-        # Avoiding empty output due to empty input caused by spliting
-        recurrent_out = add_two_array(left_out, right_out)
+        self.norm_layers = []
+        # Numerical value after normalization
+        alphas = []
+        for i in range(0, len(birlayer_out)):
+            if split_pos is None:
+                row_len = len(birlayer_out[i])
+                global_pos = int(row_len / 2)
+            else:
+                global_pos = split_pos[i]
+            # Numerical value before normalization
+            es = np.zeros(shape=(1, row_len))
+            for j in range(0, row_len):
+                if j == global_pos:
+                    continue
+                es[0][j] = birlayer_out[i][j].dot(birlayer_out[i][global_pos])
+            self.norm_layers.append(
+                FuncNormLayer(row_len, act_func=self.norm_func)
+            )
+            self.norm_layers[i].forward(es)
+
         self.forward_out = self.softmax_layer.forward(recurrent_out)
         self.split_pos = split_pos
 
