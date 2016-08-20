@@ -44,16 +44,15 @@ def run_fnn():
     p["lr"] = 0.1
     p["n_h"] = 55
     # p["minimum_sent_num"] = 100
-    p["prediction_results"] = "../result/brnn_results/bilstm_semeval_parser.refactored_brnn"
-    #  p["prediction_results"] = "../result/brnn_results/logic_test"
-    #  p["word2vec_path"] = "../data/sample_word2vec.txt"
+    p["prediction_results"] = "../result/abirnn_results/semeval.sigmoid"
+    #  p["prediction_results"] = "../result/brnn_results/semeval_origin2.refactored"
     p["minimum_sent_num"] = 0
     p["minimum_frame"] = 0
     p["train_part"] = 0.7
     p["test_part"] = 0.3
     p["validation_part"] = 0.0
     p["attention_birnn"] = True
-    p["norm_func"] = 'softmax'
+    p["norm_func"] = 'sigmoid'
     on_validation = False
     training_detail = False
     # Get vocabulary and word vectors

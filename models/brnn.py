@@ -126,9 +126,12 @@ class BRNN(object):
 
         embedding_out = self.embedding_layer.forward(x, input_opt='jagged')
 
+        ends_for_left = None
+        if split_pos is not None:
+            ends_for_left = ends=[x + 1 for x in split_pos]
         left_out = self.left_layer.forward(
-            embedding_out, starts=None, ends=split_pos, reverse=False,
-            output_opt='last'
+            embedding_out, starts=None, ends=ends_for_left,
+            reverse=False, output_opt='last'
         )
         right_out = self.right_layer.forward(
             embedding_out, starts=split_pos, ends=None,
