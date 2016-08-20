@@ -215,6 +215,20 @@ def inverse_jagged_array(jagged_array):
 
     return inversed_jagged_array
 
+def set_jagged_array(jagged_array, val):
+    """set jagged array with val
+
+    :jagged_array: 3d array
+    :val: int, the value to be set
+    :returns: None
+
+    """
+    for i in range(0, len(jagged_array)):
+        for j in range(0, len(jagged_array[i])):
+            for k in range(0, len(jagged_array[i][j])):
+                jagged_array[i][j][k] = val
+
+
 def jagged_array_test():
     n_row = 5
     min_col = 1
@@ -234,6 +248,10 @@ def jagged_array_test():
     print_jagged_array(right_array)
     print("inverse x")
     print_jagged_array(inverse_jagged_array(x))
+    val = 0
+    print("set jagged array with %s" % val)
+    set_jagged_array(x, val)
+    print_jagged_array(x)
 
 
 if __name__ == "__main__":

@@ -14,6 +14,7 @@ import layer
 import metrics
 import birecurrent_layer
 from layer import FuncNormLayer
+import copy
 
 
 class ABiRNN(object):
@@ -80,7 +81,7 @@ class ABiRNN(object):
 
         # Init hidden layers
         self.bir_layer = birecurrent_layer.BiRecurrentLayer()
-        self.bir_layer.init_layer(n_i=self.n_i, n_o=self.n_o,
+        self.bir_layer.init_layer(n_i=self.n_i, n_o=self.n_h,
                                   act_func=self.act_func,
                                   use_bias=self.use_bias,
                                   use_lstm=self.use_lstm)
@@ -127,25 +128,39 @@ class ABiRNN(object):
 
         self.norm_layers = []
         # Numerical value after normalization
-        alphas = []
+        self.after_norm_vals = []
+        weighted_sums = np.zeros(shape=(len(birlayer_out), self.n_h))
         for i in range(0, len(birlayer_out)):
+            row_len = len(birlayer_out[i])
             if split_pos is None:
-                row_len = len(birlayer_out[i])
                 global_pos = int(row_len / 2)
             else:
                 global_pos = split_pos[i]
             # Numerical value before normalization
-            es = np.zeros(shape=(1, row_len))
+            before_norm_val = np.zeros(shape=(1, row_len))
             for j in range(0, row_len):
                 if j == global_pos:
                     continue
-                es[0][j] = birlayer_out[i][j].dot(birlayer_out[i][global_pos])
+                before_norm_val[0][j] = (
+                    birlayer_out[i][j].dot(birlayer_out[i][global_pos])
+                )
             self.norm_layers.append(
                 FuncNormLayer(row_len, act_func=self.norm_func)
             )
-            self.norm_layers[i].forward(es)
+            after_norm_val = self.norm_layers[i].forward(before_norm_val)
+            self.after_norm_vals.append(after_norm_val)
+            # Compute weighted sum
+            for j in range(0, row_len):
+                # The attention of global info is set to 1.
+                if j == global_pos:
+                    weighted_sums[i] += birlayer_out[i][j]
+                    continue
+                weighted_sums[i] += (birlayer_out[i][j] *
+                                          after_norm_val[0][j])
 
-        self.forward_out = self.softmax_layer.forward(recurrent_out)
+
+        self.birlayer_out = birlayer_out
+        self.forward_out = self.softmax_layer.forward(weighted_sums)
         self.split_pos = split_pos
 
         return self.forward_out
@@ -168,16 +183,43 @@ class ABiRNN(object):
         go = self.softmax_layer.backprop(go)
         self.gparams = []
         self.gparams = self.softmax_layer.gparams + self.gparams
-        gx = merge_jagged_array(
-            self.left_layer.backprop(go),
-            self.right_layer.backprop(go)
-        )
-        recurrent_gparams = []
-        for i in range(0, len(self.left_layer.gparams)):
-            recurrent_gparams.append(
-                self.left_layer.gparams[i] + self.right_layer.gparams[i]
+
+        # Compute gradients on before_norm_val and on birlayer_out
+        gbirlayer_out = copy.deepcopy(self.birlayer_out)
+        set_jagged_array(gbirlayer_out, 0)
+        gbefore_norm_vals = copy.deepcopy(self.after_norm_vals)
+        for i in range(0, len(gbefore_norm_vals)):
+            row_len = len(self.birlayer_out[i])
+            if self.split_pos is None:
+                global_pos = int(row_len / 2)
+            else:
+                global_pos = self.split_pos[i]
+
+            # Compute part of graidents on gbirlayer_out and before_norm_val
+            for j in range(0, row_len):
+                if j == global_pos:
+                    continue
+                gbirlayer_out[i][j] = (go[i] * self.after_norm_vals[i][0][j])
+                gbefore_norm_vals[i][0][j] = (
+                    go[i].dot(self.birlayer_out[i][j])
+                )
+
+            gbefore_norm_vals[i] = (
+                self.norm_layers[i].backprop(gbefore_norm_vals[i])
             )
-        self.gparams = recurrent_gparams + self.gparams
+
+            # Compute another part gradients on gbirlayer_out
+            for j in range(0, row_len):
+                if j == global_pos:
+                    continue
+                gbirlayer_out[i][j] += (self.birlayer_out[i][global_pos] *
+                                       gbefore_norm_vals[i][0][j])
+                gbirlayer_out[i][global_pos] += (
+                    self.birlayer_out[i][j] * gbefore_norm_vals[i][0][j]
+                )
+
+        gx = self.bir_layer.backprop(gbirlayer_out)
+        self.gparams = self.bir_layer.gparams + self.gparams
         return gx
 
     def batch_train(self, x, y, lr, split_pos):
@@ -327,8 +369,8 @@ def brnn_gradient_test():
                           max_int=voc_size, min_int=0, dim_unit=None)
     label_y = np.random.randint(low=0, high=20, size=x_row)
     word2vec = np.random.uniform(low=0, high=5, size=(voc_size, word_dim))
-    nntest = BRNN(x, label_y, word2vec, n_h, up_wordvec, use_bias,
-                 act_func, use_lstm=use_lstm)
+    nntest = ABiRNN(x, label_y, word2vec, n_h, up_wordvec, use_bias,
+                    act_func, use_lstm=use_lstm)
 
     # Gradient testing
     y = np.array([nntest.label_to_y[i] for i in label_y])
