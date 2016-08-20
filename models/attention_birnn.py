@@ -139,8 +139,8 @@ class ABiRNN(object):
             # Numerical value before normalization
             before_norm_val = np.zeros(shape=(1, row_len))
             for j in range(0, row_len):
-                if j == global_pos:
-                    continue
+                #  if j == global_pos:
+                    #  continue
                 before_norm_val[0][j] = (
                     birlayer_out[i][j].dot(birlayer_out[i][global_pos])
                 )
@@ -152,9 +152,9 @@ class ABiRNN(object):
             # Compute weighted sum
             for j in range(0, row_len):
                 # The attention of global info is set to 1.
-                if j == global_pos:
-                    weighted_sums[i] += birlayer_out[i][j]
-                    continue
+                #  if j == global_pos:
+                    #  weighted_sums[i] += birlayer_out[i][j]
+                    #  continue
                 weighted_sums[i] += (birlayer_out[i][j] *
                                           after_norm_val[0][j])
 
@@ -197,8 +197,8 @@ class ABiRNN(object):
 
             # Compute part of graidents on gbirlayer_out and before_norm_val
             for j in range(0, row_len):
-                if j == global_pos:
-                    continue
+                #  if j == global_pos:
+                    #  continue
                 gbirlayer_out[i][j] = (go[i] * self.after_norm_vals[i][0][j])
                 gbefore_norm_vals[i][0][j] = (
                     go[i].dot(self.birlayer_out[i][j])
@@ -210,8 +210,8 @@ class ABiRNN(object):
 
             # Compute another part gradients on gbirlayer_out
             for j in range(0, row_len):
-                if j == global_pos:
-                    continue
+                #  if j == global_pos:
+                    #  continue
                 gbirlayer_out[i][j] += (self.birlayer_out[i][global_pos] *
                                        gbefore_norm_vals[i][0][j])
                 gbirlayer_out[i][global_pos] += (
@@ -341,8 +341,8 @@ def brnn_test():
                           # max_int=voc_size, min_int=0, dim_unit=None)
     label_y = np.random.randint(low=0, high=20, size=x_row)
     word2vec = np.random.uniform(low=0, high=5, size=(voc_size, word_dim))
-    nntest = BRNN(x, label_y, word2vec, n_h, up_wordvec, use_bias,
-                 act_func, use_lstm=use_lstm)
+    nntest = ABiRNN(x, label_y, word2vec, n_h, up_wordvec, use_bias,
+                    act_func, use_lstm=use_lstm)
     split_pos = np.random.randint(low=4, high=8, size=(x_row, ))
 
     # Training
@@ -370,7 +370,7 @@ def brnn_gradient_test():
     label_y = np.random.randint(low=0, high=20, size=x_row)
     word2vec = np.random.uniform(low=0, high=5, size=(voc_size, word_dim))
     nntest = ABiRNN(x, label_y, word2vec, n_h, up_wordvec, use_bias,
-                    act_func, use_lstm=use_lstm)
+                    act_func, use_lstm=use_lstm, norm_func='softmax')
 
     # Gradient testing
     y = np.array([nntest.label_to_y[i] for i in label_y])
@@ -379,5 +379,5 @@ def brnn_gradient_test():
 
 
 if __name__ == "__main__":
-    # brnn_test()
-    brnn_gradient_test()
+    brnn_test()
+    #  brnn_gradient_test()

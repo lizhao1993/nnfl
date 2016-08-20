@@ -14,6 +14,7 @@ from tools import*
 from data_loader import DataLoader
 from metrics import*
 from brnn import BRNN
+from attention_birnn import ABiRNN
 from collections import OrderedDict
 from parameter_setting import*
 
@@ -37,18 +38,22 @@ def gen_print_info(field_names, values):
 
 def run_fnn():
     p = p_bilstm
-    # p = p_birnn_logic_test
+    #  p = p_birnn_logic_test
     p["left_win"] = -1 
     p["right_win"] = -1
     p["lr"] = 0.1
     p["n_h"] = 55
     # p["minimum_sent_num"] = 100
     p["prediction_results"] = "../result/brnn_results/bilstm_semeval_parser.refactored_brnn"
+    #  p["prediction_results"] = "../result/brnn_results/logic_test"
+    #  p["word2vec_path"] = "../data/sample_word2vec.txt"
     p["minimum_sent_num"] = 0
     p["minimum_frame"] = 0
     p["train_part"] = 0.7
     p["test_part"] = 0.3
     p["validation_part"] = 0.0
+    p["attention_birnn"] = True
+    p["norm_func"] = 'softmax'
     on_validation = False
     training_detail = False
     # Get vocabulary and word vectors
@@ -98,13 +103,21 @@ def run_fnn():
         if p["up_wordvec"] and verb_counter != 1:
             word2vec = np.array(word2vec_bak, copy=True)
         # Build BRNN model for each verb
-        rnn = BRNN(
-            x=train[verb][0], label_y=train[verb][1],
-            word2vec=word2vec, n_h=p["n_h"],
-            up_wordvec=p["up_wordvec"], use_bias=p["use_bias"],
-            act_func=p["act_func"], use_lstm=p["use_lstm"]
-
-        )
+        if p["attention_birnn"]:
+            rnn = ABiRNN(
+                x=train[verb][0], label_y=train[verb][1],
+                word2vec=word2vec, n_h=p["n_h"],
+                up_wordvec=p["up_wordvec"], use_bias=p["use_bias"],
+                act_func=p["act_func"], use_lstm=p["use_lstm"],
+                norm_func=p["norm_func"]
+            )
+        else:
+            rnn = BRNN(
+                x=train[verb][0], label_y=train[verb][1],
+                word2vec=word2vec, n_h=p["n_h"],
+                up_wordvec=p["up_wordvec"], use_bias=p["use_bias"],
+                act_func=p["act_func"], use_lstm=p["use_lstm"]
+            )
 
         epoch = rnn.minibatch_train(
             lr=p["lr"],
