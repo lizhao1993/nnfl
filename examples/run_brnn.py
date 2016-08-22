@@ -44,7 +44,7 @@ def run_fnn():
     p["lr"] = 0.1
     p["n_h"] = 55
     # p["minimum_sent_num"] = 100
-    p["prediction_results"] = "../result/abirnn_results/semeval.sigmoid"
+    p["prediction_results"] = "../result/abirnn_results/semeval.global_independent"
     #  p["prediction_results"] = "../result/brnn_results/semeval_origin2.refactored"
     p["minimum_sent_num"] = 0
     p["minimum_frame"] = 0
@@ -52,7 +52,8 @@ def run_fnn():
     p["test_part"] = 0.3
     p["validation_part"] = 0.0
     p["attention_birnn"] = True
-    p["norm_func"] = 'sigmoid'
+    p["norm_func"] = 'softmax'
+    p["global_independent"] = True
     on_validation = False
     training_detail = False
     # Get vocabulary and word vectors
@@ -108,7 +109,8 @@ def run_fnn():
                 word2vec=word2vec, n_h=p["n_h"],
                 up_wordvec=p["up_wordvec"], use_bias=p["use_bias"],
                 act_func=p["act_func"], use_lstm=p["use_lstm"],
-                norm_func=p["norm_func"]
+                norm_func=p["norm_func"],
+                global_independent=p["global_independent"]
             )
         else:
             rnn = BRNN(

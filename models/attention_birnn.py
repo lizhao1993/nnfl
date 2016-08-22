@@ -23,7 +23,7 @@ class ABiRNN(object):
     """
     def __init__(self, x, label_y, word2vec, n_h, up_wordvec=False,
                  use_bias=True, act_func='tanh',
-                 use_lstm=True, norm_func='softmax'):
+                 use_lstm=True, norm_func='softmax', global_independent=False):
         """
         Init ABRiNN
         x: numpy.ndarray, 2d jagged arry
@@ -47,6 +47,11 @@ class ABiRNN(object):
         norm_func: str
             Attention normalization function.
             Two options are 'softmax' and 'sigmoid'
+        global_independent: bool
+            True: the global infomation in x wil be independent and not compute
+            together with x.
+            False: the global infomation inx will be treated equally as all x.
+            The position of global infomation is specified by split_pos
         """
 
         self.x = x
@@ -57,6 +62,7 @@ class ABiRNN(object):
         self.use_bias = use_bias
         self.use_lstm = use_lstm
         self.norm_func = norm_func
+        self.global_independent = global_independent
 
         # label_y should be normalized to continuous integers starting from 0
         self.label_y = label_y
@@ -139,8 +145,13 @@ class ABiRNN(object):
             # Numerical value before normalization
             before_norm_val = np.zeros(shape=(1, row_len))
             for j in range(0, row_len):
-                #  if j == global_pos:
-                    #  continue
+                # I use -sys.maxsize as one trick to implement more efficiently
+                # This should work because assign a minimal number to one unit
+                # in before_norm_val will cause zero after applying softmax or
+                # sigmoid function to this unit.
+                if self.global_independent and j == global_pos:
+                    before_norm_val[0][j] = -sys.maxsize
+                    continue
                 before_norm_val[0][j] = (
                     birlayer_out[i][j].dot(birlayer_out[i][global_pos])
                 )
@@ -152,11 +163,11 @@ class ABiRNN(object):
             # Compute weighted sum
             for j in range(0, row_len):
                 # The attention of global info is set to 1.
-                #  if j == global_pos:
-                    #  weighted_sums[i] += birlayer_out[i][j]
-                    #  continue
+                if self.global_independent and j == global_pos:
+                    weighted_sums[i] += birlayer_out[i][j]
+                    continue
                 weighted_sums[i] += (birlayer_out[i][j] *
-                                          after_norm_val[0][j])
+                                     after_norm_val[0][j])
 
 
         self.birlayer_out = birlayer_out
@@ -197,8 +208,9 @@ class ABiRNN(object):
 
             # Compute part of graidents on gbirlayer_out and before_norm_val
             for j in range(0, row_len):
-                #  if j == global_pos:
-                    #  continue
+                if self.global_independent and j == global_pos:
+                    gbirlayer_out[i][j] = go[i]
+                    continue
                 gbirlayer_out[i][j] = (go[i] * self.after_norm_vals[i][0][j])
                 gbefore_norm_vals[i][0][j] = (
                     go[i].dot(self.birlayer_out[i][j])
@@ -210,8 +222,8 @@ class ABiRNN(object):
 
             # Compute another part gradients on gbirlayer_out
             for j in range(0, row_len):
-                #  if j == global_pos:
-                    #  continue
+                if self.global_independent and j == global_pos:
+                    continue
                 gbirlayer_out[i][j] += (self.birlayer_out[i][global_pos] *
                                        gbefore_norm_vals[i][0][j])
                 gbirlayer_out[i][global_pos] += (
@@ -370,7 +382,8 @@ def brnn_gradient_test():
     label_y = np.random.randint(low=0, high=20, size=x_row)
     word2vec = np.random.uniform(low=0, high=5, size=(voc_size, word_dim))
     nntest = ABiRNN(x, label_y, word2vec, n_h, up_wordvec, use_bias,
-                    act_func, use_lstm=use_lstm, norm_func='softmax')
+                    act_func, use_lstm=use_lstm, norm_func='softmax',
+                    global_independent=True)
 
     # Gradient testing
     y = np.array([nntest.label_to_y[i] for i in label_y])
@@ -379,5 +392,5 @@ def brnn_gradient_test():
 
 
 if __name__ == "__main__":
-    brnn_test()
-    #  brnn_gradient_test()
+    #  brnn_test()
+    brnn_gradient_test()
