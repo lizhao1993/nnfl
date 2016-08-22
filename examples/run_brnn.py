@@ -38,24 +38,22 @@ def gen_print_info(field_names, values):
 
 def run_fnn():
     p = p_bilstm
-    #  p = p_birnn_logic_test
     p["left_win"] = -1 
     p["right_win"] = -1
     p["lr"] = 0.1
     p["n_h"] = 55
-    # p["minimum_sent_num"] = 100
-    p["prediction_results"] = "../result/abirnn_results/semeval.global_independent"
-    #  p["prediction_results"] = "../result/brnn_results/semeval_origin2.refactored"
-    p["minimum_sent_num"] = 0
-    p["minimum_frame"] = 0
+    p["data_path"] = "../data/wsj_framnet/"
+    p["minimum_sent_num"] = 300
+    p["prediction_results"] = "../result/attention_compare_results/brnn2.framenet"
+    p["minimum_frame"] = 2
     p["train_part"] = 0.7
-    p["test_part"] = 0.3
-    p["validation_part"] = 0.0
-    p["attention_birnn"] = True
+    p["test_part"] = 0.2
+    p["validation_part"] = 0.1
+    p["attention_birnn"] = False
     p["norm_func"] = 'softmax'
-    p["global_independent"] = True
+    p["global_independent"] = False
     on_validation = False
-    training_detail = False
+    training_detail = True
     # Get vocabulary and word vectors
     vocab, invocab, word2vec = get_vocab_and_vectors(
         p["word2vec_path"], norm_only=p["norm_vec"], oov=p["oov"],
