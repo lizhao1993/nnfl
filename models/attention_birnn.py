@@ -14,6 +14,7 @@ import layer
 import metrics
 import birecurrent_layer
 from layer import FuncNormLayer
+from layer import AttentionLayer
 import copy
 
 
@@ -95,6 +96,9 @@ class ABiRNN(object):
         self.params += self.bir_layer.params
         self.param_names += self.bir_layer.param_names
 
+        # Init attention layer
+        self.attention_layer = AttentionLayer(norm_func=self.norm_func)
+
         # Output layer
         self.softmax_layer = layer.SoftmaxLayer()
         self.softmax_layer.init_layer(n_i=self.n_h, n_o=self.n_o,
@@ -132,44 +136,16 @@ class ABiRNN(object):
         embedding_out = self.embedding_layer.forward(x, input_opt='jagged')
         birlayer_out = self.bir_layer.forward(embedding_out)
 
-        self.norm_layers = []
-        # Numerical value after normalization
-        self.after_norm_vals = []
-        weighted_sums = np.zeros(shape=(len(birlayer_out), self.n_h))
-        for i in range(0, len(birlayer_out)):
-            row_len = len(birlayer_out[i])
-            if split_pos is None:
-                global_pos = int(row_len / 2)
-            else:
-                global_pos = split_pos[i]
-            # Numerical value before normalization
-            before_norm_val = np.zeros(shape=(1, row_len))
-            for j in range(0, row_len):
-                # I use -sys.maxsize as one trick to implement more efficiently
-                # This should work because assign a minimal number to one unit
-                # in before_norm_val will cause zero after applying softmax or
-                # sigmoid function to this unit.
-                if self.global_independent and j == global_pos:
-                    before_norm_val[0][j] = -sys.maxsize
-                    continue
-                before_norm_val[0][j] = (
-                    birlayer_out[i][j].dot(birlayer_out[i][global_pos])
-                )
-            self.norm_layers.append(
-                FuncNormLayer(row_len, act_func=self.norm_func)
-            )
-            after_norm_val = self.norm_layers[i].forward(before_norm_val)
-            self.after_norm_vals.append(after_norm_val)
-            # Compute weighted sum
-            for j in range(0, row_len):
-                # The attention of global info is set to 1.
-                if self.global_independent and j == global_pos:
-                    weighted_sums[i] += birlayer_out[i][j]
-                    continue
-                weighted_sums[i] += (birlayer_out[i][j] *
-                                     after_norm_val[0][j])
+        # IF split_pos is None then half of each row is used
+        if split_pos is None:
+            split_pos = [int(len(row) / 2) for row in birlayer_out]
 
+        global_info = get_col_from_jagged_array(split_pos, birlayer_out)
+        weighted_sums, attention_matrix = (
+            self.attention_layer.forward(birlayer_out, global_info)
+        )
 
+        self.attention_matrix = attention_matrix
         self.birlayer_out = birlayer_out
         self.forward_out = self.softmax_layer.forward(weighted_sums)
         self.split_pos = split_pos
@@ -195,42 +171,13 @@ class ABiRNN(object):
         self.gparams = []
         self.gparams = self.softmax_layer.gparams + self.gparams
 
-        # Compute gradients on before_norm_val and on birlayer_out
-        gbirlayer_out = copy.deepcopy(self.birlayer_out)
-        set_jagged_array(gbirlayer_out, 0)
-        gbefore_norm_vals = copy.deepcopy(self.after_norm_vals)
-        for i in range(0, len(gbefore_norm_vals)):
-            row_len = len(self.birlayer_out[i])
-            if self.split_pos is None:
-                global_pos = int(row_len / 2)
-            else:
-                global_pos = self.split_pos[i]
-
-            # Compute part of graidents on gbirlayer_out and before_norm_val
-            for j in range(0, row_len):
-                if self.global_independent and j == global_pos:
-                    gbirlayer_out[i][j] = go[i]
-                    continue
-                gbirlayer_out[i][j] = (go[i] * self.after_norm_vals[i][0][j])
-                gbefore_norm_vals[i][0][j] = (
-                    go[i].dot(self.birlayer_out[i][j])
-                )
-
-            gbefore_norm_vals[i] = (
-                self.norm_layers[i].backprop(gbefore_norm_vals[i])
-            )
-
-            # Compute another part gradients on gbirlayer_out
-            for j in range(0, row_len):
-                if self.global_independent and j == global_pos:
-                    continue
-                gbirlayer_out[i][j] += (self.birlayer_out[i][global_pos] *
-                                       gbefore_norm_vals[i][0][j])
-                gbirlayer_out[i][global_pos] += (
-                    self.birlayer_out[i][j] * gbefore_norm_vals[i][0][j]
-                )
+        gbirlayer_out, gglobal_info = self.attention_layer.backprop(go)
+        # Add gglobal_info to gx
+        for i in range(0, len(gbirlayer_out)):
+            gbirlayer_out[i][self.split_pos[i]] += gglobal_info[i]
 
         gx = self.bir_layer.backprop(gbirlayer_out)
+
         self.gparams = self.bir_layer.gparams + self.gparams
         return gx
 

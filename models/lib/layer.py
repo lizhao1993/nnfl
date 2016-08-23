@@ -5,6 +5,7 @@ Date:   2016-05-16
 Brief:  The library of layer
 """
 
+import copy
 from inc import*
 from gradient_checker import GradientChecker
 
@@ -98,14 +99,14 @@ class FuncNormLayer(NormlizationLayer):
             'softmax': Using softmax function to normalize
             'sigmoid': Using sigmoid function to normalize
         """
-        
+
         if act_func not in ['softmax', 'sigmoid']:
             logging.error("act_func:%s, not available")
             raise Exception
 
         NormlizationLayer.__init__(self, n_unit)
         self.act_func = act_func
-        
+
     def forward(self, x):
         """
         Compute forward pass
@@ -158,7 +159,7 @@ class FuncNormLayer(NormlizationLayer):
             raise Exception
         gnet = NormlizationLayer.backprop(self, go)
         if self.act_func == 'softmax':
-            gnet *= self.stable_input 
+            gnet *= self.stable_input
         elif self.act_func == 'sigmoid':
             gnet *= self.stable_input * (1 - self.stable_input)
         else:
@@ -583,6 +584,93 @@ class EmbeddingLayer(Layer):
         else:
             return (self.vectorized_x, go)
 
+
+class AttentionLayer(Layer):
+
+    """The class of AttentionLayer. The caller must provide one global
+    infomation which is used to mix up with the input. Then weighted sum of
+    input is returned in the forward pass"""
+
+    def __init__(self, norm_func='softmax'):
+        """init layer
+
+        :norm_func: str, two options are 'softmax' and 'sigmoid'
+
+        """
+        self.norm_func = norm_func
+
+    def forward(self, x, global_info):
+        """Compute forward pass. global_info is used to mix up with x and then
+        normalization function is applied. At last the weighted sum is obtained
+
+        :x: 3d jagged array, the length of the first dimension is the number of
+        samples. The second is number of unit and the third is the number of
+        float value.
+        :global_info: 2d array, numpy.ndarray
+        :returns: 
+            - weighted sum, the same shape with global_info
+            - attention matrix        
+
+        """
+
+        self.norm_layers = []
+        # Numerical value after normalization
+        self.after_norm_vals = []
+        weighted_sums = np.zeros(shape=(len(x), len(global_info[0])))
+        for i in range(0, len(x)):
+            row_len = len(x[i])
+            # Numerical value before normalization
+            before_norm_val = np.zeros(shape=(1, row_len))
+            for j in range(0, row_len):
+                before_norm_val[0][j] = (
+                    x[i][j].dot(global_info[i])
+                )
+            self.norm_layers.append(
+                FuncNormLayer(row_len, act_func=self.norm_func)
+            )
+            after_norm_val = self.norm_layers[i].forward(before_norm_val)
+            self.after_norm_vals.append(after_norm_val)
+            # Compute weighted sum
+            for j in range(0, row_len):
+                weighted_sums[i] += (x[i][j] * after_norm_val[0][j])
+
+        self.x = x
+        self.global_info = global_info
+        return (weighted_sums, self.after_norm_vals)
+
+    def backprop(self, go):
+        """Backprop pass
+
+        :go: gradient on the output of forward pass.
+        :returns: gradient on x and global_info
+
+        """
+
+        # Compute gradients on before_norm_val and on x
+        gx = copy.deepcopy(self.x)
+        set_jagged_array(gx, 0)
+        gglobal_info = np.zeros(shape=self.global_info.shape)
+        gbefore_norm_vals = copy.deepcopy(self.after_norm_vals)
+        for i in range(0, len(gbefore_norm_vals)):
+            row_len = len(self.x[i])
+
+            # Compute part of graidents on x and before_norm_val
+            for j in range(0, row_len):
+                gx[i][j] = (go[i] * self.after_norm_vals[i][0][j])
+                gbefore_norm_vals[i][0][j] = (
+                    go[i].dot(self.x[i][j])
+                )
+
+            gbefore_norm_vals[i] = (
+                self.norm_layers[i].backprop(gbefore_norm_vals[i])
+            )
+
+            # Compute another part gradients on x and global_info
+            for j in range(0, row_len):
+                gx[i][j] += (self.global_info[i] * gbefore_norm_vals[i][0][j])
+                gglobal_info[i] += self.x[i][j] * gbefore_norm_vals[i][0][j]
+
+        return (gx, gglobal_info)
 
 def layer_test():
     n_i = 5

@@ -58,7 +58,7 @@ def softmax(x):
 def get_col_from_jagged_array(pos, jagged_array):
     """
     Get column from jagged array
-    pos: int
+    pos: int or 1d array
         Column position at array. If pos == -1, the last column will return.
         Units will be not added if pos is invalid at some rows
     jagged_array: 3d array-like
@@ -69,12 +69,16 @@ def get_col_from_jagged_array(pos, jagged_array):
     """
 
     res = []
-    for row in jagged_array:
+    for i in range(0, len(jagged_array)):
+        row = jagged_array[i]
         item = []
         if len(row) == 0:
             res.append([])
         else:
-            res.append(row[pos])
+            if type(pos) == int:
+                res.append(row[pos])
+            else:
+                res.append(row[pos[i]])
 
     return np.asarray(res)
 
