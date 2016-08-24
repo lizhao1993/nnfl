@@ -259,7 +259,7 @@ class ABiRNN(object):
                 logging.info("epoch: %d training,on train data, "
                              "cross-entropy:%f, zero-one loss: %f"
                              % (epoch, cost, error))
-            if abs(error - 0.0) <= 0.00001:
+            if abs(error - 0.0) <= 0.0001:
                 break
         return epoch
 

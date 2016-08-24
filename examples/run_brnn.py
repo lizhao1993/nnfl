@@ -42,18 +42,17 @@ def run_fnn():
     p["right_win"] = -1
     p["lr"] = 0.1
     p["n_h"] = 55
-    p["data_path"] = "../data/wsj_framnet/"
-    p["minimum_sent_num"] = 300
-    p["prediction_results"] = "../result/attention_compare_results/brnn2.framenet"
-    p["minimum_frame"] = 2
+    p["data_path"] = "../data/semeval_mic_train_and_test_no_extraction"
+    p["minimum_sent_num"] = 0
+    p["prediction_results"] = "../result/attention_compare_results/show_attention.semeval"
+    p["minimum_frame"] = 0
     p["train_part"] = 0.7
-    p["test_part"] = 0.2
-    p["validation_part"] = 0.1
-    p["attention_birnn"] = False
+    p["test_part"] = 0.3
+    p["validation_part"] = 0.0
+    p["attention_birnn"] = True
     p["norm_func"] = 'softmax'
-    p["global_independent"] = False
     on_validation = False
-    training_detail = True
+    training_detail = False
     # Get vocabulary and word vectors
     vocab, invocab, word2vec = get_vocab_and_vectors(
         p["word2vec_path"], norm_only=p["norm_vec"], oov=p["oov"],
@@ -107,8 +106,7 @@ def run_fnn():
                 word2vec=word2vec, n_h=p["n_h"],
                 up_wordvec=p["up_wordvec"], use_bias=p["use_bias"],
                 act_func=p["act_func"], use_lstm=p["use_lstm"],
-                norm_func=p["norm_func"],
-                global_independent=p["global_independent"]
+                norm_func=p["norm_func"]
             )
         else:
             rnn = BRNN(
@@ -127,6 +125,9 @@ def run_fnn():
         )
 
         y_pred = rnn.predict(test[verb][0], split_pos=test[verb][2])
+        if p["attention_birnn"]:
+            attention_matrix = rnn.attention_matrix
+
         precision, recall, f_score, _, _ = standard_score(
             y_true=test[verb][1], y_pred=y_pred
         )
@@ -149,9 +150,13 @@ def run_fnn():
         print("verb: %s\tf-score:%f" % (verb, f_score), file=fh_pr)
         for i in range(0, len(test[verb][1])):
             is_true = True if test[verb][1][i] == y_pred[i] else False
-            print("%s\tpredict:%s\ttrue:%s\t%s"
-                  % (is_true, y_pred[i], test[verb][1][i],
-                     " ".join(sents[i])), file=fh_pr)
+            out_line = "%s\tpredict:%s\ttrue:%s\t" % (is_true, y_pred[i], test[verb][1][i])
+            if p["attention_birnn"]:
+                for attention, word in zip(attention_matrix[i][0], sents[i]):
+                    out_line += "%s(%.3f) " % (word, attention)
+            else:
+                out_line += " ".join(sents[i])
+            print(out_line, file=fh_pr)
 
     # File handles
     fhs = [fh_pr, sys.stdout]
