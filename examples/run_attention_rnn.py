@@ -99,11 +99,12 @@ def run_fnn():
         if p["up_wordvec"] and verb_counter != 1:
             word2vec = np.array(word2vec_bak, copy=True)
         # Build BRNN model for each verb
-        rnn = BRNN(
+        rnn = ABiRNN(
             x=train[verb][0], label_y=train[verb][1],
             word2vec=word2vec, n_h=p["n_h"],
             up_wordvec=p["up_wordvec"], use_bias=p["use_bias"],
-            act_func=p["act_func"], use_lstm=p["use_lstm"]
+            act_func=p["act_func"], use_lstm=p["use_lstm"],
+            norm_func=p["norm_func"]
         )
 
         epoch = rnn.minibatch_train(
@@ -141,7 +142,8 @@ def run_fnn():
         for i in range(0, len(test[verb][1])):
             is_true = True if test[verb][1][i] == y_pred[i] else False
             out_line = "%s\tpredict:%s\ttrue:%s\t" % (is_true, y_pred[i], test[verb][1][i])
-            out_line += " ".join(sents[i])
+            for attention, word in zip(attention_matrix[i][0], sents[i]):
+                out_line += "%s(%.3f) " % (word, attention)
             print(out_line, file=fh_pr)
 
     # File handles
