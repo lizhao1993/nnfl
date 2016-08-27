@@ -12,6 +12,47 @@ logging.basicConfig(
     format=" [%(levelname)s]%(filename)s:%(lineno)s[function:%(funcName)s] %(message)s"
 )
 
+def average_precision(y_trues, y_scores):
+    """Average precision (AP) metric for ranking problem
+
+    :y_trues: 1d array like. The value of y_trues is 0 or 1. 1 means hit.
+    :y_scores: scores for each postion in y_trues
+    :returns: float, the average precision score
+
+    """
+    # Ranking from highest to lowest according to y_scores
+    # ranked_items is a list of 2-length tuples
+    ranked_items = sorted(
+        zip(y_scores, y_trues), key=lambda tup: tup[0], reverse=True
+    )
+
+    average_precision_score = 0
+    # During the following loop, relative_item_num is equl to the correct
+    # number of item.
+    relative_item_num = 0
+    for i in range(0, len(ranked_items)):
+        is_hit = ranked_items[i][1]
+        relative_item_num += is_hit
+        average_precision_score += is_hit * (relative_item_num / (i + 1))
+    average_precision_score /= relative_item_num
+    return average_precision_score
+    
+def mean_average_precision(y_trues_array, y_scores_array):
+    """Mean Average Precision (MAP) score. If the length of two array is
+    different, the score will be over the short part.
+
+    :y_trues_array: 2d array-like (can be jagged)
+    :y_scores_array: 2d array-like (can be jagged)
+    :returns: float, MAP score
+
+    """
+    map_score = 0;
+    number = min(len(y_trues_array), len(y_scores_array))
+    for y_trues, y_scores in zip(y_trues_array, y_scores_array):
+        map_score += average_precision(y_trues, y_scores)
+    map_score /= number
+    return map_score
+
 def bcubed_score(y_true, y_pred, level="class"):
     """
     Calculating B-cubed Precision and Recall for clustering task.
@@ -139,9 +180,26 @@ def test_zero_one_loss():
     res = zero_one_loss(y_true, y_pred)
     print(res)
 
+def test_average_precision():
+    y_trues1 = [1, 1, 0, 1, 0, 0, 0, 0, 0, 0]
+    y_scores1 = [(10 - x) / 10 for x in range(0, 10)]
+    print("result: %s" % average_precision(y_trues1, y_scores1))
+    y_trues2 = [1, 0, 0, 1, 0, 0, 0, 1, 0, 0]
+    y_scores2 = [(10 - x) / 10 for x in range(0, 10)]
+    print("result: %s" % average_precision(y_trues2, y_scores2))
+    y_trues3 = [0, 0, 1, 1]
+    y_scores3 = [0.1, 0.4, 0.35, 0.8]
+    print("result: %s" % average_precision(y_trues3, y_scores3))
+
+    y_trues_array = [y_trues1, y_trues2, y_trues3]
+    y_scores_array = [y_scores1, y_scores2, y_scores3]
+    map_score = mean_average_precision(y_trues_array, y_scores_array)
+    print("map result: %s" % map_score)
+
 
 if __name__ == "__main__":
     # test_bcubed_score()
     # test_standard_score()
-    test_zero_one_loss()
+    #  test_zero_one_loss()
+    test_average_precision()
 
