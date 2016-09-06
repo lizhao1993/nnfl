@@ -54,9 +54,22 @@ import xml.etree.ElementTree as ET
 import shutil
 import os
 import string
+import re
 
 corpora_path = "./salsa-corpora/"
 parsed_path = "./salsa-parsed/"
+
+def find_terminals(nt, start, nonterminals,result):
+	#given a non-terminal, this translates it to a list of terminals
+	listofnodes = list(start)
+	for eachnode in listofnodes:
+		for eachnt in nonterminals:
+			if (eachnode.attrib["idref"]==eachnt.attrib["id"]):
+				find_terminals(eachnode.attrib["idref"],eachnt,nonterminals,result)
+			else:
+				result.append(eachnode.attrib["idref"])
+	return result
+
 
 def parse_file(name):
 	#open file
@@ -66,7 +79,7 @@ def parse_file(name):
 
 	#make parsed file
 	nameonly = os.path.splitext(name)[0]
-	#datafile = open(nameonly+".txt", "w")
+	#datafile = open("./"+nameonly+".txt", "w")
 	datafile = open(parsed_path +nameonly+".txt", "w")
 
 	# counter for samples
@@ -91,12 +104,13 @@ def parse_file(name):
 			relatedwords[relatedwords.index(each)] = label
 		#print (relatedwords)
 		for part in relatedwords:
-			if (len(sentence.findall(".//nt/[@id='part']"))>0):
-				relatedid = list(sentence.findall(".//nt/[@id='part']")[0])
-				for partition in relatedid:
-					newlabel = partition.attrib["idref"]
-					finalrelatedwords.append(newlabel)
-			else:
+			called =False
+			for note in nonterminals:
+				if (note.attrib["id"]==part):
+					#finalrelatedwords.append(find_terminals(part, note, nonterminals, []))
+					called = True
+
+			if (called==False):
 				finalrelatedwords.append(part)
 		#print (finalrelatedwords)
 		#get the target word, if multiple, then skip this sentence, increase the counter
@@ -104,8 +118,14 @@ def parse_file(name):
 
 
 		if (sentence.findall(".//frame/target") != []):
+				#checks if the target word is a non-terminal, if yes, skip
+				multi = False
 				targetwords = list(sentence.findall(".//frame/target")[0])
-				if (len(targetwords)==1 and (sentence.findall(".//frames/frame")!=[])):
+				nt = targetwords[0].attrib["idref"]
+				for nonter in nonterminals:
+					if (nonter.attrib["id"]==nt):
+						multi = True
+				if (len(targetwords)==1 and (sentence.findall(".//frames/frame")!=[]) and (multi==False)):
 
 					#get the frame
 					frameid = sentence.findall(".//frames/frame")[0].attrib["id"]
@@ -128,7 +148,7 @@ def parse_file(name):
 					#print (nodelist)
 					exclude = set(string.punctuation)
 					for node in nodelist:
-						if (node.attrib['word'] in exclude):
+						if (set(node.attrib['word'].split()).issubset(exclude)):
 							#pass if the node is punctuation
 							pass
 						elif (node.attrib['id']== targetwords[0].attrib['idref']):
@@ -173,6 +193,11 @@ def parse_file(name):
 					# for item in finalresult:
 					# 	result = result + item
 					result = result + os.linesep
+					result = "".join(r for r in result if r not in exclude)
+					#resultlist = re.split(r'(\s+)', result)
+					#for unit in resultlist:
+					#	unit
+
 					datafile.write(result)
 					used = used +1
 
@@ -216,7 +241,7 @@ print ("Total used: " + str(totalyes))
 
 
 # testing only
-#parse_file("./rueffeln.xml")
+#parse_file("/schuetzen.xml")
 
 
 
