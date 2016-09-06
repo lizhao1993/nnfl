@@ -1,0 +1,3147 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<corpus corpusname='TIGER-Gesamt-Aug07' target='wuerdigen'>
+  <head>
+    <frames xmlns='http://www.clt-st.de/framenet/frame-database'>
+      <frame name='Judgment_communication'>
+        <element name='Communicator'/>
+        <element name='Medium'/>
+        <element name='Topic'/>
+        <element name='Evaluee'/>
+        <element name='Expressor'/>
+        <element name='Reason'/>
+        <element name='Role'/>
+      </frame>
+      <frame name='Rewards_and_punishments'>
+        <element name='Evaluee'/>
+        <element name='Reason'/>
+        <element name='Agent'/>
+      </frame>
+      <frame name='wuerdigen1-salsa'>
+        <element name='Cognizer'/>
+        <element name='Fact'/>
+      </frame>
+      <frame name='wuerdigen2-salsa'>
+        <element name='Agent'/>
+        <element name='Evaluee'/>
+        <element name='Reason'/>
+        <element name='Award'/>
+      </frame>
+    </frames>
+    <wordtags xmlns='http://www.clt-st.de/salsa/wordtags'/>
+    <flags/>
+		<annotation>
+			<feature name="case" domain="T">
+				<value name="*"></value>
+				<value name="--"></value>
+				<value name="Acc"></value>
+				<value name="Dat"></value>
+				<value name="Gen"></value>
+				<value name="Nom"></value>
+			</feature>
+			<feature name="cat" domain="NT">
+				<value name="--">&lt;not bound&gt;</value>
+				<value name="AA">superlative phrase with &quot;am&quot;</value>
+				<value name="AP">adjektive phrase</value>
+				<value name="AVP">adverbial phrase</value>
+				<value name="CAC">coordinated adposition</value>
+				<value name="CAP">coordinated adjektive phrase</value>
+				<value name="CAVP">coordinated adverbial phrase</value>
+				<value name="CCP">coordinated complementiser</value>
+				<value name="CH">chunk</value>
+				<value name="CNP">coordinated noun phrase</value>
+				<value name="CO">coordination</value>
+				<value name="CPP">coordinated adpositional phrase</value>
+				<value name="CS">coordinated sentence</value>
+				<value name="CVP">coordinated verb phrase (non-finite)</value>
+				<value name="CVZ">coordinated zu-marked infinitive</value>
+				<value name="DL">discourse level constituent</value>
+				<value name="ISU">idiosyncratis unit</value>
+				<value name="MTA">multi-token adjective</value>
+				<value name="NM">multi-token number</value>
+				<value name="NP">noun phrase</value>
+				<value name="PN">proper noun</value>
+				<value name="PP">adpositional phrase</value>
+				<value name="QL">quasi-language</value>
+				<value name="S">sentence</value>
+				<value name="VP">verb phrase (non-finite)</value>
+				<value name="VROOT">unbound feature value of a virtual root</value>
+				<value name="VZ">zu-marked infinitive</value>
+			</feature>
+			<feature name="degree" domain="T">
+				<value name="*"></value>
+				<value name="--"></value>
+				<value name="Comp"></value>
+				<value name="Pos"></value>
+				<value name="Sup"></value>
+			</feature>
+			<feature name="gender" domain="T">
+				<value name="*"></value>
+				<value name="--"></value>
+				<value name="Fem"></value>
+				<value name="Masc"></value>
+				<value name="Neut"></value>
+			</feature>
+			<feature name="lemma" domain="T"/>
+			<feature name="mood" domain="T">
+				<value name="*"></value>
+				<value name="--"></value>
+				<value name="Imp"></value>
+				<value name="Ind"></value>
+				<value name="Subj"></value>
+			</feature>
+			<feature name="morph" domain="T">
+				<value name="*"></value>
+				<value name="*.*.*"></value>
+				<value name="*.*.*.*"></value>
+				<value name="*.*.*.*.*"></value>
+				<value name="*.*.Akk.Pl.St"></value>
+				<value name="*.*.Akk.Pl.Sw"></value>
+				<value name="*.*.Dat.Pl.St"></value>
+				<value name="*.*.Dat.Pl.Sw"></value>
+				<value name="*.*.Fem"></value>
+				<value name="*.*.Gen.Pl.St"></value>
+				<value name="*.*.Gen.Pl.Sw"></value>
+				<value name="*.*.Masc"></value>
+				<value name="*.*.Neut"></value>
+				<value name="*.*.Nom.Pl.St"></value>
+				<value name="*.*.Nom.Pl.Sw"></value>
+				<value name="*.Acc.Pl.*"></value>
+				<value name="*.Acc.Sg.Masc"></value>
+				<value name="*.Akk.Pl"></value>
+				<value name="*.Akk.Pl.*"></value>
+				<value name="*.Akk.Pl.St"></value>
+				<value name="*.Akk.Pl.Sw"></value>
+				<value name="*.Akk.Sg"></value>
+				<value name="*.Akk.Sg.St"></value>
+				<value name="*.Dat.Pl"></value>
+				<value name="*.Dat.Pl.*"></value>
+				<value name="*.Dat.Pl.St"></value>
+				<value name="*.Dat.Pl.Sw"></value>
+				<value name="*.Dat.Sg"></value>
+				<value name="*.Fem.Akk.Sg.Mix"></value>
+				<value name="*.Fem.Akk.Sg.St"></value>
+				<value name="*.Fem.Akk.Sg.Sw"></value>
+				<value name="*.Fem.Dat.Sg.Mix"></value>
+				<value name="*.Fem.Dat.Sg.St"></value>
+				<value name="*.Fem.Dat.Sg.Sw"></value>
+				<value name="*.Fem.Gen.Sg.Sw"></value>
+				<value name="*.Fem.Nom.Sg.St"></value>
+				<value name="*.Fem.Nom.Sg.Sw"></value>
+				<value name="*.Gen.Pl"></value>
+				<value name="*.Gen.Pl.*"></value>
+				<value name="*.Gen.Pl.St"></value>
+				<value name="*.Gen.Pl.Sw"></value>
+				<value name="*.Gen.Sg"></value>
+				<value name="*.Gen.Sg.Fem"></value>
+				<value name="*.Masc.Akk.Sg.Mix"></value>
+				<value name="*.Masc.Akk.Sg.Sw"></value>
+				<value name="*.Masc.Dat.Sg.Mix"></value>
+				<value name="*.Masc.Dat.Sg.Sw"></value>
+				<value name="*.Masc.Gen.Sg.Mix"></value>
+				<value name="*.Masc.Gen.Sg.Sw"></value>
+				<value name="*.Masc.Nom.Sg.Mix"></value>
+				<value name="*.Masc.Nom.Sg.St"></value>
+				<value name="*.Masc.Nom.Sg.Sw"></value>
+				<value name="*.Neut.Akk.Sg.Sw"></value>
+				<value name="*.Neut.Dat.Sg.Mix"></value>
+				<value name="*.Neut.Dat.Sg.Sw"></value>
+				<value name="*.Neut.Gen.Sg.Sw"></value>
+				<value name="*.Neut.Nom.Sg.Mix"></value>
+				<value name="*.Neut.Nom.Sg.St"></value>
+				<value name="*.Neut.Nom.Sg.Sw"></value>
+				<value name="*.Nom.Pl"></value>
+				<value name="*.Nom.Pl.*"></value>
+				<value name="*.Nom.Pl.Mix"></value>
+				<value name="*.Nom.Pl.St"></value>
+				<value name="*.Nom.Pl.Sw"></value>
+				<value name="*.Nom.Sg"></value>
+				<value name="*.Pl.*"></value>
+				<value name="*.Pl.Fem"></value>
+				<value name="*.Pl.Masc"></value>
+				<value name="*.Pl.Neut"></value>
+				<value name="*.Sg.Fem"></value>
+				<value name="*.Sg.Masc"></value>
+				<value name="*.Sg.Neut"></value>
+				<value name="--">not bound</value>
+				<value name="1.Acc.Pl"></value>
+				<value name="1.Acc.Pl.*"></value>
+				<value name="1.Acc.Pl.Fem"></value>
+				<value name="1.Acc.Pl.Masc"></value>
+				<value name="1.Acc.Sg"></value>
+				<value name="1.Acc.Sg.*"></value>
+				<value name="1.Acc.Sg.Fem"></value>
+				<value name="1.Acc.Sg.Masc"></value>
+				<value name="1.Akk.Pl"></value>
+				<value name="1.Akk.Sg"></value>
+				<value name="1.Dat.Pl"></value>
+				<value name="1.Dat.Pl.*"></value>
+				<value name="1.Dat.Sg"></value>
+				<value name="1.Dat.Sg.*"></value>
+				<value name="1.Dat.Sg.Fem"></value>
+				<value name="1.Dat.Sg.Masc"></value>
+				<value name="1.Nom.Pl.*"></value>
+				<value name="1.Nom.Pl.Fem"></value>
+				<value name="1.Nom.Pl.Masc"></value>
+				<value name="1.Nom.Sg"></value>
+				<value name="1.Nom.Sg.*"></value>
+				<value name="1.Nom.Sg.Fem"></value>
+				<value name="1.Nom.Sg.Masc"></value>
+				<value name="1.Pl.*.Akk"></value>
+				<value name="1.Pl.*.Dat"></value>
+				<value name="1.Pl.*.Nom"></value>
+				<value name="1.Pl.Past.Ind"></value>
+				<value name="1.Pl.Past.Konj"></value>
+				<value name="1.Pl.Past.Subj"></value>
+				<value name="1.Pl.Pres.Ind"></value>
+				<value name="1.Pl.Pres.Subj"></value>
+				<value name="1.Sg.*.Akk"></value>
+				<value name="1.Sg.*.Dat"></value>
+				<value name="1.Sg.*.Nom"></value>
+				<value name="1.Sg.Past.Ind"></value>
+				<value name="1.Sg.Past.Konj"></value>
+				<value name="1.Sg.Past.Subj"></value>
+				<value name="1.Sg.Pres.Ind"></value>
+				<value name="1.Sg.Pres.Konj"></value>
+				<value name="1.Sg.Pres.Subj"></value>
+				<value name="2.Acc.Pl"></value>
+				<value name="2.Acc.Pl.*"></value>
+				<value name="2.Acc.Pl.Masc"></value>
+				<value name="2.Acc.Sg"></value>
+				<value name="2.Acc.Sg.*"></value>
+				<value name="2.Acc.Sg.Masc"></value>
+				<value name="2.Akk.Sg"></value>
+				<value name="2.Dat.Pl"></value>
+				<value name="2.Dat.Pl.*"></value>
+				<value name="2.Dat.Pl.Masc"></value>
+				<value name="2.Dat.Sg"></value>
+				<value name="2.Dat.Sg.*"></value>
+				<value name="2.Dat.Sg.Fem"></value>
+				<value name="2.Nom.Pl.*"></value>
+				<value name="2.Nom.Pl.Masc"></value>
+				<value name="2.Nom.Sg.*"></value>
+				<value name="2.Nom.Sg.Fem"></value>
+				<value name="2.Nom.Sg.Masc"></value>
+				<value name="2.Pl.*.Nom"></value>
+				<value name="2.Pl.Imp"></value>
+				<value name="2.Pl.Past.Ind"></value>
+				<value name="2.Pl.Pres.Ind"></value>
+				<value name="2.Sg.*.Akk"></value>
+				<value name="2.Sg.*.Dat"></value>
+				<value name="2.Sg.*.Nom"></value>
+				<value name="2.Sg.Imp"></value>
+				<value name="2.Sg.Past.Ind"></value>
+				<value name="2.Sg.Past.Subj"></value>
+				<value name="2.Sg.Pres.Ind"></value>
+				<value name="2.Sg.Pres.Konj"></value>
+				<value name="2.Sg.Pres.Subj"></value>
+				<value name="3.*.Sg.Neut"></value>
+				<value name="3.Acc.*.*"></value>
+				<value name="3.Acc.Pl"></value>
+				<value name="3.Acc.Pl.*"></value>
+				<value name="3.Acc.Pl.Fem"></value>
+				<value name="3.Acc.Pl.Masc"></value>
+				<value name="3.Acc.Pl.Neut"></value>
+				<value name="3.Acc.Sg"></value>
+				<value name="3.Acc.Sg.*"></value>
+				<value name="3.Acc.Sg.Fem"></value>
+				<value name="3.Acc.Sg.Masc"></value>
+				<value name="3.Acc.Sg.Neut"></value>
+				<value name="3.Akk.Pl"></value>
+				<value name="3.Akk.Sg"></value>
+				<value name="3.Dat.*"></value>
+				<value name="3.Dat.*.*"></value>
+				<value name="3.Dat.Pl"></value>
+				<value name="3.Dat.Pl.*"></value>
+				<value name="3.Dat.Pl.Fem"></value>
+				<value name="3.Dat.Pl.Masc"></value>
+				<value name="3.Dat.Pl.Neut"></value>
+				<value name="3.Dat.Sg"></value>
+				<value name="3.Dat.Sg.*"></value>
+				<value name="3.Dat.Sg.Fem"></value>
+				<value name="3.Dat.Sg.Masc"></value>
+				<value name="3.Dat.Sg.Neut"></value>
+				<value name="3.Gen.Pl.*"></value>
+				<value name="3.Gen.Pl.Masc"></value>
+				<value name="3.Gen.Sg.*"></value>
+				<value name="3.Gen.Sg.Fem"></value>
+				<value name="3.Nom.*.*"></value>
+				<value name="3.Nom.Pl"></value>
+				<value name="3.Nom.Pl.*"></value>
+				<value name="3.Nom.Pl.Fem"></value>
+				<value name="3.Nom.Pl.Masc"></value>
+				<value name="3.Nom.Pl.Neut"></value>
+				<value name="3.Nom.Sg"></value>
+				<value name="3.Nom.Sg.*"></value>
+				<value name="3.Nom.Sg.Fem"></value>
+				<value name="3.Nom.Sg.Masc"></value>
+				<value name="3.Nom.Sg.Neut"></value>
+				<value name="3.Pl.*.Akk"></value>
+				<value name="3.Pl.*.Dat"></value>
+				<value name="3.Pl.*.Nom"></value>
+				<value name="3.Pl.Past.Ind"></value>
+				<value name="3.Pl.Past.Konj"></value>
+				<value name="3.Pl.Past.Subj"></value>
+				<value name="3.Pl.Pres.Ind"></value>
+				<value name="3.Pl.Pres.Konj"></value>
+				<value name="3.Pl.Pres.Subj"></value>
+				<value name="3.Sg.Fem.Akk"></value>
+				<value name="3.Sg.Fem.Dat"></value>
+				<value name="3.Sg.Fem.Nom"></value>
+				<value name="3.Sg.Masc.Akk"></value>
+				<value name="3.Sg.Masc.Dat"></value>
+				<value name="3.Sg.Masc.Nom"></value>
+				<value name="3.Sg.Neut.Akk"></value>
+				<value name="3.Sg.Neut.Nom"></value>
+				<value name="3.Sg.Past.Ind"></value>
+				<value name="3.Sg.Past.Konj"></value>
+				<value name="3.Sg.Past.Subj"></value>
+				<value name="3.Sg.Pres.Ind"></value>
+				<value name="3.Sg.Pres.Konj"></value>
+				<value name="3.Sg.Pres.Subj"></value>
+				<value name="Acc"></value>
+				<value name="Acc.*.*"></value>
+				<value name="Acc.*.Masc"></value>
+				<value name="Acc.*.Neut"></value>
+				<value name="Acc.Pl.*"></value>
+				<value name="Acc.Pl.Fem"></value>
+				<value name="Acc.Pl.Masc"></value>
+				<value name="Acc.Pl.Neut"></value>
+				<value name="Acc.Sg.*"></value>
+				<value name="Acc.Sg.Fem"></value>
+				<value name="Acc.Sg.Masc"></value>
+				<value name="Acc.Sg.Neut"></value>
+				<value name="Akk"></value>
+				<value name="Akk.Neut"></value>
+				<value name="Comp"></value>
+				<value name="Comp.*.*.*"></value>
+				<value name="Comp.*.Akk.Pl.Mix"></value>
+				<value name="Comp.*.Akk.Pl.St"></value>
+				<value name="Comp.*.Dat.Pl.St"></value>
+				<value name="Comp.*.Dat.Pl.Sw"></value>
+				<value name="Comp.*.Gen.Pl.St"></value>
+				<value name="Comp.*.Nom.Pl.St"></value>
+				<value name="Comp.*.Nom.Pl.Sw"></value>
+				<value name="Comp.*.Pl.*"></value>
+				<value name="Comp.*.Pl.Fem"></value>
+				<value name="Comp.*.Sg.Fem"></value>
+				<value name="Comp.Acc.Pl.*"></value>
+				<value name="Comp.Acc.Pl.Fem"></value>
+				<value name="Comp.Acc.Pl.Masc"></value>
+				<value name="Comp.Acc.Pl.Neut"></value>
+				<value name="Comp.Acc.Sg.*"></value>
+				<value name="Comp.Acc.Sg.Fem"></value>
+				<value name="Comp.Acc.Sg.Masc"></value>
+				<value name="Comp.Acc.Sg.Neut"></value>
+				<value name="Comp.Dat.Pl.*"></value>
+				<value name="Comp.Dat.Pl.Fem"></value>
+				<value name="Comp.Dat.Pl.Masc"></value>
+				<value name="Comp.Dat.Pl.Neut"></value>
+				<value name="Comp.Dat.Sg.*"></value>
+				<value name="Comp.Dat.Sg.Fem"></value>
+				<value name="Comp.Dat.Sg.Masc"></value>
+				<value name="Comp.Dat.Sg.Neut"></value>
+				<value name="Comp.Fem.Akk.Sg.Mix"></value>
+				<value name="Comp.Fem.Akk.Sg.St"></value>
+				<value name="Comp.Fem.Akk.Sg.Sw"></value>
+				<value name="Comp.Fem.Dat.Sg.Mix"></value>
+				<value name="Comp.Fem.Dat.Sg.St"></value>
+				<value name="Comp.Fem.Dat.Sg.Sw"></value>
+				<value name="Comp.Fem.Gen.Sg.Mix"></value>
+				<value name="Comp.Fem.Gen.Sg.Sw"></value>
+				<value name="Comp.Fem.Nom.Sg.Mix"></value>
+				<value name="Comp.Fem.Nom.Sg.Sw"></value>
+				<value name="Comp.Gen.Pl.*"></value>
+				<value name="Comp.Gen.Pl.Fem"></value>
+				<value name="Comp.Gen.Pl.Masc"></value>
+				<value name="Comp.Gen.Pl.Neut"></value>
+				<value name="Comp.Gen.Sg.Fem"></value>
+				<value name="Comp.Gen.Sg.Masc"></value>
+				<value name="Comp.Gen.Sg.Neut"></value>
+				<value name="Comp.Masc.Akk.Sg.Mix"></value>
+				<value name="Comp.Masc.Akk.Sg.St"></value>
+				<value name="Comp.Masc.Akk.Sg.Sw"></value>
+				<value name="Comp.Masc.Dat.Sg.Mix"></value>
+				<value name="Comp.Masc.Dat.Sg.St"></value>
+				<value name="Comp.Masc.Dat.Sg.Sw"></value>
+				<value name="Comp.Masc.Nom.Sg.Mix"></value>
+				<value name="Comp.Masc.Nom.Sg.St"></value>
+				<value name="Comp.Masc.Nom.Sg.Sw"></value>
+				<value name="Comp.Neut.Akk.Sg.Mix"></value>
+				<value name="Comp.Neut.Akk.Sg.St"></value>
+				<value name="Comp.Neut.Akk.Sg.Sw"></value>
+				<value name="Comp.Neut.Dat.Sg.Mix"></value>
+				<value name="Comp.Neut.Dat.Sg.St"></value>
+				<value name="Comp.Neut.Nom.Sg.Mix"></value>
+				<value name="Comp.Neut.Nom.Sg.Sw"></value>
+				<value name="Comp.Nom.Pl.*"></value>
+				<value name="Comp.Nom.Pl.Fem"></value>
+				<value name="Comp.Nom.Pl.Masc"></value>
+				<value name="Comp.Nom.Pl.Neut"></value>
+				<value name="Comp.Nom.Sg.Fem"></value>
+				<value name="Comp.Nom.Sg.Masc"></value>
+				<value name="Comp.Nom.Sg.Neut"></value>
+				<value name="Dat"></value>
+				<value name="Dat.*.*"></value>
+				<value name="Dat.*.Masc"></value>
+				<value name="Dat.*.Neut"></value>
+				<value name="Dat.Fem"></value>
+				<value name="Dat.Masc"></value>
+				<value name="Dat.Neut"></value>
+				<value name="Dat.Pl.*"></value>
+				<value name="Dat.Pl.Fem"></value>
+				<value name="Dat.Pl.Masc"></value>
+				<value name="Dat.Pl.Neut"></value>
+				<value name="Dat.Sg.*"></value>
+				<value name="Dat.Sg.Fem"></value>
+				<value name="Dat.Sg.Masc"></value>
+				<value name="Dat.Sg.Neut"></value>
+				<value name="Def.*.Akk.Pl"></value>
+				<value name="Def.*.Dat.Pl"></value>
+				<value name="Def.*.Gen.Pl"></value>
+				<value name="Def.*.Nom.Pl"></value>
+				<value name="Def.Fem.Akk.Sg"></value>
+				<value name="Def.Fem.Dat.Sg"></value>
+				<value name="Def.Fem.Gen.Sg"></value>
+				<value name="Def.Fem.Nom.Sg"></value>
+				<value name="Def.Masc.Akk.Sg"></value>
+				<value name="Def.Masc.Dat.Sg"></value>
+				<value name="Def.Masc.Gen.Sg"></value>
+				<value name="Def.Masc.Nom.Sg"></value>
+				<value name="Def.Neut.Akk.Sg"></value>
+				<value name="Def.Neut.Dat.Sg"></value>
+				<value name="Def.Neut.Gen.Sg"></value>
+				<value name="Def.Neut.Nom.Sg"></value>
+				<value name="Fem.Akk.Pl.*"></value>
+				<value name="Fem.Akk.Sg"></value>
+				<value name="Fem.Akk.Sg.*"></value>
+				<value name="Fem.Akk.Sg.St"></value>
+				<value name="Fem.Dat.Pl"></value>
+				<value name="Fem.Dat.Pl.*"></value>
+				<value name="Fem.Dat.Sg"></value>
+				<value name="Fem.Dat.Sg.*"></value>
+				<value name="Fem.Dat.Sg.Mix"></value>
+				<value name="Fem.Dat.Sg.Sw"></value>
+				<value name="Fem.Gen.Pl.*"></value>
+				<value name="Fem.Gen.Sg"></value>
+				<value name="Fem.Gen.Sg.*"></value>
+				<value name="Fem.Gen.Sg.Mix"></value>
+				<value name="Fem.Nom.Pl.*"></value>
+				<value name="Fem.Nom.Sg"></value>
+				<value name="Fem.Nom.Sg.*"></value>
+				<value name="Fem.Nom.Sg.St"></value>
+				<value name="Fem.Nom.Sg.Sw"></value>
+				<value name="Gen"></value>
+				<value name="Gen.*.*"></value>
+				<value name="Gen.*.Fem"></value>
+				<value name="Gen.*.Masc"></value>
+				<value name="Gen.*.Neut"></value>
+				<value name="Gen.Pl.*"></value>
+				<value name="Gen.Pl.Fem"></value>
+				<value name="Gen.Pl.Masc"></value>
+				<value name="Gen.Pl.Neut"></value>
+				<value name="Gen.Sg.*"></value>
+				<value name="Gen.Sg.Fem"></value>
+				<value name="Gen.Sg.Masc"></value>
+				<value name="Gen.Sg.Neut"></value>
+				<value name="Indef.Fem.Akk.Sg"></value>
+				<value name="Indef.Fem.Dat.Sg"></value>
+				<value name="Indef.Fem.Gen.Sg"></value>
+				<value name="Indef.Fem.Nom.Sg"></value>
+				<value name="Indef.Masc.Akk.Sg"></value>
+				<value name="Indef.Masc.Dat.Sg"></value>
+				<value name="Indef.Masc.Gen.Sg"></value>
+				<value name="Indef.Masc.Nom.Sg"></value>
+				<value name="Indef.Neut.Akk.Sg"></value>
+				<value name="Indef.Neut.Dat.Sg"></value>
+				<value name="Indef.Neut.Gen.Sg"></value>
+				<value name="Indef.Neut.Nom.Sg"></value>
+				<value name="Inf"></value>
+				<value name="Infzu"></value>
+				<value name="Masc.Akk.Pl"></value>
+				<value name="Masc.Akk.Pl.*"></value>
+				<value name="Masc.Akk.Pl.St"></value>
+				<value name="Masc.Akk.Sg"></value>
+				<value name="Masc.Akk.Sg.*"></value>
+				<value name="Masc.Akk.Sg.Mix"></value>
+				<value name="Masc.Akk.Sg.Sw"></value>
+				<value name="Masc.Dat.Pl"></value>
+				<value name="Masc.Dat.Pl.*"></value>
+				<value name="Masc.Dat.Pl.St"></value>
+				<value name="Masc.Dat.Sg"></value>
+				<value name="Masc.Dat.Sg.*"></value>
+				<value name="Masc.Dat.Sg.Sw"></value>
+				<value name="Masc.Gen.Pl"></value>
+				<value name="Masc.Gen.Pl.*"></value>
+				<value name="Masc.Gen.Sg"></value>
+				<value name="Masc.Gen.Sg.*"></value>
+				<value name="Masc.Gen.Sg.Mix"></value>
+				<value name="Masc.Gen.Sg.Sw"></value>
+				<value name="Masc.Nom.Pl.*"></value>
+				<value name="Masc.Nom.Sg"></value>
+				<value name="Masc.Nom.Sg.*"></value>
+				<value name="Masc.Nom.Sg.Mix"></value>
+				<value name="Masc.Nom.Sg.St"></value>
+				<value name="Masc.Nom.Sg.Sw"></value>
+				<value name="Neut.Akk.Pl.*"></value>
+				<value name="Neut.Akk.Sg"></value>
+				<value name="Neut.Akk.Sg.*"></value>
+				<value name="Neut.Akk.Sg.St"></value>
+				<value name="Neut.Akk.Sg.Sw"></value>
+				<value name="Neut.Dat.Pl.*"></value>
+				<value name="Neut.Dat.Sg"></value>
+				<value name="Neut.Dat.Sg.*"></value>
+				<value name="Neut.Dat.Sg.St"></value>
+				<value name="Neut.Dat.Sg.Sw"></value>
+				<value name="Neut.Gen.Pl.*"></value>
+				<value name="Neut.Gen.Sg"></value>
+				<value name="Neut.Gen.Sg.*"></value>
+				<value name="Neut.Gen.Sg.Mix"></value>
+				<value name="Neut.Gen.Sg.Sw"></value>
+				<value name="Neut.Nom.Pl.*"></value>
+				<value name="Neut.Nom.Sg"></value>
+				<value name="Neut.Nom.Sg.*"></value>
+				<value name="Neut.Nom.Sg.St"></value>
+				<value name="Neut.Nom.Sg.Sw"></value>
+				<value name="Nom"></value>
+				<value name="Nom.*.*"></value>
+				<value name="Nom.*.Fem"></value>
+				<value name="Nom.*.Masc"></value>
+				<value name="Nom.*.Neut"></value>
+				<value name="Nom.Pl.*"></value>
+				<value name="Nom.Pl.Fem"></value>
+				<value name="Nom.Pl.Masc"></value>
+				<value name="Nom.Pl.Neut"></value>
+				<value name="Nom.Sg.*"></value>
+				<value name="Nom.Sg.Fem"></value>
+				<value name="Nom.Sg.Masc"></value>
+				<value name="Nom.Sg.Neut"></value>
+				<value name="Pl"></value>
+				<value name="Pos"></value>
+				<value name="Pos.*.*.*"></value>
+				<value name="Pos.*.*.*.*"></value>
+				<value name="Pos.*.Akk.Pl.Mix"></value>
+				<value name="Pos.*.Akk.Pl.St"></value>
+				<value name="Pos.*.Akk.Pl.Sw"></value>
+				<value name="Pos.*.Dat.Pl.Mix"></value>
+				<value name="Pos.*.Dat.Pl.St"></value>
+				<value name="Pos.*.Dat.Pl.Sw"></value>
+				<value name="Pos.*.Gen.Pl.Mix"></value>
+				<value name="Pos.*.Gen.Pl.St"></value>
+				<value name="Pos.*.Gen.Pl.Sw"></value>
+				<value name="Pos.*.Nom.Pl.Mix"></value>
+				<value name="Pos.*.Nom.Pl.St"></value>
+				<value name="Pos.*.Nom.Pl.Sw"></value>
+				<value name="Pos.*.Pl.*"></value>
+				<value name="Pos.*.Pl.Fem"></value>
+				<value name="Pos.*.Sg.Fem"></value>
+				<value name="Pos.*.Sg.Masc"></value>
+				<value name="Pos.*.Sg.Neut"></value>
+				<value name="Pos.Acc.*.*"></value>
+				<value name="Pos.Acc.Pl.*"></value>
+				<value name="Pos.Acc.Pl.Fem"></value>
+				<value name="Pos.Acc.Pl.Masc"></value>
+				<value name="Pos.Acc.Pl.Neut"></value>
+				<value name="Pos.Acc.Sg.*"></value>
+				<value name="Pos.Acc.Sg.Fem"></value>
+				<value name="Pos.Acc.Sg.Masc"></value>
+				<value name="Pos.Acc.Sg.Neut"></value>
+				<value name="Pos.Dat.*.*"></value>
+				<value name="Pos.Dat.Pl.*"></value>
+				<value name="Pos.Dat.Pl.Fem"></value>
+				<value name="Pos.Dat.Pl.Masc"></value>
+				<value name="Pos.Dat.Pl.Neut"></value>
+				<value name="Pos.Dat.Sg.*"></value>
+				<value name="Pos.Dat.Sg.Fem"></value>
+				<value name="Pos.Dat.Sg.Masc"></value>
+				<value name="Pos.Dat.Sg.Neut"></value>
+				<value name="Pos.Fem.Akk.Sg.Mix"></value>
+				<value name="Pos.Fem.Akk.Sg.St"></value>
+				<value name="Pos.Fem.Akk.Sg.Sw"></value>
+				<value name="Pos.Fem.Dat.Sg.Mix"></value>
+				<value name="Pos.Fem.Dat.Sg.St"></value>
+				<value name="Pos.Fem.Dat.Sg.Sw"></value>
+				<value name="Pos.Fem.Gen.Sg.Mix"></value>
+				<value name="Pos.Fem.Gen.Sg.St"></value>
+				<value name="Pos.Fem.Gen.Sg.Sw"></value>
+				<value name="Pos.Fem.Nom.Sg.Mix"></value>
+				<value name="Pos.Fem.Nom.Sg.St"></value>
+				<value name="Pos.Fem.Nom.Sg.Sw"></value>
+				<value name="Pos.Gen.*.*"></value>
+				<value name="Pos.Gen.Pl.*"></value>
+				<value name="Pos.Gen.Pl.Fem"></value>
+				<value name="Pos.Gen.Pl.Masc"></value>
+				<value name="Pos.Gen.Pl.Neut"></value>
+				<value name="Pos.Gen.Sg.*"></value>
+				<value name="Pos.Gen.Sg.Fem"></value>
+				<value name="Pos.Gen.Sg.Masc"></value>
+				<value name="Pos.Gen.Sg.Neut"></value>
+				<value name="Pos.Masc.Akk.Sg.Mix"></value>
+				<value name="Pos.Masc.Akk.Sg.St"></value>
+				<value name="Pos.Masc.Akk.Sg.Sw"></value>
+				<value name="Pos.Masc.Dat.Sg.Mix"></value>
+				<value name="Pos.Masc.Dat.Sg.St"></value>
+				<value name="Pos.Masc.Dat.Sg.Sw"></value>
+				<value name="Pos.Masc.Gen.Sg.Mix"></value>
+				<value name="Pos.Masc.Gen.Sg.St"></value>
+				<value name="Pos.Masc.Gen.Sg.Sw"></value>
+				<value name="Pos.Masc.Nom.Sg.Mix"></value>
+				<value name="Pos.Masc.Nom.Sg.St"></value>
+				<value name="Pos.Masc.Nom.Sg.Sw"></value>
+				<value name="Pos.Neut.Akk.Sg.Mix"></value>
+				<value name="Pos.Neut.Akk.Sg.St"></value>
+				<value name="Pos.Neut.Akk.Sg.Sw"></value>
+				<value name="Pos.Neut.Dat.Sg.Mix"></value>
+				<value name="Pos.Neut.Dat.Sg.St"></value>
+				<value name="Pos.Neut.Dat.Sg.Sw"></value>
+				<value name="Pos.Neut.Gen.Sg.Mix"></value>
+				<value name="Pos.Neut.Gen.Sg.St"></value>
+				<value name="Pos.Neut.Gen.Sg.Sw"></value>
+				<value name="Pos.Neut.Nom.Sg.Mix"></value>
+				<value name="Pos.Neut.Nom.Sg.St"></value>
+				<value name="Pos.Neut.Nom.Sg.Sw"></value>
+				<value name="Pos.Nom.*.*"></value>
+				<value name="Pos.Nom.Pl.*"></value>
+				<value name="Pos.Nom.Pl.Fem"></value>
+				<value name="Pos.Nom.Pl.Masc"></value>
+				<value name="Pos.Nom.Pl.Neut"></value>
+				<value name="Pos.Nom.Sg.*"></value>
+				<value name="Pos.Nom.Sg.Fem"></value>
+				<value name="Pos.Nom.Sg.Masc"></value>
+				<value name="Pos.Nom.Sg.Neut"></value>
+				<value name="Prp"></value>
+				<value name="Psp"></value>
+				<value name="Sg"></value>
+				<value name="Sup"></value>
+				<value name="Sup.*.Akk.Pl.St"></value>
+				<value name="Sup.*.Akk.Pl.Sw"></value>
+				<value name="Sup.*.Dat.Pl.St"></value>
+				<value name="Sup.*.Dat.Pl.Sw"></value>
+				<value name="Sup.*.Gen.Pl.Sw"></value>
+				<value name="Sup.*.Nom.Pl.Mix"></value>
+				<value name="Sup.*.Nom.Pl.Sw"></value>
+				<value name="Sup.*.Sg.Fem"></value>
+				<value name="Sup.Acc.Pl.*"></value>
+				<value name="Sup.Acc.Pl.Fem"></value>
+				<value name="Sup.Acc.Pl.Masc"></value>
+				<value name="Sup.Acc.Pl.Neut"></value>
+				<value name="Sup.Acc.Sg.Fem"></value>
+				<value name="Sup.Acc.Sg.Masc"></value>
+				<value name="Sup.Acc.Sg.Neut"></value>
+				<value name="Sup.Dat.Pl.*"></value>
+				<value name="Sup.Dat.Pl.Fem"></value>
+				<value name="Sup.Dat.Pl.Masc"></value>
+				<value name="Sup.Dat.Pl.Neut"></value>
+				<value name="Sup.Dat.Sg.Fem"></value>
+				<value name="Sup.Dat.Sg.Masc"></value>
+				<value name="Sup.Dat.Sg.Neut"></value>
+				<value name="Sup.Fem.Akk.Sg.St"></value>
+				<value name="Sup.Fem.Akk.Sg.Sw"></value>
+				<value name="Sup.Fem.Dat.Sg.Mix"></value>
+				<value name="Sup.Fem.Dat.Sg.St"></value>
+				<value name="Sup.Fem.Dat.Sg.Sw"></value>
+				<value name="Sup.Fem.Gen.Sg.St"></value>
+				<value name="Sup.Fem.Gen.Sg.Sw"></value>
+				<value name="Sup.Fem.Nom.Sg.Mix"></value>
+				<value name="Sup.Fem.Nom.Sg.St"></value>
+				<value name="Sup.Fem.Nom.Sg.Sw"></value>
+				<value name="Sup.Gen.Pl.*"></value>
+				<value name="Sup.Gen.Pl.Fem"></value>
+				<value name="Sup.Gen.Pl.Masc"></value>
+				<value name="Sup.Gen.Pl.Neut"></value>
+				<value name="Sup.Gen.Sg.Fem"></value>
+				<value name="Sup.Gen.Sg.Masc"></value>
+				<value name="Sup.Gen.Sg.Neut"></value>
+				<value name="Sup.Masc.Akk.Sg.St"></value>
+				<value name="Sup.Masc.Akk.Sg.Sw"></value>
+				<value name="Sup.Masc.Dat.Sg.Mix"></value>
+				<value name="Sup.Masc.Dat.Sg.Sw"></value>
+				<value name="Sup.Masc.Gen.Sg.Sw"></value>
+				<value name="Sup.Masc.Nom.Sg.Mix"></value>
+				<value name="Sup.Masc.Nom.Sg.St"></value>
+				<value name="Sup.Masc.Nom.Sg.Sw"></value>
+				<value name="Sup.Neut.Akk.Sg.Mix"></value>
+				<value name="Sup.Neut.Akk.Sg.Sw"></value>
+				<value name="Sup.Neut.Dat.Sg.Sw"></value>
+				<value name="Sup.Neut.Gen.Sg.St"></value>
+				<value name="Sup.Neut.Nom.Sg.St"></value>
+				<value name="Sup.Neut.Nom.Sg.Sw"></value>
+				<value name="Sup.Nom.Pl.*"></value>
+				<value name="Sup.Nom.Pl.Fem"></value>
+				<value name="Sup.Nom.Pl.Masc"></value>
+				<value name="Sup.Nom.Pl.Neut"></value>
+				<value name="Sup.Nom.Sg.Fem"></value>
+				<value name="Sup.Nom.Sg.Masc"></value>
+				<value name="Sup.Nom.Sg.Neut"></value>
+				<value name="UNKNOWN">unknown tag</value>
+			</feature>
+			<feature name="number" domain="T">
+				<value name="*"></value>
+				<value name="--"></value>
+				<value name="Pl"></value>
+				<value name="Sg"></value>
+			</feature>
+			<feature name="person" domain="T">
+				<value name="*"></value>
+				<value name="--"></value>
+				<value name="1"></value>
+				<value name="2"></value>
+				<value name="3"></value>
+			</feature>
+			<feature name="pos" domain="T">
+				<value name="$(">Sonstige Satzzeichen; satzintern</value>
+				<value name="$,">Komma</value>
+				<value name="$.">Satzbeendende Interpunktion</value>
+				<value name="--">&lt;Nicht zugeordnet&gt;</value>
+				<value name="ADJA">Attributives Adjektiv</value>
+				<value name="ADJD">Adverbiales oder prädikatives Adjektiv</value>
+				<value name="ADV">Adverb</value>
+				<value name="APPO">Postposition</value>
+				<value name="APPR">Präposition; Zirkumposition links</value>
+				<value name="APPRART">Präposition mit Artikel</value>
+				<value name="APZR">Zirkumposition rechts</value>
+				<value name="ART">Bestimmter oder unbestimmter Artikel</value>
+				<value name="CARD">Kardinalzahl</value>
+				<value name="FM">Fremdsprachliches Material</value>
+				<value name="ITJ">Interjektion</value>
+				<value name="KOKOM">Vergleichspartikel, ohne Satz</value>
+				<value name="KON">Nebenordnende Konjunktion</value>
+				<value name="KOUI">Unterordnende Konjunktion mit zu und Infinitiv</value>
+				<value name="KOUS">Unterordnende Konjunktion mit Satz</value>
+				<value name="NE">Eigennamen</value>
+				<value name="NN">Normales Nomen</value>
+				<value name="NNE">Kombination aus Nomen und Eigenname</value>
+				<value name="PDAT">Attribuierendes Demonstrativpronomen</value>
+				<value name="PDS">Substituierendes Demonstrativpronomen</value>
+				<value name="PIAT">Attribuierendes Indefinitpronomen</value>
+				<value name="PIS">Substituierendes Indefinitpronomen</value>
+				<value name="PPER">Ersetzbares Personalpronomen</value>
+				<value name="PPOSAT">Attribuierendes Possessivpronomen</value>
+				<value name="PPOSS">Substituierendes Possessivpronomen</value>
+				<value name="PRELAT">Attribuierendes Relativpronomen</value>
+				<value name="PRELS">Substituierendes Relativpronomen</value>
+				<value name="PRF">Reflexives Personalpronomen</value>
+				<value name="PROAV">Pronominaladverb</value>
+				<value name="PTKA">Partikel bei Adjektiv oder Adverb</value>
+				<value name="PTKANT">Antwortpartikel</value>
+				<value name="PTKNEG">Negationspartikel</value>
+				<value name="PTKVZ">Abgetrennter Verbzusatz</value>
+				<value name="PTKZU">zu vor Infinitiv</value>
+				<value name="PWAT">Attribuierendes Interrogativpronomen</value>
+				<value name="PWAV">Adverbiales Interrogativ- oder Relativpronomen</value>
+				<value name="PWS">Substituierendes Interrogativpronomen</value>
+				<value name="TRUNC">Kompositions-Erstglied</value>
+				<value name="UNKNOWN">Unbekanntes Tag aus Einlesen aus Korpusdatei</value>
+				<value name="VAFIN">Finites Verb, aux</value>
+				<value name="VAIMP">Imperativ, aux</value>
+				<value name="VAINF">Infinitiv, aux</value>
+				<value name="VAPP">Partizip Perfekt, aux</value>
+				<value name="VMFIN">Finites Verb, modal</value>
+				<value name="VMINF">Infinitiv, modal</value>
+				<value name="VMPP">Partizip Perfekt, modal</value>
+				<value name="VVFIN">Finites Verb, voll</value>
+				<value name="VVIMP">Imperativ, voll</value>
+				<value name="VVINF">Infinitiv, voll</value>
+				<value name="VVIZU">Infinitiv mit zu, voll</value>
+				<value name="VVPP">Partizip Perfekt, voll</value>
+				<value name="XY">Nichtwort, Sonderzeichen</value>
+			</feature>
+			<feature name="tense" domain="T">
+				<value name="*"></value>
+				<value name="--"></value>
+				<value name="Past"></value>
+				<value name="Pres"></value>
+			</feature>
+			<feature name="word" domain="T"/>
+			<edgelabel>
+				<value name="--">&lt;not bound&gt;</value>
+				<value name="AC">adpositional case marker</value>
+				<value name="ADC">adjective component</value>
+				<value name="AG">genitive attribute</value>
+				<value name="AMS">measure argument of adj</value>
+				<value name="APP">apposition</value>
+				<value name="AVC">adverbial phrase component</value>
+				<value name="CC">comparative complement</value>
+				<value name="CD">coordinating conjunction</value>
+				<value name="CJ">conjunct</value>
+				<value name="CM">comparative concjunction</value>
+				<value name="CP">complementizer</value>
+				<value name="CVC">collocational verb construction (Funktionsverbgefüge)</value>
+				<value name="DA">dative</value>
+				<value name="DH">discourse-level head</value>
+				<value name="DM">discourse marker</value>
+				<value name="EP">expletive es</value>
+				<value name="HD">head</value>
+				<value name="JU">junctor</value>
+				<value name="MC">comitative</value>
+				<value name="MI">instrumental</value>
+				<value name="ML">locative</value>
+				<value name="MNR">postnominal modifier</value>
+				<value name="MO">modifier</value>
+				<value name="MR">rhetorical modifier</value>
+				<value name="MW">way (directional modifier)</value>
+				<value name="NG">negation</value>
+				<value name="NK">noun kernel modifier</value>
+				<value name="NMC">numerical component</value>
+				<value name="OA">accusative object</value>
+				<value name="OA2">second accusative object</value>
+				<value name="OC">clausal object</value>
+				<value name="OG">genitive object</value>
+				<value name="OP">prepositional object</value>
+				<value name="PAR">parenthesis</value>
+				<value name="PD">predicate</value>
+				<value name="PG">phrasal genitive</value>
+				<value name="PH">placeholder</value>
+				<value name="PM">morphological particle</value>
+				<value name="PNC">proper noun component</value>
+				<value name="RC">relative clause</value>
+				<value name="RE">repeated element</value>
+				<value name="RS">reported speech</value>
+				<value name="SB">subject</value>
+				<value name="SBP">passivised subject (PP)</value>
+				<value name="SP">subject or predicate</value>
+				<value name="SVP">separable verb prefix</value>
+				<value name="UC">unit component</value>
+				<value name="VO">vocative</value>
+			</edgelabel>
+			<secedgelabel>
+				<value name="--">&lt;not bound&gt;</value>
+				<value name="AC">adpositional case marker</value>
+				<value name="ADC">adjective component</value>
+				<value name="AG">genitive attribute</value>
+				<value name="AMS">measure argument of adj</value>
+				<value name="APP">apposition</value>
+				<value name="AVC">adverbial phrase component</value>
+				<value name="CC">comparative complement</value>
+				<value name="CD">coordinating conjunction</value>
+				<value name="CJ">conjunct</value>
+				<value name="CM">comparative concjunction</value>
+				<value name="CP">complementizer</value>
+				<value name="CVC">collocational verb construction (Funktionsverbgefüge)</value>
+				<value name="DA">dative</value>
+				<value name="DH">discourse-level head</value>
+				<value name="DM">discourse marker</value>
+				<value name="EP">expletive es</value>
+				<value name="HD">head</value>
+				<value name="JU">junctor</value>
+				<value name="MC">comitative</value>
+				<value name="MI">instrumental</value>
+				<value name="ML">locative</value>
+				<value name="MNR">postnominal modifier</value>
+				<value name="MO">modifier</value>
+				<value name="MR">rhetorical modifier</value>
+				<value name="MW">way (directional modifier)</value>
+				<value name="NG">negation</value>
+				<value name="NK">noun kernel modifier</value>
+				<value name="NMC">numerical component</value>
+				<value name="OA">accusative object</value>
+				<value name="OA2">second accusative object</value>
+				<value name="OC">clausal object</value>
+				<value name="OG">genitive object</value>
+				<value name="OP">prepositional object</value>
+				<value name="PAR">parenthesis</value>
+				<value name="PD">predicate</value>
+				<value name="PG">phrasal genitive</value>
+				<value name="PH">placeholder</value>
+				<value name="PM">morphological particle</value>
+				<value name="PNC">proper noun component</value>
+				<value name="RC">relative clause</value>
+				<value name="RE">repeated element</value>
+				<value name="RS">reported speech</value>
+				<value name="SB">subject</value>
+				<value name="SBP">passivised subject (PP)</value>
+				<value name="SP">subject or predicate</value>
+				<value name="SVP">separable verb prefix</value>
+				<value name="UC">(idiosyncratic) unit component</value>
+				<value name="VO">vocative</value>
+			</secedgelabel>
+		</annotation>
+  </head>
+  <body>
+		<s id="s4587">
+			<graph root="s4587_500">
+				<terminals>
+					<t id="s4587_1" lemma="Partner" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Pl" word="Partner" case="Nom" morph="Nom.Pl.Masc" pos="NN"/>
+					<t id="s4587_2" lemma="würdigen" person="3" degree="--" tense="Pres" mood="Ind" gender="--" number="Pl" word="würdigen" case="--" morph="3.Pl.Pres.Ind" pos="VVFIN"/>
+					<t id="s4587_3" lemma="Rabin" person="--" degree="--" tense="--" mood="--" gender="*" number="Sg" word="Rabin" case="Acc" morph="Acc.Sg.*" pos="NE"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s4587_500" cat="S">
+						<edge label="SB" idref="s4587_1"/>
+						<edge label="HD" idref="s4587_2"/>
+						<edge label="OA" idref="s4587_3"/>
+					</nt>
+				</nonterminals>
+			</graph>
+			<matches>
+			</matches>
+			<sem>
+				<globals>
+				</globals>
+				<frames>
+					<frame name="wuerdigen2-salsa" id="wuerdigen_s4587_f1">
+						<target lemma="würdigen">
+							<fenode idref="s4587_2"/>
+						</target>
+						<fe name="Agent" id="wuerdigen_s4587_f1_e1">
+							<fenode idref="s4587_1"/>
+						</fe>
+						<fe name="Evaluee" id="wuerdigen_s4587_f1_e2">
+							<fenode idref="s4587_3"/>
+						</fe>
+					</frame>
+				</frames>
+				<usp>
+				  <uspframes/>
+				  <uspfes/>
+				</usp>
+				<wordtags>
+				</wordtags>
+			</sem>
+		</s>
+		<s id="s4678">
+			<graph root="s4678_VROOT">
+				<terminals>
+					<t id="s4678_1" lemma="PLO-Chef" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="PLO-Chef" case="Nom" morph="Nom.Sg.Masc" pos="NN"/>
+					<t id="s4678_2" lemma="Yassir" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Yassir" case="Nom" morph="Nom.Sg.Masc" pos="NE"/>
+					<t id="s4678_3" lemma="Arafat" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Arafat" case="Nom" morph="Nom.Sg.Masc" pos="NE"/>
+					<t id="s4678_4" lemma="kondolieren" person="3" degree="--" tense="Past" mood="Ind" gender="--" number="Sg" word="kondolierte" case="--" morph="3.Sg.Past.Ind" pos="VVFIN"/>
+					<t id="s4678_5" lemma="und" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="und" case="--" morph="--" pos="KON"/>
+					<t id="s4678_6" lemma="würdigen" person="3" degree="--" tense="Past" mood="Ind" gender="--" number="Sg" word="würdigte" case="--" morph="3.Sg.Past.Ind" pos="VVFIN"/>
+					<t id="s4678_7" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="den" case="Acc" morph="Acc.Sg.Masc" pos="ART"/>
+					<t id="s4678_8" lemma="ermordet" person="--" degree="Pos" tense="--" mood="--" gender="Masc" number="Sg" word="ermordeten" case="Acc" morph="Pos.Acc.Sg.Masc" pos="ADJA"/>
+					<t id="s4678_9" lemma="Politiker" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Politiker" case="Acc" morph="Acc.Sg.Masc" pos="NN"/>
+					<t id="s4678_10" lemma="als" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="als" case="--" morph="--" pos="APPR"/>
+					<t id="s4678_11" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="``" case="--" morph="--" pos="$("/>
+					<t id="s4678_12" lemma="einer" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="einen" case="Acc" morph="Acc.Sg.Masc" pos="PIS"/>
+					<t id="s4678_13" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Pl" word="der" case="Gen" morph="Gen.Pl.Masc" pos="ART"/>
+					<t id="s4678_14" lemma="mutig" person="--" degree="Pos" tense="--" mood="--" gender="Masc" number="Pl" word="mutigen" case="Gen" morph="Pos.Gen.Pl.Masc" pos="ADJA"/>
+					<t id="s4678_15" lemma="Mann" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Pl" word="Männer" case="Gen" morph="Gen.Pl.Masc" pos="NN"/>
+					<t id="s4678_16" lemma="Israel" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="Israels" case="Gen" morph="Gen.Sg.Neut" pos="NE"/>
+					<t id="s4678_17" lemma="und" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="und" case="--" morph="--" pos="KON"/>
+					<t id="s4678_18" lemma="Friedensstifter" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Friedensstifter" case="Acc" morph="Acc.Sg.Masc" pos="NN"/>
+					<t id="s4678_19" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="''" case="--" morph="--" pos="$("/>
+					<t id="s4678_20" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="," case="--" morph="--" pos="$,"/>
+					<t id="s4678_21" lemma="werden" person="3" degree="--" tense="Pres" mood="Ind" gender="--" number="Sg" word="wird" case="--" morph="3.Sg.Pres.Ind" pos="VAFIN"/>
+					<t id="s4678_22" lemma="aber" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="aber" case="--" morph="--" pos="ADV"/>
+					<t id="s4678_23" lemma="an" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="an" case="--" morph="--" pos="APPR"/>
+					<t id="s4678_24" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="der" case="Dat" morph="Dat.Sg.Fem" pos="ART"/>
+					<t id="s4678_25" lemma="Trauerfeier" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Trauerfeier" case="Dat" morph="Dat.Sg.Fem" pos="NN"/>
+					<t id="s4678_26" lemma="nicht" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="nicht" case="--" morph="--" pos="PTKNEG"/>
+					<t id="s4678_27" lemma="teilnehmen" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="teilnehmen" case="--" morph="Inf" pos="VVINF"/>
+					<t id="s4678_28" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="." case="--" morph="--" pos="$."/>
+				</terminals>
+				<nonterminals>
+					<nt id="s4678_500" cat="PN">
+						<edge label="PNC" idref="s4678_2"/>
+						<edge label="PNC" idref="s4678_3"/>
+					</nt>
+					<nt id="s4678_504" cat="NP">
+						<edge label="NK" idref="s4678_1"/>
+						<edge label="NK" idref="s4678_500"/>
+						<secedge label="SB" idref="s4678_509"/>
+						<secedge label="SB" idref="s4678_511"/>
+					</nt>
+					<nt id="s4678_507" cat="S">
+						<edge label="SB" idref="s4678_504"/>
+						<edge label="HD" idref="s4678_4"/>
+					</nt>
+					<nt id="s4678_501" cat="NP">
+						<edge label="NK" idref="s4678_7"/>
+						<edge label="NK" idref="s4678_8"/>
+						<edge label="NK" idref="s4678_9"/>
+					</nt>
+					<nt id="s4678_502" cat="NP">
+						<edge label="NK" idref="s4678_13"/>
+						<edge label="NK" idref="s4678_14"/>
+						<edge label="NK" idref="s4678_15"/>
+						<edge label="AG" idref="s4678_16"/>
+					</nt>
+					<nt id="s4678_505" cat="NP">
+						<edge label="NK" idref="s4678_12"/>
+						<edge label="AG" idref="s4678_502"/>
+					</nt>
+					<nt id="s4678_508" cat="CNP">
+						<edge label="CJ" idref="s4678_505"/>
+						<edge label="CD" idref="s4678_17"/>
+						<edge label="CJ" idref="s4678_18"/>
+					</nt>
+					<nt id="s4678_510" cat="PP">
+						<edge label="AC" idref="s4678_10"/>
+						<edge label="NK" idref="s4678_508"/>
+					</nt>
+					<nt id="s4678_511" cat="S">
+						<edge label="HD" idref="s4678_6"/>
+						<edge label="OA" idref="s4678_501"/>
+						<edge label="MO" idref="s4678_510"/>
+					</nt>
+					<nt id="s4678_503" cat="PP">
+						<edge label="AC" idref="s4678_23"/>
+						<edge label="NK" idref="s4678_24"/>
+						<edge label="NK" idref="s4678_25"/>
+					</nt>
+					<nt id="s4678_506" cat="VP">
+						<edge label="MO" idref="s4678_22"/>
+						<edge label="MO" idref="s4678_503"/>
+						<edge label="NG" idref="s4678_26"/>
+						<edge label="HD" idref="s4678_27"/>
+					</nt>
+					<nt id="s4678_509" cat="S">
+						<edge label="HD" idref="s4678_21"/>
+						<edge label="OC" idref="s4678_506"/>
+					</nt>
+					<nt id="s4678_512" cat="CS">
+						<edge label="CJ" idref="s4678_507"/>
+						<edge label="CD" idref="s4678_5"/>
+						<edge label="CJ" idref="s4678_511"/>
+						<edge label="CJ" idref="s4678_509"/>
+					</nt>
+					<nt id="s4678_VROOT" cat="VROOT">
+						<edge label="--" idref="s4678_512"/>
+						<edge label="--" idref="s4678_11"/>
+						<edge label="--" idref="s4678_19"/>
+						<edge label="--" idref="s4678_20"/>
+						<edge label="--" idref="s4678_28"/>
+					</nt>
+				</nonterminals>
+			</graph>
+			<matches>
+			</matches>
+			<sem>
+				<globals>
+				</globals>
+				<frames>
+					<frame name="Judgment_communication" id="wuerdigen_s4678_f0">
+						<target lemma="würdigen">
+							<fenode idref="s4678_6"/>
+						</target>
+						<fe name="Role" id="wuerdigen_s4678_f0_e1">
+							<fenode idref="s4678_510"/>
+						</fe>
+						<fe name="Evaluee" id="wuerdigen_s4678_f0_e2">
+							<fenode idref="s4678_501"/>
+						</fe>
+						<fe name="Communicator" id="wuerdigen_s4678_f0_e3">
+							<fenode idref="s4678_504"/>
+						</fe>
+					</frame>
+				</frames>
+				<usp>
+				  <uspframes/>
+				  <uspfes/>
+				</usp>
+				<wordtags>
+				</wordtags>
+			</sem>
+		</s>
+		<s id="s7854">
+			<graph root="s7854_VROOT">
+				<terminals>
+					<t id="s7854_1" lemma="dabei" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="Dabei" case="--" morph="--" pos="PROAV"/>
+					<t id="s7854_2" lemma="werden" person="3" degree="--" tense="Past" mood="Ind" gender="--" number="Sg" word="wurde" case="--" morph="3.Sg.Past.Ind" pos="VAFIN"/>
+					<t id="s7854_3" lemma="eher" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="eher" case="--" morph="--" pos="ADV"/>
+					<t id="s7854_4" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="der" case="Nom" morph="Nom.Sg.Masc" pos="ART"/>
+					<t id="s7854_5" lemma="Garant" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Garant" case="Nom" morph="Nom.Sg.Masc" pos="NN"/>
+					<t id="s7854_6" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="der" case="Gen" morph="Gen.Sg.Fem" pos="ART"/>
+					<t id="s7854_7" lemma="sich" person="3" degree="--" tense="--" mood="--" gender="--" number="Sg" word="sich" case="Acc" morph="3.Acc.Sg" pos="PRF"/>
+					<t id="s7854_8" lemma="nach" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="nach" case="--" morph="--" pos="APPR"/>
+					<t id="s7854_9" lemma="schier" person="--" degree="Pos" tense="--" mood="--" gender="--" number="--" word="schier" case="--" morph="Pos" pos="ADJD"/>
+					<t id="s7854_10" lemma="endlos" person="--" degree="Pos" tense="--" mood="--" gender="Masc" number="Pl" word="endlosen" case="Dat" morph="Pos.Dat.Pl.Masc" pos="ADJA"/>
+					<t id="s7854_11" lemma="Bruderkrieg" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Pl" word="Bruderkriegen" case="Dat" morph="Dat.Pl.Masc" pos="NN"/>
+					<t id="s7854_12" lemma="einstellend" person="--" degree="Pos" tense="--" mood="--" gender="Fem" number="Sg" word="einstellenden" case="Gen" morph="Pos.Gen.Sg.Fem" pos="ADJA"/>
+					<t id="s7854_13" lemma="Stabilität" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Stabilität" case="Gen" morph="Gen.Sg.Fem" pos="NN"/>
+					<t id="s7854_14" lemma="würdigen" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="gewürdigt" case="--" morph="Psp" pos="VVPP"/>
+					<t id="s7854_15" lemma="als" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="als" case="--" morph="--" pos="KOKOM"/>
+					<t id="s7854_16" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="der" case="Nom" morph="Nom.Sg.Masc" pos="ART"/>
+					<t id="s7854_17" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="``" case="--" morph="--" pos="$("/>
+					<t id="s7854_18" lemma="Demokrat" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Demokrat" case="Nom" morph="Nom.Sg.Masc" pos="NN"/>
+					<t id="s7854_19" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="''" case="--" morph="--" pos="$("/>
+					<t id="s7854_20" lemma="Schewardnadse" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Schewardnadse" case="Nom" morph="Nom.Sg.Masc" pos="NE"/>
+					<t id="s7854_21" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="." case="--" morph="--" pos="$."/>
+				</terminals>
+				<nonterminals>
+					<nt id="s7854_501" cat="VP">
+						<edge label="MO" idref="s7854_1"/>
+						<edge label="HD" idref="s7854_14"/>
+					</nt>
+					<nt id="s7854_502" cat="NP">
+						<edge label="CM" idref="s7854_15"/>
+						<edge label="NK" idref="s7854_16"/>
+						<edge label="NK" idref="s7854_18"/>
+						<edge label="NK" idref="s7854_20"/>
+					</nt>
+					<nt id="s7854_504" cat="AVP">
+						<edge label="HD" idref="s7854_3"/>
+						<edge label="CC" idref="s7854_502"/>
+					</nt>
+					<nt id="s7854_500" cat="AP">
+						<edge label="MO" idref="s7854_9"/>
+						<edge label="HD" idref="s7854_10"/>
+					</nt>
+					<nt id="s7854_503" cat="PP">
+						<edge label="AC" idref="s7854_8"/>
+						<edge label="NK" idref="s7854_500"/>
+						<edge label="NK" idref="s7854_11"/>
+					</nt>
+					<nt id="s7854_505" cat="AP">
+						<edge label="OA" idref="s7854_7"/>
+						<edge label="MO" idref="s7854_503"/>
+						<edge label="HD" idref="s7854_12"/>
+					</nt>
+					<nt id="s7854_506" cat="NP">
+						<edge label="NK" idref="s7854_6"/>
+						<edge label="NK" idref="s7854_505"/>
+						<edge label="NK" idref="s7854_13"/>
+					</nt>
+					<nt id="s7854_507" cat="NP">
+						<edge label="MO" idref="s7854_504"/>
+						<edge label="NK" idref="s7854_4"/>
+						<edge label="NK" idref="s7854_5"/>
+						<edge label="AG" idref="s7854_506"/>
+					</nt>
+					<nt id="s7854_508" cat="S">
+						<edge label="OC" idref="s7854_501"/>
+						<edge label="HD" idref="s7854_2"/>
+						<edge label="SB" idref="s7854_507"/>
+					</nt>
+					<nt id="s7854_VROOT" cat="VROOT">
+						<edge label="--" idref="s7854_508"/>
+						<edge label="--" idref="s7854_17"/>
+						<edge label="--" idref="s7854_19"/>
+						<edge label="--" idref="s7854_21"/>
+					</nt>
+				</nonterminals>
+			</graph>
+			<matches>
+			</matches>
+			<sem>
+				<globals>
+				</globals>
+				<frames>
+					<frame name="Judgment_communication" id="wuerdigen_s7854_f0">
+						<target lemma="würdigen">
+							<fenode idref="s7854_14"/>
+						</target>
+						<fe name="Evaluee" id="wuerdigen_s7854_f0_e1">
+							<fenode idref="s7854_507"/>
+						</fe>
+					</frame>
+				</frames>
+				<usp>
+				  <uspframes/>
+				  <uspfes/>
+				</usp>
+				<wordtags>
+				</wordtags>
+			</sem>
+		</s>
+		<s id="s8506">
+			<graph root="s8506_VROOT">
+				<terminals>
+					<t id="s8506_1" lemma="er" person="3" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Er" case="Nom" morph="3.Nom.Sg.Masc" pos="PPER"/>
+					<t id="s8506_2" lemma="würdigen" person="3" degree="--" tense="Past" mood="Ind" gender="--" number="Sg" word="würdigte" case="--" morph="3.Sg.Past.Ind" pos="VVFIN"/>
+					<t id="s8506_3" lemma="Rabin" person="--" degree="--" tense="--" mood="--" gender="*" number="Sg" word="Rabin" case="Acc" morph="Acc.Sg.*" pos="NE"/>
+					<t id="s8506_4" lemma="für" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="für" case="--" morph="--" pos="APPR"/>
+					<t id="s8506_5" lemma="der" person="--" degree="--" tense="--" mood="--" gender="*" number="Sg" word="dessen" case="Gen" morph="Gen.Sg.*" pos="PDS"/>
+					<t id="s8506_6" lemma="Engagement" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="Engagement" case="Acc" morph="Acc.Sg.Neut" pos="NN"/>
+					<t id="s8506_7" lemma="für" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="für" case="--" morph="--" pos="APPR"/>
+					<t id="s8506_8" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="die" case="Acc" morph="Acc.Sg.Fem" pos="ART"/>
+					<t id="s8506_9" lemma="Autonomie" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Autonomie" case="Acc" morph="Acc.Sg.Fem" pos="NN"/>
+					<t id="s8506_10" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Pl" word="der" case="Gen" morph="Gen.Pl.Masc" pos="ART"/>
+					<t id="s8506_11" lemma="Palästinenser" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Pl" word="Palästinenser" case="Gen" morph="Gen.Pl.Masc" pos="NN"/>
+					<t id="s8506_12" lemma="in" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="in" case="--" morph="--" pos="APPR"/>
+					<t id="s8506_13" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Pl" word="den" case="Dat" morph="Dat.Pl.Neut" pos="ART"/>
+					<t id="s8506_14" lemma="von" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="von" case="--" morph="--" pos="APPR"/>
+					<t id="s8506_15" lemma="Israel" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="Israel" case="Dat" morph="Dat.Sg.Neut" pos="NE"/>
+					<t id="s8506_16" lemma="besetzt" person="--" degree="Pos" tense="--" mood="--" gender="Neut" number="Pl" word="besetzten" case="Dat" morph="Pos.Dat.Pl.Neut" pos="ADJA"/>
+					<t id="s8506_17" lemma="Gebiet" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Pl" word="Gebieten" case="Dat" morph="Dat.Pl.Neut" pos="NN"/>
+					<t id="s8506_18" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="." case="--" morph="--" pos="$."/>
+				</terminals>
+				<nonterminals>
+					<nt id="s8506_500" cat="NP">
+						<edge label="NK" idref="s8506_10"/>
+						<edge label="NK" idref="s8506_11"/>
+					</nt>
+					<nt id="s8506_501" cat="PP">
+						<edge label="AC" idref="s8506_14"/>
+						<edge label="NK" idref="s8506_15"/>
+					</nt>
+					<nt id="s8506_502" cat="AP">
+						<edge label="SBP" idref="s8506_501"/>
+						<edge label="HD" idref="s8506_16"/>
+					</nt>
+					<nt id="s8506_503" cat="PP">
+						<edge label="AC" idref="s8506_12"/>
+						<edge label="NK" idref="s8506_13"/>
+						<edge label="NK" idref="s8506_502"/>
+						<edge label="NK" idref="s8506_17"/>
+					</nt>
+					<nt id="s8506_504" cat="PP">
+						<edge label="AC" idref="s8506_7"/>
+						<edge label="NK" idref="s8506_8"/>
+						<edge label="NK" idref="s8506_9"/>
+						<edge label="AG" idref="s8506_500"/>
+						<edge label="MNR" idref="s8506_503"/>
+					</nt>
+					<nt id="s8506_505" cat="PP">
+						<edge label="AC" idref="s8506_4"/>
+						<edge label="AG" idref="s8506_5"/>
+						<edge label="NK" idref="s8506_6"/>
+						<edge label="MNR" idref="s8506_504"/>
+					</nt>
+					<nt id="s8506_506" cat="S">
+						<edge label="SB" idref="s8506_1"/>
+						<edge label="HD" idref="s8506_2"/>
+						<edge label="OA" idref="s8506_3"/>
+						<edge label="MO" idref="s8506_505"/>
+					</nt>
+					<nt id="s8506_VROOT" cat="VROOT">
+						<edge label="--" idref="s8506_506"/>
+						<edge label="--" idref="s8506_18"/>
+					</nt>
+				</nonterminals>
+			</graph>
+			<matches>
+			</matches>
+			<sem>
+				<globals>
+				</globals>
+				<frames>
+					<frame name="wuerdigen2-salsa" id="wuerdigen_s8506_f1">
+						<target lemma="würdigen">
+							<fenode idref="s8506_2"/>
+						</target>
+						<fe name="Agent" id="wuerdigen_s8506_f1_e1">
+							<fenode idref="s8506_1"/>
+						</fe>
+						<fe name="Evaluee" id="wuerdigen_s8506_f1_e2">
+							<fenode idref="s8506_3"/>
+						</fe>
+						<fe name="Reason" id="wuerdigen_s8506_f1_e3">
+							<fenode idref="s8506_505"/>
+						</fe>
+					</frame>
+				</frames>
+				<usp>
+				  <uspframes/>
+				  <uspfes/>
+				</usp>
+				<wordtags>
+				</wordtags>
+			</sem>
+		</s>
+		<s id="s8514">
+			<graph root="s8514_VROOT">
+				<terminals>
+					<t id="s8514_1" lemma="Clinton" person="--" degree="--" tense="--" mood="--" gender="*" number="Sg" word="Clinton" case="Nom" morph="Nom.Sg.*" pos="NE"/>
+					<t id="s8514_2" lemma="würdigen" person="3" degree="--" tense="Past" mood="Ind" gender="--" number="Sg" word="würdigte" case="--" morph="3.Sg.Past.Ind" pos="VVFIN"/>
+					<t id="s8514_3" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="den" case="Acc" morph="Acc.Sg.Masc" pos="ART"/>
+					<t id="s8514_4" lemma="Friedensnobelpreisträger" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Friedensnobelpreisträger" case="Acc" morph="Acc.Sg.Masc" pos="NN"/>
+					<t id="s8514_5" lemma="als" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="als" case="--" morph="--" pos="APPR"/>
+					<t id="s8514_6" lemma="ein" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="einen" case="Acc" morph="Acc.Sg.Masc" pos="ART"/>
+					<t id="s8514_7" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="``" case="--" morph="--" pos="$("/>
+					<t id="s8514_8" lemma="Märtyrer" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Märtyrer" case="Acc" morph="Acc.Sg.Masc" pos="NN"/>
+					<t id="s8514_9" lemma="für" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="für" case="--" morph="--" pos="APPR"/>
+					<t id="s8514_10" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="den" case="Acc" morph="Acc.Sg.Masc" pos="ART"/>
+					<t id="s8514_11" lemma="Frieden" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Frieden" case="Acc" morph="Acc.Sg.Masc" pos="NN"/>
+					<t id="s8514_12" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="''" case="--" morph="--" pos="$("/>
+					<t id="s8514_13" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="." case="--" morph="--" pos="$."/>
+				</terminals>
+				<nonterminals>
+					<nt id="s8514_500" cat="NP">
+						<edge label="NK" idref="s8514_3"/>
+						<edge label="NK" idref="s8514_4"/>
+					</nt>
+					<nt id="s8514_501" cat="PP">
+						<edge label="AC" idref="s8514_9"/>
+						<edge label="NK" idref="s8514_10"/>
+						<edge label="NK" idref="s8514_11"/>
+					</nt>
+					<nt id="s8514_502" cat="PP">
+						<edge label="AC" idref="s8514_5"/>
+						<edge label="NK" idref="s8514_6"/>
+						<edge label="NK" idref="s8514_8"/>
+						<edge label="MNR" idref="s8514_501"/>
+					</nt>
+					<nt id="s8514_503" cat="S">
+						<edge label="SB" idref="s8514_1"/>
+						<edge label="HD" idref="s8514_2"/>
+						<edge label="OA" idref="s8514_500"/>
+						<edge label="MO" idref="s8514_502"/>
+					</nt>
+					<nt id="s8514_VROOT" cat="VROOT">
+						<edge label="--" idref="s8514_503"/>
+						<edge label="--" idref="s8514_7"/>
+						<edge label="--" idref="s8514_12"/>
+						<edge label="--" idref="s8514_13"/>
+					</nt>
+				</nonterminals>
+			</graph>
+			<matches>
+			</matches>
+			<sem>
+				<globals>
+				</globals>
+				<frames>
+					<frame name="wuerdigen2-salsa" id="wuerdigen_s8514_f1">
+						<target lemma="würdigen">
+							<fenode idref="s8514_2"/>
+						</target>
+						<fe name="Agent" id="wuerdigen_s8514_f1_e1">
+							<fenode idref="s8514_1"/>
+						</fe>
+						<fe name="Evaluee" id="wuerdigen_s8514_f1_e2">
+							<fenode idref="s8514_500"/>
+						</fe>
+						<fe name="Reason" id="wuerdigen_s8514_f1_e3">
+							<fenode idref="s8514_502"/>
+						</fe>
+					</frame>
+				</frames>
+				<usp>
+				  <uspframes/>
+				  <uspfes/>
+				</usp>
+				<wordtags>
+				</wordtags>
+			</sem>
+		</s>
+		<s id="s8689">
+			<graph root="s8689_VROOT">
+				<terminals>
+					<t id="s8689_1" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Die" case="Nom" morph="Nom.Sg.Fem" pos="ART"/>
+					<t id="s8689_2" lemma="Parteizeitung" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Parteizeitung" case="Nom" morph="Nom.Sg.Fem" pos="NN"/>
+					<t id="s8689_3" lemma="Nhan" person="--" degree="--" tense="--" mood="--" gender="*" number="*" word="Nhan" case="*" morph="*.*.*" pos="NE"/>
+					<t id="s8689_4" lemma="Dan" person="--" degree="--" tense="--" mood="--" gender="*" number="Sg" word="Dan" case="Nom" morph="Nom.Sg.*" pos="NE"/>
+					<t id="s8689_5" lemma="würdigen" person="3" degree="--" tense="Past" mood="Ind" gender="--" number="Sg" word="würdigte" case="--" morph="3.Sg.Past.Ind" pos="VVFIN"/>
+					<t id="s8689_6" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Pl" word="die" case="Acc" morph="Acc.Pl.Masc" pos="ART"/>
+					<t id="s8689_7" lemma="Verdienst" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Pl" word="Verdienste" case="Acc" morph="Acc.Pl.Masc" pos="NN"/>
+					<t id="s8689_8" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="des" case="Gen" morph="Gen.Sg.Masc" pos="ART"/>
+					<t id="s8689_9" lemma="Sozialismus" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Sozialismus" case="Gen" morph="Gen.Sg.Masc" pos="NN"/>
+					<t id="s8689_10" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="." case="--" morph="--" pos="$."/>
+				</terminals>
+				<nonterminals>
+					<nt id="s8689_500" cat="PN">
+						<edge label="PNC" idref="s8689_3"/>
+						<edge label="PNC" idref="s8689_4"/>
+					</nt>
+					<nt id="s8689_502" cat="NP">
+						<edge label="NK" idref="s8689_1"/>
+						<edge label="NK" idref="s8689_2"/>
+						<edge label="NK" idref="s8689_500"/>
+					</nt>
+					<nt id="s8689_501" cat="NP">
+						<edge label="NK" idref="s8689_8"/>
+						<edge label="NK" idref="s8689_9"/>
+					</nt>
+					<nt id="s8689_503" cat="NP">
+						<edge label="NK" idref="s8689_6"/>
+						<edge label="NK" idref="s8689_7"/>
+						<edge label="AG" idref="s8689_501"/>
+					</nt>
+					<nt id="s8689_504" cat="S">
+						<edge label="SB" idref="s8689_502"/>
+						<edge label="HD" idref="s8689_5"/>
+						<edge label="OA" idref="s8689_503"/>
+					</nt>
+					<nt id="s8689_VROOT" cat="VROOT">
+						<edge label="--" idref="s8689_504"/>
+						<edge label="--" idref="s8689_10"/>
+					</nt>
+				</nonterminals>
+			</graph>
+			<matches>
+			</matches>
+			<sem>
+				<globals>
+				</globals>
+				<frames>
+					<frame name="Judgment_communication" id="wuerdigen_s8689_f0">
+						<target lemma="würdigen">
+							<fenode idref="s8689_5"/>
+						</target>
+						<fe name="Communicator" id="wuerdigen_s8689_f0_e1" usp="yes">
+							<fenode idref="s8689_502"/>
+						</fe>
+						<fe name="Medium" id="wuerdigen_s8689_f0_e2" usp="yes">
+							<fenode idref="s8689_502"/>
+						</fe>
+						<fe name="Evaluee" id="wuerdigen_s8689_f0_e3">
+							<fenode idref="s8689_503"/>
+						</fe>
+					</frame>
+				</frames>
+				<usp>
+				  <uspframes/>
+				  <uspfes>
+				  <uspblock>
+				    <uspitem idref="wuerdigen_s8689_f0_e1"/>
+				    <uspitem idref="wuerdigen_s8689_f0_e2"/>
+				  </uspblock>
+				  </uspfes>
+				</usp>
+				<wordtags>
+				</wordtags>
+			</sem>
+		</s>
+		<s id="s8774">
+			<graph root="s8774_VROOT">
+				<terminals>
+					<t id="s8774_1" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="``" case="--" morph="--" pos="$("/>
+					<t id="s8774_2" lemma="regieren" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="Regieren" case="Nom" morph="Nom.Sg.Neut" pos="NN"/>
+					<t id="s8774_3" lemma="und" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="und" case="--" morph="--" pos="KON"/>
+					<t id="s8774_4" lemma="herrschen" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="Herrschen" case="Nom" morph="Nom.Sg.Neut" pos="NN"/>
+					<t id="s8774_5" lemma="sein" person="3" degree="--" tense="Pres" mood="Ind" gender="--" number="Sg" word="ist" case="--" morph="3.Sg.Pres.Ind" pos="VAFIN"/>
+					<t id="s8774_6" lemma="strafrechtlich" person="--" degree="Pos" tense="--" mood="--" gender="--" number="--" word="strafrechtlich" case="--" morph="Pos" pos="ADJD"/>
+					<t id="s8774_7" lemma="nicht" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="nicht" case="--" morph="--" pos="PTKNEG"/>
+					<t id="s8774_8" lemma="als" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="als" case="--" morph="--" pos="APPR"/>
+					<t id="s8774_9" lemma="bloß" person="--" degree="Pos" tense="--" mood="--" gender="Neut" number="Sg" word="bloßes" case="Nom" morph="Pos.Nom.Sg.Neut" pos="ADJA"/>
+					<t id="s8774_10" lemma="unterlassen" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="Unterlassen" case="Nom" morph="Nom.Sg.Neut" pos="NN"/>
+					<t id="s8774_11" lemma="zu" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="zu" case="--" morph="--" pos="PTKZU"/>
+					<t id="s8774_12" lemma="würdigen" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="würdigen" case="--" morph="Inf" pos="VVINF"/>
+					<t id="s8774_13" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="''" case="--" morph="--" pos="$("/>
+					<t id="s8774_14" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="," case="--" morph="--" pos="$,"/>
+					<t id="s8774_15" lemma="heißen" person="3" degree="--" tense="Past" mood="Ind" gender="--" number="Sg" word="hieß" case="--" morph="3.Sg.Past.Ind" pos="VVFIN"/>
+					<t id="s8774_16" lemma="es" person="3" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="es" case="Nom" morph="3.Nom.Sg.Neut" pos="PPER"/>
+					<t id="s8774_17" lemma="in" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="in" case="--" morph="--" pos="APPR"/>
+					<t id="s8774_18" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="dem" case="Dat" morph="Dat.Sg.Masc" pos="ART"/>
+					<t id="s8774_19" lemma="Beschluß" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Beschluß" case="Dat" morph="Dat.Sg.Masc" pos="NN"/>
+					<t id="s8774_20" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="." case="--" morph="--" pos="$."/>
+				</terminals>
+				<nonterminals>
+					<nt id="s8774_500" cat="CNP">
+						<edge label="CJ" idref="s8774_2"/>
+						<edge label="CD" idref="s8774_3"/>
+						<edge label="CJ" idref="s8774_4"/>
+					</nt>
+					<nt id="s8774_501" cat="PP">
+						<edge label="AC" idref="s8774_8"/>
+						<edge label="NK" idref="s8774_9"/>
+						<edge label="NK" idref="s8774_10"/>
+					</nt>
+					<nt id="s8774_502" cat="VZ">
+						<edge label="PM" idref="s8774_11"/>
+						<edge label="HD" idref="s8774_12"/>
+					</nt>
+					<nt id="s8774_504" cat="VP">
+						<edge label="MO" idref="s8774_6"/>
+						<edge label="NG" idref="s8774_7"/>
+						<edge label="MO" idref="s8774_501"/>
+						<edge label="HD" idref="s8774_502"/>
+					</nt>
+					<nt id="s8774_505" cat="S">
+						<edge label="SB" idref="s8774_500"/>
+						<edge label="HD" idref="s8774_5"/>
+						<edge label="OC" idref="s8774_504"/>
+					</nt>
+					<nt id="s8774_503" cat="PP">
+						<edge label="AC" idref="s8774_17"/>
+						<edge label="NK" idref="s8774_18"/>
+						<edge label="NK" idref="s8774_19"/>
+					</nt>
+					<nt id="s8774_506" cat="S">
+						<edge label="OC" idref="s8774_505"/>
+						<edge label="HD" idref="s8774_15"/>
+						<edge label="EP" idref="s8774_16"/>
+						<edge label="MO" idref="s8774_503"/>
+					</nt>
+					<nt id="s8774_VROOT" cat="VROOT">
+						<edge label="--" idref="s8774_1"/>
+						<edge label="--" idref="s8774_506"/>
+						<edge label="--" idref="s8774_13"/>
+						<edge label="--" idref="s8774_14"/>
+						<edge label="--" idref="s8774_20"/>
+					</nt>
+				</nonterminals>
+			</graph>
+			<matches>
+			</matches>
+			<sem>
+				<globals>
+				</globals>
+				<frames>
+					<frame name="Judgment_communication" id="wuerdigen_s8774_f0">
+						<target lemma="würdigen">
+							<fenode idref="s8774_502"/>
+						</target>
+						<fe name="Role" id="wuerdigen_s8774_f0_e1">
+							<fenode idref="s8774_501"/>
+						</fe>
+						<fe name="Evaluee" id="wuerdigen_s8774_f0_e2">
+							<fenode idref="s8774_500"/>
+						</fe>
+					</frame>
+				</frames>
+				<usp>
+				  <uspframes/>
+				  <uspfes/>
+				</usp>
+				<wordtags>
+				</wordtags>
+			</sem>
+		</s>
+		<s id="s8863">
+			<graph root="s8863_VROOT">
+				<terminals>
+					<t id="s8863_1" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Die" case="Nom" morph="Nom.Sg.Fem" pos="ART"/>
+					<t id="s8863_2" lemma="deutsch" person="--" degree="Pos" tense="--" mood="--" gender="Fem" number="Sg" word="Deutsche" case="Nom" morph="Pos.Nom.Sg.Fem" pos="ADJA"/>
+					<t id="s8863_3" lemma="Oper" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Oper" case="Nom" morph="Nom.Sg.Fem" pos="NN"/>
+					<t id="s8863_4" lemma="Berlin" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="Berlin" case="Nom" morph="Nom.Sg.Neut" pos="NE"/>
+					<t id="s8863_5" lemma="würdigen" person="3" degree="--" tense="Past" mood="Ind" gender="--" number="Sg" word="würdigte" case="--" morph="3.Sg.Past.Ind" pos="VVFIN"/>
+					<t id="s8863_6" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="die" case="Acc" morph="Acc.Sg.Fem" pos="ART"/>
+					<t id="s8863_7" lemma="Sopranistin" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Sopranistin" case="Acc" morph="Acc.Sg.Fem" pos="NN"/>
+					<t id="s8863_8" lemma="als" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="als" case="--" morph="--" pos="APPR"/>
+					<t id="s8863_9" lemma="ein" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="eine" case="Acc" morph="Acc.Sg.Fem" pos="ART"/>
+					<t id="s8863_10" lemma="lang" person="--" degree="Pos" tense="--" mood="--" gender="Neut" number="Pl" word="lange" case="Acc" morph="Pos.Acc.Pl.Neut" pos="ADJA"/>
+					<t id="s8863_11" lemma="Jahr" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Pl" word="Jahre" case="Acc" morph="Acc.Pl.Neut" pos="NN"/>
+					<t id="s8863_12" lemma="unverzichtbar" person="--" degree="Pos" tense="--" mood="--" gender="Fem" number="Sg" word="unverzichtbare" case="Acc" morph="Pos.Acc.Sg.Fem" pos="ADJA"/>
+					<t id="s8863_13" lemma="Stütze" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Stütze" case="Acc" morph="Acc.Sg.Fem" pos="NN"/>
+					<t id="s8863_14" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="des" case="Gen" morph="Gen.Sg.Neut" pos="ART"/>
+					<t id="s8863_15" lemma="Ensemble" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="Ensembles" case="Gen" morph="Gen.Sg.Neut" pos="NN"/>
+					<t id="s8863_16" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="der" case="Gen" morph="Gen.Sg.Fem" pos="ART"/>
+					<t id="s8863_17" lemma="städtisch" person="--" degree="Pos" tense="--" mood="--" gender="Fem" number="Sg" word="Städtischen" case="Gen" morph="Pos.Gen.Sg.Fem" pos="ADJA"/>
+					<t id="s8863_18" lemma="Oper" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Oper" case="Gen" morph="Gen.Sg.Fem" pos="NN"/>
+					<t id="s8863_19" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="." case="--" morph="--" pos="$."/>
+				</terminals>
+				<nonterminals>
+					<nt id="s8863_500" cat="NP">
+						<edge label="NK" idref="s8863_2"/>
+						<edge label="NK" idref="s8863_3"/>
+						<edge label="NK" idref="s8863_4"/>
+					</nt>
+					<nt id="s8863_504" cat="PN">
+						<edge label="PNC" idref="s8863_500"/>
+					</nt>
+					<nt id="s8863_507" cat="NP">
+						<edge label="NK" idref="s8863_1"/>
+						<edge label="NK" idref="s8863_504"/>
+					</nt>
+					<nt id="s8863_501" cat="NP">
+						<edge label="NK" idref="s8863_6"/>
+						<edge label="NK" idref="s8863_7"/>
+					</nt>
+					<nt id="s8863_502" cat="NP">
+						<edge label="NK" idref="s8863_10"/>
+						<edge label="NK" idref="s8863_11"/>
+					</nt>
+					<nt id="s8863_505" cat="AP">
+						<edge label="MO" idref="s8863_502"/>
+						<edge label="HD" idref="s8863_12"/>
+					</nt>
+					<nt id="s8863_503" cat="NP">
+						<edge label="NK" idref="s8863_16"/>
+						<edge label="NK" idref="s8863_17"/>
+						<edge label="NK" idref="s8863_18"/>
+					</nt>
+					<nt id="s8863_506" cat="NP">
+						<edge label="NK" idref="s8863_14"/>
+						<edge label="NK" idref="s8863_15"/>
+						<edge label="AG" idref="s8863_503"/>
+					</nt>
+					<nt id="s8863_508" cat="PP">
+						<edge label="AC" idref="s8863_8"/>
+						<edge label="NK" idref="s8863_9"/>
+						<edge label="NK" idref="s8863_505"/>
+						<edge label="NK" idref="s8863_13"/>
+						<edge label="AG" idref="s8863_506"/>
+					</nt>
+					<nt id="s8863_509" cat="S">
+						<edge label="SB" idref="s8863_507"/>
+						<edge label="HD" idref="s8863_5"/>
+						<edge label="OA" idref="s8863_501"/>
+						<edge label="MO" idref="s8863_508"/>
+					</nt>
+					<nt id="s8863_VROOT" cat="VROOT">
+						<edge label="--" idref="s8863_509"/>
+						<edge label="--" idref="s8863_19"/>
+					</nt>
+				</nonterminals>
+			</graph>
+			<matches>
+			</matches>
+			<sem>
+				<globals>
+				</globals>
+				<frames>
+					<frame name="Judgment_communication" id="wuerdigen_s8863_f0">
+						<target lemma="würdigen">
+							<fenode idref="s8863_5"/>
+						</target>
+						<fe name="Role" id="wuerdigen_s8863_f0_e1">
+							<fenode idref="s8863_508"/>
+						</fe>
+						<fe name="Evaluee" id="wuerdigen_s8863_f0_e2">
+							<fenode idref="s8863_501"/>
+						</fe>
+						<fe name="Communicator" id="wuerdigen_s8863_f0_e3">
+							<fenode idref="s8863_507"/>
+						</fe>
+					</frame>
+				</frames>
+				<usp>
+				  <uspframes/>
+				  <uspfes/>
+				</usp>
+				<wordtags>
+				</wordtags>
+			</sem>
+		</s>
+		<s id="s10810">
+			<graph root="s10810_VROOT">
+				<terminals>
+					<t id="s10810_1" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="Das" case="Nom" morph="Nom.Sg.Neut" pos="ART"/>
+					<t id="s10810_2" lemma="Gericht" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="Gericht" case="Nom" morph="Nom.Sg.Neut" pos="NN"/>
+					<t id="s10810_3" lemma="haben" person="3" degree="--" tense="Pres" mood="Subj" gender="--" number="Sg" word="habe" case="--" morph="3.Sg.Pres.Subj" pos="VAFIN"/>
+					<t id="s10810_4" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Pl" word="die" case="Acc" morph="Acc.Pl.Masc" pos="ART"/>
+					<t id="s10810_5" lemma="Vorgang" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Pl" word="Vorgänge" case="Acc" morph="Acc.Pl.Masc" pos="NN"/>
+					<t id="s10810_6" lemma="zwischen" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="zwischen" case="--" morph="--" pos="APPR"/>
+					<t id="s10810_7" lemma="1955" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="1955" case="--" morph="--" pos="CARD"/>
+					<t id="s10810_8" lemma="und" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="und" case="--" morph="--" pos="KON"/>
+					<t id="s10810_9" lemma="1990" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="1990" case="--" morph="--" pos="CARD"/>
+					<t id="s10810_10" lemma="nur" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="nur" case="--" morph="--" pos="ADV"/>
+					<t id="s10810_11" lemma="kursorisch" person="--" degree="Pos" tense="--" mood="--" gender="--" number="--" word="kursorisch" case="--" morph="Pos" pos="ADJD"/>
+					<t id="s10810_12" lemma="würdigen" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="gewürdigt" case="--" morph="Psp" pos="VVPP"/>
+					<t id="s10810_13" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="." case="--" morph="--" pos="$."/>
+				</terminals>
+				<nonterminals>
+					<nt id="s10810_500" cat="NP">
+						<edge label="NK" idref="s10810_1"/>
+						<edge label="NK" idref="s10810_2"/>
+					</nt>
+					<nt id="s10810_501" cat="CNP">
+						<edge label="CJ" idref="s10810_7"/>
+						<edge label="CD" idref="s10810_8"/>
+						<edge label="CJ" idref="s10810_9"/>
+					</nt>
+					<nt id="s10810_503" cat="PP">
+						<edge label="AC" idref="s10810_6"/>
+						<edge label="NK" idref="s10810_501"/>
+					</nt>
+					<nt id="s10810_504" cat="NP">
+						<edge label="NK" idref="s10810_4"/>
+						<edge label="NK" idref="s10810_5"/>
+						<edge label="MNR" idref="s10810_503"/>
+					</nt>
+					<nt id="s10810_502" cat="AP">
+						<edge label="MO" idref="s10810_10"/>
+						<edge label="HD" idref="s10810_11"/>
+					</nt>
+					<nt id="s10810_505" cat="VP">
+						<edge label="OA" idref="s10810_504"/>
+						<edge label="MO" idref="s10810_502"/>
+						<edge label="HD" idref="s10810_12"/>
+					</nt>
+					<nt id="s10810_506" cat="S">
+						<edge label="SB" idref="s10810_500"/>
+						<edge label="HD" idref="s10810_3"/>
+						<edge label="OC" idref="s10810_505"/>
+					</nt>
+					<nt id="s10810_VROOT" cat="VROOT">
+						<edge label="--" idref="s10810_506"/>
+						<edge label="--" idref="s10810_13"/>
+					</nt>
+				</nonterminals>
+			</graph>
+			<matches>
+			</matches>
+			<sem>
+				<globals>
+				</globals>
+				<frames>
+					<frame name="wuerdigen1-salsa" id="wuerdigen_s10810_f0">
+						<target lemma="würdigen">
+							<fenode idref="s10810_12"/>
+						</target>
+						<fe name="Cognizer" id="wuerdigen_s10810_f0_e1">
+							<fenode idref="s10810_500"/>
+						</fe>
+						<fe name="Fact" id="wuerdigen_s10810_f0_e2">
+							<fenode idref="s10810_504"/>
+						</fe>
+					</frame>
+				</frames>
+				<usp>
+				  <uspframes/>
+				  <uspfes/>
+				</usp>
+				<wordtags>
+				</wordtags>
+			</sem>
+		</s>
+		<s id="s10929">
+			<graph root="s10929_VROOT">
+				<terminals>
+					<t id="s10929_1" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Die" case="Nom" morph="Nom.Sg.Fem" pos="ART"/>
+					<t id="s10929_2" lemma="Jury" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Jury" case="Nom" morph="Nom.Sg.Fem" pos="NN"/>
+					<t id="s10929_3" lemma="würdigen" person="3" degree="--" tense="Past" mood="Ind" gender="--" number="Sg" word="würdigte" case="--" morph="3.Sg.Past.Ind" pos="VVFIN"/>
+					<t id="s10929_4" lemma="damit" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="damit" case="--" morph="--" pos="PROAV"/>
+					<t id="s10929_5" lemma="ihr" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="ihren" case="Acc" morph="Acc.Sg.Masc" pos="PPOSAT"/>
+					<t id="s10929_6" lemma="Roman" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Roman" case="Acc" morph="Acc.Sg.Masc" pos="NN"/>
+					<t id="s10929_7" lemma="The" person="--" degree="--" tense="--" mood="--" gender="*" number="*" word="The" case="*" morph="*.*.*" pos="NE"/>
+					<t id="s10929_8" lemma="Ghost" person="--" degree="--" tense="--" mood="--" gender="*" number="*" word="Ghost" case="*" morph="*.*.*" pos="NE"/>
+					<t id="s10929_9" lemma="Road" person="--" degree="--" tense="--" mood="--" gender="*" number="Sg" word="Road" case="Nom" morph="Nom.Sg.*" pos="NE"/>
+					<t id="s10929_10" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="(" case="--" morph="--" pos="$("/>
+					<t id="s10929_11" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Die" case="Nom" morph="Nom.Sg.Fem" pos="ART"/>
+					<t id="s10929_12" lemma="Geisterstraße" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Geisterstraße" case="Nom" morph="Nom.Sg.Fem" pos="NN"/>
+					<t id="s10929_13" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word=")" case="--" morph="--" pos="$("/>
+					<t id="s10929_14" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="," case="--" morph="--" pos="$,"/>
+					<t id="s10929_15" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="den" case="Acc" morph="Acc.Sg.Masc" pos="ART"/>
+					<t id="s10929_16" lemma="dritter" person="--" degree="Pos" tense="--" mood="--" gender="Masc" number="Sg" word="dritten" case="Acc" morph="Pos.Acc.Sg.Masc" pos="ADJA"/>
+					<t id="s10929_17" lemma="Teil" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Teil" case="Acc" morph="Acc.Sg.Masc" pos="NN"/>
+					<t id="s10929_18" lemma="ein" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="einer" case="Gen" morph="Gen.Sg.Fem" pos="ART"/>
+					<t id="s10929_19" lemma="Trilogie" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Trilogie" case="Gen" morph="Gen.Sg.Fem" pos="NN"/>
+					<t id="s10929_20" lemma="über" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="über" case="--" morph="--" pos="APPR"/>
+					<t id="s10929_21" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="den" case="Acc" morph="Acc.Sg.Masc" pos="ART"/>
+					<t id="s10929_22" lemma="erster" person="--" degree="Pos" tense="--" mood="--" gender="Masc" number="Sg" word="Ersten" case="Acc" morph="Pos.Acc.Sg.Masc" pos="ADJA"/>
+					<t id="s10929_23" lemma="Weltkrieg" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Weltkrieg" case="Acc" morph="Acc.Sg.Masc" pos="NN"/>
+					<t id="s10929_24" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="." case="--" morph="--" pos="$."/>
+				</terminals>
+				<nonterminals>
+					<nt id="s10929_500" cat="NP">
+						<edge label="NK" idref="s10929_1"/>
+						<edge label="NK" idref="s10929_2"/>
+					</nt>
+					<nt id="s10929_501" cat="PN">
+						<edge label="PNC" idref="s10929_7"/>
+						<edge label="PNC" idref="s10929_8"/>
+						<edge label="PNC" idref="s10929_9"/>
+					</nt>
+					<nt id="s10929_502" cat="NP">
+						<edge label="NK" idref="s10929_11"/>
+						<edge label="NK" idref="s10929_12"/>
+					</nt>
+					<nt id="s10929_504" cat="PN">
+						<edge label="PNC" idref="s10929_502"/>
+					</nt>
+					<nt id="s10929_503" cat="PP">
+						<edge label="AC" idref="s10929_20"/>
+						<edge label="NK" idref="s10929_21"/>
+						<edge label="NK" idref="s10929_22"/>
+						<edge label="NK" idref="s10929_23"/>
+					</nt>
+					<nt id="s10929_505" cat="NP">
+						<edge label="NK" idref="s10929_18"/>
+						<edge label="NK" idref="s10929_19"/>
+						<edge label="MNR" idref="s10929_503"/>
+					</nt>
+					<nt id="s10929_506" cat="NP">
+						<edge label="NK" idref="s10929_15"/>
+						<edge label="NK" idref="s10929_16"/>
+						<edge label="NK" idref="s10929_17"/>
+						<edge label="AG" idref="s10929_505"/>
+					</nt>
+					<nt id="s10929_507" cat="NP">
+						<edge label="NK" idref="s10929_5"/>
+						<edge label="NK" idref="s10929_6"/>
+						<edge label="NK" idref="s10929_501"/>
+						<edge label="APP" idref="s10929_504"/>
+						<edge label="APP" idref="s10929_506"/>
+					</nt>
+					<nt id="s10929_508" cat="S">
+						<edge label="SB" idref="s10929_500"/>
+						<edge label="HD" idref="s10929_3"/>
+						<edge label="MO" idref="s10929_4"/>
+						<edge label="OA" idref="s10929_507"/>
+					</nt>
+					<nt id="s10929_VROOT" cat="VROOT">
+						<edge label="--" idref="s10929_508"/>
+						<edge label="--" idref="s10929_10"/>
+						<edge label="--" idref="s10929_13"/>
+						<edge label="--" idref="s10929_14"/>
+						<edge label="--" idref="s10929_24"/>
+					</nt>
+				</nonterminals>
+			</graph>
+			<matches>
+			</matches>
+			<sem>
+				<globals>
+				</globals>
+				<frames>
+					<frame name="Rewards_and_punishments" id="wuerdigen_s10929_f0">
+						<target lemma="würdigen">
+							<fenode idref="s10929_3"/>
+						</target>
+						<fe name="Agent" id="wuerdigen_s10929_f0_e1">
+							<fenode idref="s10929_500"/>
+						</fe>
+						<fe name="Evaluee" id="wuerdigen_s10929_f0_e2">
+							<fenode idref="s10929_507"/>
+						</fe>
+					</frame>
+				</frames>
+				<usp>
+				  <uspframes/>
+				  <uspfes/>
+				</usp>
+				<wordtags>
+				</wordtags>
+			</sem>
+		</s>
+		<s id="s11069">
+			<graph root="s11069_VROOT">
+				<terminals>
+					<t id="s11069_1" lemma="Bundestagspräsidentin" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Bundestagspräsidentin" case="Nom" morph="Nom.Sg.Fem" pos="NN"/>
+					<t id="s11069_2" lemma="Rita" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Rita" case="Nom" morph="Nom.Sg.Fem" pos="NE"/>
+					<t id="s11069_3" lemma="Süssmuth" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Süssmuth" case="Nom" morph="Nom.Sg.Fem" pos="NE"/>
+					<t id="s11069_4" lemma="haben" person="3" degree="--" tense="Pres" mood="Ind" gender="--" number="Sg" word="hat" case="--" morph="3.Sg.Pres.Ind" pos="VAFIN"/>
+					<t id="s11069_5" lemma="anläßlich" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="anläßlich" case="--" morph="--" pos="APPR"/>
+					<t id="s11069_6" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="des" case="Gen" morph="Gen.Sg.Masc" pos="ART"/>
+					<t id="s11069_7" lemma="6." person="--" degree="Pos" tense="--" mood="--" gender="Masc" number="Sg" word="6." case="Gen" morph="Pos.Gen.Sg.Masc" pos="ADJA"/>
+					<t id="s11069_8" lemma="Jahrestag" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Jahrestages" case="Gen" morph="Gen.Sg.Masc" pos="NN"/>
+					<t id="s11069_9" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="des" case="Gen" morph="Gen.Sg.Masc" pos="ART"/>
+					<t id="s11069_10" lemma="Fall" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Falls" case="Gen" morph="Gen.Sg.Masc" pos="NN"/>
+					<t id="s11069_11" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="der" case="Gen" morph="Gen.Sg.Fem" pos="ART"/>
+					<t id="s11069_12" lemma="Berliner" person="--" degree="Pos" tense="--" mood="--" gender="*" number="*" word="Berliner" case="*" morph="Pos.*.*.*" pos="ADJA"/>
+					<t id="s11069_13" lemma="Mauer" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Mauer" case="Gen" morph="Gen.Sg.Fem" pos="NN"/>
+					<t id="s11069_14" lemma="an" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="am" case="Dat" morph="Dat.Sg.Masc" pos="APPRART"/>
+					<t id="s11069_15" lemma="9." person="--" degree="Pos" tense="--" mood="--" gender="Masc" number="Sg" word="9." case="Dat" morph="Pos.Dat.Sg.Masc" pos="ADJA"/>
+					<t id="s11069_16" lemma="November" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="November" case="Dat" morph="Dat.Sg.Masc" pos="NN"/>
+					<t id="s11069_17" lemma="1989" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="1989" case="--" morph="--" pos="CARD"/>
+					<t id="s11069_18" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="das" case="Acc" morph="Acc.Sg.Neut" pos="ART"/>
+					<t id="s11069_19" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="``" case="--" morph="--" pos="$("/>
+					<t id="s11069_20" lemma="verlangen" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="Verlangen" case="Acc" morph="Acc.Sg.Neut" pos="NN"/>
+					<t id="s11069_21" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Pl" word="der" case="Gen" morph="Gen.Pl.Masc" pos="ART"/>
+					<t id="s11069_22" lemma="Mensch" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Pl" word="Menschen" case="Gen" morph="Gen.Pl.Masc" pos="NN"/>
+					<t id="s11069_23" lemma="nach" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="nach" case="--" morph="--" pos="APPR"/>
+					<t id="s11069_24" lemma="Freiheit" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Freiheit" case="Dat" morph="Dat.Sg.Fem" pos="NN"/>
+					<t id="s11069_25" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="''" case="--" morph="--" pos="$("/>
+					<t id="s11069_26" lemma="würdigen" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="gewürdigt" case="--" morph="Psp" pos="VVPP"/>
+					<t id="s11069_27" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="." case="--" morph="--" pos="$."/>
+				</terminals>
+				<nonterminals>
+					<nt id="s11069_500" cat="PN">
+						<edge label="PNC" idref="s11069_2"/>
+						<edge label="PNC" idref="s11069_3"/>
+					</nt>
+					<nt id="s11069_505" cat="NP">
+						<edge label="NK" idref="s11069_1"/>
+						<edge label="NK" idref="s11069_500"/>
+					</nt>
+					<nt id="s11069_501" cat="NP">
+						<edge label="NK" idref="s11069_12"/>
+						<edge label="NK" idref="s11069_13"/>
+					</nt>
+					<nt id="s11069_506" cat="PN">
+						<edge label="PNC" idref="s11069_501"/>
+					</nt>
+					<nt id="s11069_508" cat="NP">
+						<edge label="NK" idref="s11069_11"/>
+						<edge label="NK" idref="s11069_506"/>
+					</nt>
+					<nt id="s11069_502" cat="PP">
+						<edge label="AC" idref="s11069_14"/>
+						<edge label="NK" idref="s11069_15"/>
+						<edge label="NK" idref="s11069_16"/>
+						<edge label="NK" idref="s11069_17"/>
+					</nt>
+					<nt id="s11069_509" cat="NP">
+						<edge label="NK" idref="s11069_9"/>
+						<edge label="NK" idref="s11069_10"/>
+						<edge label="AG" idref="s11069_508"/>
+						<edge label="MNR" idref="s11069_502"/>
+					</nt>
+					<nt id="s11069_510" cat="PP">
+						<edge label="AC" idref="s11069_5"/>
+						<edge label="NK" idref="s11069_6"/>
+						<edge label="NK" idref="s11069_7"/>
+						<edge label="NK" idref="s11069_8"/>
+						<edge label="AG" idref="s11069_509"/>
+					</nt>
+					<nt id="s11069_503" cat="NP">
+						<edge label="NK" idref="s11069_21"/>
+						<edge label="NK" idref="s11069_22"/>
+					</nt>
+					<nt id="s11069_504" cat="PP">
+						<edge label="AC" idref="s11069_23"/>
+						<edge label="NK" idref="s11069_24"/>
+					</nt>
+					<nt id="s11069_507" cat="NP">
+						<edge label="NK" idref="s11069_18"/>
+						<edge label="NK" idref="s11069_20"/>
+						<edge label="AG" idref="s11069_503"/>
+						<edge label="MNR" idref="s11069_504"/>
+					</nt>
+					<nt id="s11069_511" cat="VP">
+						<edge label="MO" idref="s11069_510"/>
+						<edge label="OA" idref="s11069_507"/>
+						<edge label="HD" idref="s11069_26"/>
+					</nt>
+					<nt id="s11069_512" cat="S">
+						<edge label="SB" idref="s11069_505"/>
+						<edge label="HD" idref="s11069_4"/>
+						<edge label="OC" idref="s11069_511"/>
+					</nt>
+					<nt id="s11069_VROOT" cat="VROOT">
+						<edge label="--" idref="s11069_512"/>
+						<edge label="--" idref="s11069_19"/>
+						<edge label="--" idref="s11069_25"/>
+						<edge label="--" idref="s11069_27"/>
+					</nt>
+				</nonterminals>
+			</graph>
+			<matches>
+			</matches>
+			<sem>
+				<globals>
+				</globals>
+				<frames>
+					<frame name="Judgment_communication" id="wuerdigen_s11069_f0">
+						<target lemma="würdigen">
+							<fenode idref="s11069_26"/>
+						</target>
+						<fe name="Evaluee" id="wuerdigen_s11069_f0_e1">
+							<fenode idref="s11069_507"/>
+						</fe>
+						<fe name="Communicator" id="wuerdigen_s11069_f0_e2">
+							<fenode idref="s11069_505"/>
+						</fe>
+					</frame>
+				</frames>
+				<usp>
+				  <uspframes/>
+				  <uspfes/>
+				</usp>
+				<wordtags>
+				</wordtags>
+			</sem>
+		</s>
+		<s id="s11240">
+			<graph root="s11240_VROOT">
+				<terminals>
+					<t id="s11240_1" lemma="zu" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Zum" case="Dat" morph="Dat.Sg.Masc" pos="APPRART"/>
+					<t id="s11240_2" lemma="Auftakt" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Auftakt" case="Dat" morph="Dat.Sg.Masc" pos="NN"/>
+					<t id="s11240_3" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="der" case="Gen" morph="Gen.Sg.Fem" pos="ART"/>
+					<t id="s11240_4" lemma="Generalaussprache" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Generalaussprache" case="Gen" morph="Gen.Sg.Fem" pos="NN"/>
+					<t id="s11240_5" lemma="über" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="über" case="--" morph="--" pos="APPR"/>
+					<t id="s11240_6" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="den" case="Acc" morph="Acc.Sg.Masc" pos="ART"/>
+					<t id="s11240_7" lemma="Haushalt" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Haushalt" case="Acc" morph="Acc.Sg.Masc" pos="NN"/>
+					<t id="s11240_8" lemma="1996" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="1996" case="--" morph="--" pos="CARD"/>
+					<t id="s11240_9" lemma="haben" person="3" degree="--" tense="Pres" mood="Ind" gender="--" number="Sg" word="hat" case="--" morph="3.Sg.Pres.Ind" pos="VAFIN"/>
+					<t id="s11240_10" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="der" case="Nom" morph="Nom.Sg.Masc" pos="ART"/>
+					<t id="s11240_11" lemma="SPD-Vize-Fraktionschef" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="SPD-Vize-Fraktionschef" case="Nom" morph="Nom.Sg.Masc" pos="NN"/>
+					<t id="s11240_12" lemma="Günter" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Günter" case="Nom" morph="Nom.Sg.Masc" pos="NE"/>
+					<t id="s11240_13" lemma="Verheugen" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Verheugen" case="Nom" morph="Nom.Sg.Masc" pos="NE"/>
+					<t id="s11240_14" lemma="an" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="am" case="Dat" morph="Dat.Sg.Masc" pos="APPRART"/>
+					<t id="s11240_15" lemma="Mittwoch" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Mittwoch" case="Dat" morph="Dat.Sg.Masc" pos="NN"/>
+					<t id="s11240_16" lemma="in" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="im" case="Dat" morph="Dat.Sg.Masc" pos="APPRART"/>
+					<t id="s11240_17" lemma="Bonner" person="--" degree="Pos" tense="--" mood="--" gender="*" number="*" word="Bonner" case="*" morph="Pos.*.*.*" pos="ADJA"/>
+					<t id="s11240_18" lemma="Bundestag" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Bundestag" case="Dat" morph="Dat.Sg.Masc" pos="NN"/>
+					<t id="s11240_19" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="den" case="Acc" morph="Acc.Sg.Masc" pos="ART"/>
+					<t id="s11240_20" lemma="ermordet" person="--" degree="Pos" tense="--" mood="--" gender="Masc" number="Sg" word="ermordeten" case="Acc" morph="Pos.Acc.Sg.Masc" pos="ADJA"/>
+					<t id="s11240_21" lemma="israelisch" person="--" degree="Pos" tense="--" mood="--" gender="Masc" number="Sg" word="israelischen" case="Acc" morph="Pos.Acc.Sg.Masc" pos="ADJA"/>
+					<t id="s11240_22" lemma="Ministerpräsident" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Ministerpräsidenten" case="Acc" morph="Acc.Sg.Masc" pos="NN"/>
+					<t id="s11240_23" lemma="Rabin" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Rabin" case="Nom" morph="Nom.Sg.Masc" pos="NE"/>
+					<t id="s11240_24" lemma="würdigen" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="gewürdigt" case="--" morph="Psp" pos="VVPP"/>
+					<t id="s11240_25" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="." case="--" morph="--" pos="$."/>
+				</terminals>
+				<nonterminals>
+					<nt id="s11240_500" cat="PP">
+						<edge label="AC" idref="s11240_5"/>
+						<edge label="NK" idref="s11240_6"/>
+						<edge label="NK" idref="s11240_7"/>
+						<edge label="NK" idref="s11240_8"/>
+					</nt>
+					<nt id="s11240_505" cat="NP">
+						<edge label="NK" idref="s11240_3"/>
+						<edge label="NK" idref="s11240_4"/>
+						<edge label="OP" idref="s11240_500"/>
+					</nt>
+					<nt id="s11240_507" cat="PP">
+						<edge label="AC" idref="s11240_1"/>
+						<edge label="NK" idref="s11240_2"/>
+						<edge label="AG" idref="s11240_505"/>
+					</nt>
+					<nt id="s11240_502" cat="PP">
+						<edge label="AC" idref="s11240_14"/>
+						<edge label="NK" idref="s11240_15"/>
+					</nt>
+					<nt id="s11240_503" cat="PP">
+						<edge label="AC" idref="s11240_16"/>
+						<edge label="NK" idref="s11240_17"/>
+						<edge label="NK" idref="s11240_18"/>
+					</nt>
+					<nt id="s11240_504" cat="NP">
+						<edge label="NK" idref="s11240_19"/>
+						<edge label="NK" idref="s11240_20"/>
+						<edge label="NK" idref="s11240_21"/>
+						<edge label="NK" idref="s11240_22"/>
+						<edge label="NK" idref="s11240_23"/>
+					</nt>
+					<nt id="s11240_508" cat="VP">
+						<edge label="MO" idref="s11240_507"/>
+						<edge label="MO" idref="s11240_502"/>
+						<edge label="MO" idref="s11240_503"/>
+						<edge label="OA" idref="s11240_504"/>
+						<edge label="HD" idref="s11240_24"/>
+					</nt>
+					<nt id="s11240_501" cat="PN">
+						<edge label="PNC" idref="s11240_12"/>
+						<edge label="PNC" idref="s11240_13"/>
+					</nt>
+					<nt id="s11240_506" cat="NP">
+						<edge label="NK" idref="s11240_10"/>
+						<edge label="NK" idref="s11240_11"/>
+						<edge label="NK" idref="s11240_501"/>
+					</nt>
+					<nt id="s11240_509" cat="S">
+						<edge label="OC" idref="s11240_508"/>
+						<edge label="HD" idref="s11240_9"/>
+						<edge label="SB" idref="s11240_506"/>
+					</nt>
+					<nt id="s11240_VROOT" cat="VROOT">
+						<edge label="--" idref="s11240_509"/>
+						<edge label="--" idref="s11240_25"/>
+					</nt>
+				</nonterminals>
+			</graph>
+			<matches>
+			</matches>
+			<sem>
+				<globals>
+				</globals>
+				<frames>
+					<frame name="wuerdigen2-salsa" id="wuerdigen_s11240_f1">
+						<target lemma="würdigen">
+							<fenode idref="s11240_24"/>
+						</target>
+						<fe name="Agent" id="wuerdigen_s11240_f1_e1">
+							<fenode idref="s11240_506"/>
+						</fe>
+						<fe name="Evaluee" id="wuerdigen_s11240_f1_e2">
+							<fenode idref="s11240_504"/>
+						</fe>
+					</frame>
+				</frames>
+				<usp>
+				  <uspframes/>
+				  <uspfes/>
+				</usp>
+				<wordtags>
+				</wordtags>
+			</sem>
+		</s>
+		<s id="s12860">
+			<graph root="s12860_VROOT">
+				<terminals>
+					<t id="s12860_1" lemma="beide" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Pl" word="Beide" case="Nom" morph="Nom.Pl.Masc" pos="PIAT"/>
+					<t id="s12860_2" lemma="Politiker" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Pl" word="Politiker" case="Nom" morph="Nom.Pl.Masc" pos="NN"/>
+					<t id="s12860_3" lemma="würdigen" person="3" degree="--" tense="Past" mood="Ind" gender="--" number="Pl" word="würdigten" case="--" morph="3.Pl.Past.Ind" pos="VVFIN"/>
+					<t id="s12860_4" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Pl" word="die" case="Acc" morph="Acc.Pl.Fem" pos="ART"/>
+					<t id="s12860_5" lemma="Leistung" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Pl" word="Leistungen" case="Acc" morph="Acc.Pl.Fem" pos="NN"/>
+					<t id="s12860_6" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="des" case="Gen" morph="Gen.Sg.Masc" pos="ART"/>
+					<t id="s12860_7" lemma="an" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="am" case="Dat" morph="Dat.Sg.Masc" pos="APPRART"/>
+					<t id="s12860_8" lemma="Samstag" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Samstag" case="Dat" morph="Dat.Sg.Masc" pos="NN"/>
+					<t id="s12860_9" lemma="ermordet" person="--" degree="Pos" tense="--" mood="--" gender="Masc" number="Sg" word="ermordeten" case="Gen" morph="Pos.Gen.Sg.Masc" pos="ADJA"/>
+					<t id="s12860_10" lemma="israelisch" person="--" degree="Pos" tense="--" mood="--" gender="Masc" number="Sg" word="israelischen" case="Gen" morph="Pos.Gen.Sg.Masc" pos="ADJA"/>
+					<t id="s12860_11" lemma="Regierungspräsident" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Regierungspräsidenten" case="Gen" morph="Gen.Sg.Masc" pos="NN"/>
+					<t id="s12860_12" lemma="Yitzhak" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Yitzhak" case="Nom" morph="Nom.Sg.Masc" pos="NE"/>
+					<t id="s12860_13" lemma="Rabin" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Rabin" case="Nom" morph="Nom.Sg.Masc" pos="NE"/>
+					<t id="s12860_14" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="." case="--" morph="--" pos="$."/>
+				</terminals>
+				<nonterminals>
+					<nt id="s12860_500" cat="NP">
+						<edge label="NK" idref="s12860_1"/>
+						<edge label="NK" idref="s12860_2"/>
+					</nt>
+					<nt id="s12860_501" cat="PP">
+						<edge label="AC" idref="s12860_7"/>
+						<edge label="NK" idref="s12860_8"/>
+					</nt>
+					<nt id="s12860_503" cat="AP">
+						<edge label="MO" idref="s12860_501"/>
+						<edge label="HD" idref="s12860_9"/>
+					</nt>
+					<nt id="s12860_502" cat="PN">
+						<edge label="PNC" idref="s12860_12"/>
+						<edge label="PNC" idref="s12860_13"/>
+					</nt>
+					<nt id="s12860_504" cat="NP">
+						<edge label="NK" idref="s12860_6"/>
+						<edge label="NK" idref="s12860_503"/>
+						<edge label="NK" idref="s12860_10"/>
+						<edge label="NK" idref="s12860_11"/>
+						<edge label="NK" idref="s12860_502"/>
+					</nt>
+					<nt id="s12860_505" cat="NP">
+						<edge label="NK" idref="s12860_4"/>
+						<edge label="NK" idref="s12860_5"/>
+						<edge label="AG" idref="s12860_504"/>
+					</nt>
+					<nt id="s12860_506" cat="S">
+						<edge label="SB" idref="s12860_500"/>
+						<edge label="HD" idref="s12860_3"/>
+						<edge label="OA" idref="s12860_505"/>
+					</nt>
+					<nt id="s12860_VROOT" cat="VROOT">
+						<edge label="--" idref="s12860_506"/>
+						<edge label="--" idref="s12860_14"/>
+					</nt>
+				</nonterminals>
+			</graph>
+			<matches>
+			</matches>
+			<sem>
+				<globals>
+				</globals>
+				<frames>
+					<frame name="Judgment_communication" id="wuerdigen_s12860_f0">
+						<target lemma="würdigen">
+							<fenode idref="s12860_3"/>
+						</target>
+						<fe name="Communicator" id="wuerdigen_s12860_f0_e1">
+							<fenode idref="s12860_500"/>
+						</fe>
+						<fe name="Evaluee" id="wuerdigen_s12860_f0_e2">
+							<fenode idref="s12860_505"/>
+						</fe>
+					</frame>
+				</frames>
+				<usp>
+				  <uspframes/>
+				  <uspfes/>
+				</usp>
+				<wordtags>
+				</wordtags>
+			</sem>
+		</s>
+		<s id="s14497">
+			<graph root="s14497_VROOT">
+				<terminals>
+					<t id="s14497_1" lemma="vielmehr" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="Vielmehr" case="--" morph="--" pos="ADV"/>
+					<t id="s14497_2" lemma="müssen" person="3" degree="--" tense="Pres" mood="Ind" gender="--" number="Pl" word="müssen" case="--" morph="3.Pl.Pres.Ind" pos="VMFIN"/>
+					<t id="s14497_3" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Pl" word="die" case="Nom" morph="Nom.Pl.Fem" pos="ART"/>
+					<t id="s14497_4" lemma="jeweilig" person="--" degree="Pos" tense="--" mood="--" gender="Fem" number="Pl" word="jeweilig" case="Nom" morph="Pos.Nom.Pl.Fem" pos="ADJA"/>
+					<t id="s14497_5" lemma="Äußerung" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Pl" word="Äußerungen" case="Nom" morph="Nom.Pl.Fem" pos="NN"/>
+					<t id="s14497_6" lemma="unter" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="unter" case="--" morph="--" pos="APPR"/>
+					<t id="s14497_7" lemma="Beachtung" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Beachtung" case="Dat" morph="Dat.Sg.Fem" pos="NN"/>
+					<t id="s14497_8" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Pl" word="der" case="Gen" morph="Gen.Pl.Fem" pos="ART"/>
+					<t id="s14497_9" lemma="dargelegt" person="--" degree="Pos" tense="--" mood="--" gender="Fem" number="Pl" word="dargelegten" case="Gen" morph="Pos.Gen.Pl.Fem" pos="ADJA"/>
+					<t id="s14497_10" lemma="Anforderung" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Pl" word="Anforderungen" case="Gen" morph="Gen.Pl.Fem" pos="NN"/>
+					<t id="s14497_11" lemma="aus" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="aus" case="--" morph="--" pos="APPR"/>
+					<t id="s14497_12" lemma="Art." person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Art." case="Dat" morph="Dat.Sg.Masc" pos="NN"/>
+					<t id="s14497_13" lemma="5" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="5" case="--" morph="--" pos="CARD"/>
+					<t id="s14497_14" lemma="Abs." person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Abs." case="Nom" morph="Nom.Sg.Masc" pos="NN"/>
+					<t id="s14497_15" lemma="1" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="1" case="--" morph="--" pos="CARD"/>
+					<t id="s14497_16" lemma="Satz" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Satz" case="Nom" morph="Nom.Sg.Masc" pos="NN"/>
+					<t id="s14497_17" lemma="1" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="1" case="--" morph="--" pos="CARD"/>
+					<t id="s14497_18" lemma="GG" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="GG" case="Nom" morph="Nom.Sg.Neut" pos="NN"/>
+					<t id="s14497_19" lemma="erneut" person="--" degree="Pos" tense="--" mood="--" gender="--" number="--" word="erneut" case="--" morph="Pos" pos="ADJD"/>
+					<t id="s14497_20" lemma="würdigen" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="gewürdigt" case="--" morph="Psp" pos="VVPP"/>
+					<t id="s14497_21" lemma="werden" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="werden" case="--" morph="Inf" pos="VAINF"/>
+					<t id="s14497_22" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="." case="--" morph="--" pos="$."/>
+				</terminals>
+				<nonterminals>
+					<nt id="s14497_501" cat="PP">
+						<edge label="AC" idref="s14497_11"/>
+						<edge label="NK" idref="s14497_12"/>
+						<edge label="NK" idref="s14497_13"/>
+						<edge label="NK" idref="s14497_14"/>
+						<edge label="NK" idref="s14497_15"/>
+						<edge label="NK" idref="s14497_16"/>
+						<edge label="NK" idref="s14497_17"/>
+						<edge label="NK" idref="s14497_18"/>
+					</nt>
+					<nt id="s14497_502" cat="NP">
+						<edge label="NK" idref="s14497_8"/>
+						<edge label="NK" idref="s14497_9"/>
+						<edge label="NK" idref="s14497_10"/>
+						<edge label="MNR" idref="s14497_501"/>
+					</nt>
+					<nt id="s14497_503" cat="PP">
+						<edge label="AC" idref="s14497_6"/>
+						<edge label="NK" idref="s14497_7"/>
+						<edge label="AG" idref="s14497_502"/>
+					</nt>
+					<nt id="s14497_504" cat="VP">
+						<edge label="MO" idref="s14497_1"/>
+						<edge label="MO" idref="s14497_503"/>
+						<edge label="MO" idref="s14497_19"/>
+						<edge label="HD" idref="s14497_20"/>
+					</nt>
+					<nt id="s14497_505" cat="VP">
+						<edge label="OC" idref="s14497_504"/>
+						<edge label="HD" idref="s14497_21"/>
+					</nt>
+					<nt id="s14497_500" cat="NP">
+						<edge label="NK" idref="s14497_3"/>
+						<edge label="NK" idref="s14497_4"/>
+						<edge label="NK" idref="s14497_5"/>
+					</nt>
+					<nt id="s14497_506" cat="S">
+						<edge label="OC" idref="s14497_505"/>
+						<edge label="HD" idref="s14497_2"/>
+						<edge label="SB" idref="s14497_500"/>
+					</nt>
+					<nt id="s14497_VROOT" cat="VROOT">
+						<edge label="--" idref="s14497_506"/>
+						<edge label="--" idref="s14497_22"/>
+					</nt>
+				</nonterminals>
+			</graph>
+			<matches>
+			</matches>
+			<sem>
+				<globals>
+				</globals>
+				<frames>
+					<frame name="wuerdigen1-salsa" id="wuerdigen_s14497_f0">
+						<target lemma="würdigen">
+							<fenode idref="s14497_20"/>
+						</target>
+						<fe name="Fact" id="wuerdigen_s14497_f0_e1">
+							<fenode idref="s14497_500"/>
+						</fe>
+					</frame>
+				</frames>
+				<usp>
+				  <uspframes/>
+				  <uspfes/>
+				</usp>
+				<wordtags>
+				</wordtags>
+			</sem>
+		</s>
+		<s id="s15368">
+			<graph root="s15368_VROOT">
+				<terminals>
+					<t id="s15368_1" lemma="Bundeskanzler" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Bundeskanzler" case="Nom" morph="Nom.Sg.Masc" pos="NN"/>
+					<t id="s15368_2" lemma="Helmut" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Helmut" case="Nom" morph="Nom.Sg.Masc" pos="NE"/>
+					<t id="s15368_3" lemma="Kohl" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Kohl" case="Nom" morph="Nom.Sg.Masc" pos="NE"/>
+					<t id="s15368_4" lemma="würdigen" person="3" degree="--" tense="Past" mood="Ind" gender="--" number="Sg" word="würdigte" case="--" morph="3.Sg.Past.Ind" pos="VVFIN"/>
+					<t id="s15368_5" lemma="an" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="am" case="Dat" morph="Dat.Sg.Masc" pos="APPRART"/>
+					<t id="s15368_6" lemma="Donnerstag" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Donnerstag" case="Dat" morph="Dat.Sg.Masc" pos="NN"/>
+					<t id="s15368_7" lemma="zu" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="zum" case="Dat" morph="Dat.Sg.Masc" pos="APPRART"/>
+					<t id="s15368_8" lemma="sechster" person="--" degree="Pos" tense="--" mood="--" gender="Masc" number="Sg" word="sechsten" case="Dat" morph="Pos.Dat.Sg.Masc" pos="ADJA"/>
+					<t id="s15368_9" lemma="Jahrestag" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Jahrestag" case="Dat" morph="Dat.Sg.Masc" pos="NN"/>
+					<t id="s15368_10" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="der" case="Gen" morph="Gen.Sg.Fem" pos="ART"/>
+					<t id="s15368_11" lemma="Öffnung" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Öffnung" case="Gen" morph="Gen.Sg.Fem" pos="NN"/>
+					<t id="s15368_12" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="der" case="Gen" morph="Gen.Sg.Fem" pos="ART"/>
+					<t id="s15368_13" lemma="Berliner" person="--" degree="Pos" tense="--" mood="--" gender="*" number="*" word="Berliner" case="*" morph="Pos.*.*.*" pos="ADJA"/>
+					<t id="s15368_14" lemma="Mauer" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Mauer" case="Gen" morph="Gen.Sg.Fem" pos="NN"/>
+					<t id="s15368_15" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="das" case="Acc" morph="Acc.Sg.Neut" pos="ART"/>
+					<t id="s15368_16" lemma="Engagement" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="Engagement" case="Acc" morph="Acc.Sg.Neut" pos="NN"/>
+					<t id="s15368_17" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Pl" word="der" case="Gen" morph="Gen.Pl.Masc" pos="ART"/>
+					<t id="s15368_18" lemma="Bürgerrechtler" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Pl" word="Bürgerrechtler" case="Gen" morph="Gen.Pl.Masc" pos="NN"/>
+					<t id="s15368_19" lemma="in" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="in" case="--" morph="--" pos="APPR"/>
+					<t id="s15368_20" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="der" case="Dat" morph="Dat.Sg.Fem" pos="ART"/>
+					<t id="s15368_21" lemma="früh" person="--" degree="Comp" tense="--" mood="--" gender="Fem" number="Sg" word="früheren" case="Dat" morph="Comp.Dat.Sg.Fem" pos="ADJA"/>
+					<t id="s15368_22" lemma="DDR" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="DDR" case="Dat" morph="Dat.Sg.Fem" pos="NE"/>
+					<t id="s15368_23" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="." case="--" morph="--" pos="$."/>
+				</terminals>
+				<nonterminals>
+					<nt id="s15368_500" cat="PN">
+						<edge label="PNC" idref="s15368_2"/>
+						<edge label="PNC" idref="s15368_3"/>
+					</nt>
+					<nt id="s15368_504" cat="NP">
+						<edge label="NK" idref="s15368_1"/>
+						<edge label="NK" idref="s15368_500"/>
+					</nt>
+					<nt id="s15368_501" cat="PP">
+						<edge label="AC" idref="s15368_5"/>
+						<edge label="NK" idref="s15368_6"/>
+					</nt>
+					<nt id="s15368_502" cat="NP">
+						<edge label="NK" idref="s15368_13"/>
+						<edge label="NK" idref="s15368_14"/>
+					</nt>
+					<nt id="s15368_505" cat="PN">
+						<edge label="PNC" idref="s15368_502"/>
+					</nt>
+					<nt id="s15368_507" cat="NP">
+						<edge label="NK" idref="s15368_12"/>
+						<edge label="NK" idref="s15368_505"/>
+					</nt>
+					<nt id="s15368_509" cat="NP">
+						<edge label="NK" idref="s15368_10"/>
+						<edge label="NK" idref="s15368_11"/>
+						<edge label="AG" idref="s15368_507"/>
+					</nt>
+					<nt id="s15368_510" cat="PP">
+						<edge label="AC" idref="s15368_7"/>
+						<edge label="NK" idref="s15368_8"/>
+						<edge label="NK" idref="s15368_9"/>
+						<edge label="AG" idref="s15368_509"/>
+					</nt>
+					<nt id="s15368_503" cat="PP">
+						<edge label="AC" idref="s15368_19"/>
+						<edge label="NK" idref="s15368_20"/>
+						<edge label="NK" idref="s15368_21"/>
+						<edge label="NK" idref="s15368_22"/>
+					</nt>
+					<nt id="s15368_506" cat="NP">
+						<edge label="NK" idref="s15368_17"/>
+						<edge label="NK" idref="s15368_18"/>
+						<edge label="MNR" idref="s15368_503"/>
+					</nt>
+					<nt id="s15368_508" cat="NP">
+						<edge label="NK" idref="s15368_15"/>
+						<edge label="NK" idref="s15368_16"/>
+						<edge label="AG" idref="s15368_506"/>
+					</nt>
+					<nt id="s15368_511" cat="S">
+						<edge label="SB" idref="s15368_504"/>
+						<edge label="HD" idref="s15368_4"/>
+						<edge label="MO" idref="s15368_501"/>
+						<edge label="MO" idref="s15368_510"/>
+						<edge label="OA" idref="s15368_508"/>
+					</nt>
+					<nt id="s15368_VROOT" cat="VROOT">
+						<edge label="--" idref="s15368_511"/>
+						<edge label="--" idref="s15368_23"/>
+					</nt>
+				</nonterminals>
+			</graph>
+			<matches>
+			</matches>
+			<sem>
+				<globals>
+				</globals>
+				<frames>
+					<frame name="Judgment_communication" id="wuerdigen_s15368_f0">
+						<target lemma="würdigen">
+							<fenode idref="s15368_4"/>
+						</target>
+						<fe name="Communicator" id="wuerdigen_s15368_f0_e1">
+							<fenode idref="s15368_504"/>
+						</fe>
+						<fe name="Evaluee" id="wuerdigen_s15368_f0_e2">
+							<fenode idref="s15368_508"/>
+						</fe>
+					</frame>
+				</frames>
+				<usp>
+				  <uspframes/>
+				  <uspfes/>
+				</usp>
+				<wordtags>
+				</wordtags>
+			</sem>
+		</s>
+		<s id="s15788">
+			<graph root="s15788_VROOT">
+				<terminals>
+					<t id="s15788_1" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Die" case="Nom" morph="Nom.Sg.Fem" pos="ART"/>
+					<t id="s15788_2" lemma="New" person="--" degree="--" tense="--" mood="--" gender="*" number="*" word="New" case="*" morph="*.*.*" pos="NE"/>
+					<t id="s15788_3" lemma="York" person="--" degree="--" tense="--" mood="--" gender="*" number="*" word="York" case="*" morph="*.*.*" pos="NE"/>
+					<t id="s15788_4" lemma="Times" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Times" case="Nom" morph="Nom.Sg.Fem" pos="NE"/>
+					<t id="s15788_5" lemma="würdigen" person="3" degree="--" tense="Past" mood="Ind" gender="--" number="Sg" word="würdigte" case="--" morph="3.Sg.Past.Ind" pos="VVFIN"/>
+					<t id="s15788_6" lemma="ihn" person="3" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="ihn" case="Acc" morph="3.Acc.Sg.Masc" pos="PPER"/>
+					<t id="s15788_7" lemma="als" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="als" case="--" morph="--" pos="APPR"/>
+					<t id="s15788_8" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="``" case="--" morph="--" pos="$("/>
+					<t id="s15788_9" lemma="Schriftsteller" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Schriftsteller" case="Acc" morph="Acc.Sg.Masc" pos="NN"/>
+					<t id="s15788_10" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Pl" word="der" case="Gen" morph="Gen.Pl.Fem" pos="ART"/>
+					<t id="s15788_11" lemma="Revolution" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Pl" word="Revolutionen" case="Gen" morph="Gen.Pl.Fem" pos="NN"/>
+					<t id="s15788_12" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="''" case="--" morph="--" pos="$("/>
+					<t id="s15788_13" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="." case="--" morph="--" pos="$."/>
+				</terminals>
+				<nonterminals>
+					<nt id="s15788_500" cat="PN">
+						<edge label="PNC" idref="s15788_2"/>
+						<edge label="PNC" idref="s15788_3"/>
+						<edge label="PNC" idref="s15788_4"/>
+					</nt>
+					<nt id="s15788_502" cat="NP">
+						<edge label="NK" idref="s15788_1"/>
+						<edge label="NK" idref="s15788_500"/>
+					</nt>
+					<nt id="s15788_501" cat="NP">
+						<edge label="NK" idref="s15788_10"/>
+						<edge label="NK" idref="s15788_11"/>
+					</nt>
+					<nt id="s15788_503" cat="PP">
+						<edge label="AC" idref="s15788_7"/>
+						<edge label="NK" idref="s15788_9"/>
+						<edge label="AG" idref="s15788_501"/>
+					</nt>
+					<nt id="s15788_504" cat="S">
+						<edge label="SB" idref="s15788_502"/>
+						<edge label="HD" idref="s15788_5"/>
+						<edge label="OA" idref="s15788_6"/>
+						<edge label="MO" idref="s15788_503"/>
+					</nt>
+					<nt id="s15788_VROOT" cat="VROOT">
+						<edge label="--" idref="s15788_504"/>
+						<edge label="--" idref="s15788_8"/>
+						<edge label="--" idref="s15788_12"/>
+						<edge label="--" idref="s15788_13"/>
+					</nt>
+				</nonterminals>
+			</graph>
+			<matches>
+			</matches>
+			<sem>
+				<globals>
+				</globals>
+				<frames>
+					<frame name="wuerdigen2-salsa" id="wuerdigen_s15788_f1">
+						<target lemma="würdigen">
+							<fenode idref="s15788_5"/>
+						</target>
+						<fe name="Agent" id="wuerdigen_s15788_f1_e1">
+							<fenode idref="s15788_502"/>
+						</fe>
+						<fe name="Evaluee" id="wuerdigen_s15788_f1_e2">
+							<fenode idref="s15788_6"/>
+						</fe>
+						<fe name="Reason" id="wuerdigen_s15788_f1_e3">
+							<fenode idref="s15788_503"/>
+						</fe>
+					</frame>
+				</frames>
+				<usp>
+				  <uspframes/>
+				  <uspfes/>
+				</usp>
+				<wordtags>
+				</wordtags>
+			</sem>
+		</s>
+		<s id="s18601">
+			<graph root="s18601_VROOT">
+				<terminals>
+					<t id="s18601_1" lemma="neben" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="Neben" case="--" morph="--" pos="APPR"/>
+					<t id="s18601_2" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="der" case="Dat" morph="Dat.Sg.Fem" pos="ART"/>
+					<t id="s18601_3" lemma="Bonität" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Bonität" case="Dat" morph="Dat.Sg.Fem" pos="NN"/>
+					<t id="s18601_4" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Pl" word="der" case="Gen" morph="Gen.Pl.Masc" pos="ART"/>
+					<t id="s18601_5" lemma="Kunde" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Pl" word="Kunden" case="Gen" morph="Gen.Pl.Masc" pos="NN"/>
+					<t id="s18601_6" lemma="sollen" person="3" degree="--" tense="Pres" mood="Ind" gender="--" number="Pl" word="sollen" case="--" morph="3.Pl.Pres.Ind" pos="VMFIN"/>
+					<t id="s18601_7" lemma="bei" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="bei" case="--" morph="--" pos="APPR"/>
+					<t id="s18601_8" lemma="Kreditantrag" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Pl" word="Kreditanträgen" case="Dat" morph="Dat.Pl.Masc" pos="NN"/>
+					<t id="s18601_9" lemma="in" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="in" case="--" morph="--" pos="APPR"/>
+					<t id="s18601_10" lemma="Zukunft" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Zukunft" case="Dat" morph="Dat.Sg.Fem" pos="NN"/>
+					<t id="s18601_11" lemma="auch" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="auch" case="--" morph="--" pos="ADV"/>
+					<t id="s18601_12" lemma="Umweltfolge" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Pl" word="Umweltfolgen" case="Nom" morph="Nom.Pl.Fem" pos="NN"/>
+					<t id="s18601_13" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Pl" word="der" case="Gen" morph="Gen.Pl.Fem" pos="ART"/>
+					<t id="s18601_14" lemma="Investition" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Pl" word="Investitionen" case="Gen" morph="Gen.Pl.Fem" pos="NN"/>
+					<t id="s18601_15" lemma="beurteilen" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="beurteilt" case="--" morph="Psp" pos="VVPP"/>
+					<t id="s18601_16" lemma="und" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="und" case="--" morph="--" pos="KON"/>
+					<t id="s18601_17" lemma="würdigen" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="gewürdigt" case="--" morph="Psp" pos="VVPP"/>
+					<t id="s18601_18" lemma="werden" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="werden" case="--" morph="Inf" pos="VAINF"/>
+					<t id="s18601_19" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="." case="--" morph="--" pos="$."/>
+				</terminals>
+				<nonterminals>
+					<nt id="s18601_500" cat="NP">
+						<edge label="NK" idref="s18601_4"/>
+						<edge label="NK" idref="s18601_5"/>
+					</nt>
+					<nt id="s18601_505" cat="PP">
+						<edge label="AC" idref="s18601_1"/>
+						<edge label="NK" idref="s18601_2"/>
+						<edge label="NK" idref="s18601_3"/>
+						<edge label="AG" idref="s18601_500"/>
+					</nt>
+					<nt id="s18601_503" cat="NP">
+						<edge label="NK" idref="s18601_13"/>
+						<edge label="NK" idref="s18601_14"/>
+					</nt>
+					<nt id="s18601_507" cat="NP">
+						<edge label="MO" idref="s18601_505"/>
+						<edge label="MO" idref="s18601_11"/>
+						<edge label="NK" idref="s18601_12"/>
+						<edge label="AG" idref="s18601_503"/>
+					</nt>
+					<nt id="s18601_501" cat="PP">
+						<edge label="AC" idref="s18601_7"/>
+						<edge label="NK" idref="s18601_8"/>
+						<secedge label="MO" idref="s18601_504"/>
+					</nt>
+					<nt id="s18601_502" cat="PP">
+						<edge label="AC" idref="s18601_9"/>
+						<edge label="NK" idref="s18601_10"/>
+						<secedge label="MO" idref="s18601_504"/>
+					</nt>
+					<nt id="s18601_506" cat="VP">
+						<edge label="MO" idref="s18601_501"/>
+						<edge label="MO" idref="s18601_502"/>
+						<edge label="HD" idref="s18601_15"/>
+					</nt>
+					<nt id="s18601_504" cat="VP">
+						<edge label="HD" idref="s18601_17"/>
+					</nt>
+					<nt id="s18601_508" cat="CVP">
+						<edge label="CJ" idref="s18601_506"/>
+						<edge label="CD" idref="s18601_16"/>
+						<edge label="CJ" idref="s18601_504"/>
+					</nt>
+					<nt id="s18601_509" cat="VP">
+						<edge label="OC" idref="s18601_508"/>
+						<edge label="HD" idref="s18601_18"/>
+					</nt>
+					<nt id="s18601_510" cat="S">
+						<edge label="SB" idref="s18601_507"/>
+						<edge label="HD" idref="s18601_6"/>
+						<edge label="OC" idref="s18601_509"/>
+					</nt>
+					<nt id="s18601_VROOT" cat="VROOT">
+						<edge label="--" idref="s18601_510"/>
+						<edge label="--" idref="s18601_19"/>
+					</nt>
+				</nonterminals>
+			</graph>
+			<matches>
+			</matches>
+			<sem>
+				<globals>
+				</globals>
+				<frames>
+					<frame name="wuerdigen1-salsa" id="wuerdigen_s18601_f1">
+						<target lemma="würdigen">
+							<fenode idref="s18601_504"/>
+						</target>
+						<fe name="Fact" id="wuerdigen_s18601_f1_e1">
+							<fenode idref="s18601_507"/>
+						</fe>
+					</frame>
+				</frames>
+				<usp>
+				  <uspframes/>
+				  <uspfes/>
+				</usp>
+				<wordtags>
+				</wordtags>
+			</sem>
+		</s>
+		<s id="s18768">
+			<graph root="s18768_VROOT">
+				<terminals>
+					<t id="s18768_1" lemma="damit" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="Damit" case="--" morph="--" pos="PROAV"/>
+					<t id="s18768_2" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="," case="--" morph="--" pos="$,"/>
+					<t id="s18768_3" lemma="so" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="so" case="--" morph="--" pos="ADV"/>
+					<t id="s18768_4" lemma="heißen" person="3" degree="--" tense="Past" mood="Ind" gender="--" number="Sg" word="hieß" case="--" morph="3.Sg.Past.Ind" pos="VVFIN"/>
+					<t id="s18768_5" lemma="es" person="3" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="es" case="Nom" morph="3.Nom.Sg.Neut" pos="PPER"/>
+					<t id="s18768_6" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="," case="--" morph="--" pos="$,"/>
+					<t id="s18768_7" lemma="sollen" person="3" degree="--" tense="Pres" mood="Subj" gender="--" number="Sg" word="solle" case="--" morph="3.Sg.Pres.Subj" pos="VMFIN"/>
+					<t id="s18768_8" lemma="ihr" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="ihr" case="Nom" morph="Nom.Sg.Masc" pos="PPOSAT"/>
+					<t id="s18768_9" lemma="Einsatz" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Einsatz" case="Nom" morph="Nom.Sg.Masc" pos="NN"/>
+					<t id="s18768_10" lemma="gegen" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="gegen" case="--" morph="--" pos="APPR"/>
+					<t id="s18768_11" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="die" case="Acc" morph="Acc.Sg.Fem" pos="ART"/>
+					<t id="s18768_12" lemma="Folter" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Folter" case="Acc" morph="Acc.Sg.Fem" pos="NN"/>
+					<t id="s18768_13" lemma="und" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="und" case="--" morph="--" pos="KON"/>
+					<t id="s18768_14" lemma="für" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="für" case="--" morph="--" pos="APPR"/>
+					<t id="s18768_15" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="die" case="Acc" morph="Acc.Sg.Fem" pos="ART"/>
+					<t id="s18768_16" lemma="Achtung" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Achtung" case="Acc" morph="Acc.Sg.Fem" pos="NN"/>
+					<t id="s18768_17" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Pl" word="der" case="Gen" morph="Gen.Pl.Neut" pos="ART"/>
+					<t id="s18768_18" lemma="Menschenrecht" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Pl" word="Menschenrechte" case="Gen" morph="Gen.Pl.Neut" pos="NN"/>
+					<t id="s18768_19" lemma="würdigen" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="gewürdigt" case="--" morph="Psp" pos="VVPP"/>
+					<t id="s18768_20" lemma="werden" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="werden" case="--" morph="Inf" pos="VAINF"/>
+					<t id="s18768_21" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="." case="--" morph="--" pos="$."/>
+				</terminals>
+				<nonterminals>
+					<nt id="s18768_500" cat="VP">
+						<edge label="MO" idref="s18768_1"/>
+						<edge label="HD" idref="s18768_19"/>
+					</nt>
+					<nt id="s18768_504" cat="VP">
+						<edge label="OC" idref="s18768_500"/>
+						<edge label="HD" idref="s18768_20"/>
+					</nt>
+					<nt id="s18768_501" cat="PP">
+						<edge label="AC" idref="s18768_10"/>
+						<edge label="NK" idref="s18768_11"/>
+						<edge label="NK" idref="s18768_12"/>
+					</nt>
+					<nt id="s18768_502" cat="NP">
+						<edge label="NK" idref="s18768_17"/>
+						<edge label="NK" idref="s18768_18"/>
+					</nt>
+					<nt id="s18768_503" cat="PP">
+						<edge label="AC" idref="s18768_14"/>
+						<edge label="NK" idref="s18768_15"/>
+						<edge label="NK" idref="s18768_16"/>
+						<edge label="AG" idref="s18768_502"/>
+					</nt>
+					<nt id="s18768_505" cat="CPP">
+						<edge label="CJ" idref="s18768_501"/>
+						<edge label="CD" idref="s18768_13"/>
+						<edge label="CJ" idref="s18768_503"/>
+					</nt>
+					<nt id="s18768_506" cat="NP">
+						<edge label="NK" idref="s18768_8"/>
+						<edge label="NK" idref="s18768_9"/>
+						<edge label="MNR" idref="s18768_505"/>
+					</nt>
+					<nt id="s18768_507" cat="S">
+						<edge label="OC" idref="s18768_504"/>
+						<edge label="HD" idref="s18768_7"/>
+						<edge label="SB" idref="s18768_506"/>
+					</nt>
+					<nt id="s18768_508" cat="AVP">
+						<edge label="RE" idref="s18768_507"/>
+						<edge label="PH" idref="s18768_3"/>
+					</nt>
+					<nt id="s18768_509" cat="S">
+						<edge label="MO" idref="s18768_508"/>
+						<edge label="HD" idref="s18768_4"/>
+						<edge label="EP" idref="s18768_5"/>
+					</nt>
+					<nt id="s18768_VROOT" cat="VROOT">
+						<edge label="--" idref="s18768_509"/>
+						<edge label="--" idref="s18768_2"/>
+						<edge label="--" idref="s18768_6"/>
+						<edge label="--" idref="s18768_21"/>
+					</nt>
+				</nonterminals>
+			</graph>
+			<matches>
+			</matches>
+			<sem>
+				<globals>
+				</globals>
+				<frames>
+					<frame name="wuerdigen2-salsa" id="wuerdigen_s18768_f0">
+						<target lemma="würdigen">
+							<fenode idref="s18768_19"/>
+						</target>
+						<fe name="Award" id="wuerdigen_s18768_f0_e1">
+							<fenode idref="s18768_1"/>
+						</fe>
+						<fe name="Reason" id="wuerdigen_s18768_f0_e2">
+							<fenode idref="s18768_506"/>
+						</fe>
+					</frame>
+				</frames>
+				<usp>
+				  <uspframes/>
+				  <uspfes/>
+				</usp>
+				<wordtags>
+				</wordtags>
+			</sem>
+		</s>
+		<s id="s18786">
+			<graph root="s18786_VROOT">
+				<terminals>
+					<t id="s18786_1" lemma="in" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="In" case="--" morph="--" pos="APPR"/>
+					<t id="s18786_2" lemma="ein" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="einem" case="Dat" morph="Dat.Sg.Neut" pos="ART"/>
+					<t id="s18786_3" lemma="Grußwort" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="Grußwort" case="Dat" morph="Dat.Sg.Neut" pos="NN"/>
+					<t id="s18786_4" lemma="würdigen" person="3" degree="--" tense="Past" mood="Ind" gender="--" number="Sg" word="würdigte" case="--" morph="3.Sg.Past.Ind" pos="VVFIN"/>
+					<t id="s18786_5" lemma="Bundeskanzler" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Bundeskanzler" case="Nom" morph="Nom.Sg.Masc" pos="NN"/>
+					<t id="s18786_6" lemma="Helmut" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Helmut" case="Nom" morph="Nom.Sg.Masc" pos="NE"/>
+					<t id="s18786_7" lemma="Kohl" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Kohl" case="Nom" morph="Nom.Sg.Masc" pos="NE"/>
+					<t id="s18786_8" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="den" case="Acc" morph="Acc.Sg.Masc" pos="ART"/>
+					<t id="s18786_9" lemma="Bau" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Bau" case="Acc" morph="Acc.Sg.Masc" pos="NN"/>
+					<t id="s18786_10" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="des" case="Gen" morph="Gen.Sg.Neut" pos="ART"/>
+					<t id="s18786_11" lemma="Werk" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="Werkes" case="Gen" morph="Gen.Sg.Neut" pos="NN"/>
+					<t id="s18786_12" lemma="als" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="als" case="--" morph="--" pos="APPR"/>
+					<t id="s18786_13" lemma="wichtig" person="--" degree="Pos" tense="--" mood="--" gender="Neut" number="Sg" word="wichtiges" case="Acc" morph="Pos.Acc.Sg.Neut" pos="ADJA"/>
+					<t id="s18786_14" lemma="Signal" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="Signal" case="Acc" morph="Acc.Sg.Neut" pos="NN"/>
+					<t id="s18786_15" lemma="für" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="für" case="--" morph="--" pos="APPR"/>
+					<t id="s18786_16" lemma="Dresden" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="Dresden" case="Acc" morph="Acc.Sg.Neut" pos="NE"/>
+					<t id="s18786_17" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="," case="--" morph="--" pos="$,"/>
+					<t id="s18786_18" lemma="Sachsen" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="Sachsen" case="Acc" morph="Acc.Sg.Neut" pos="NE"/>
+					<t id="s18786_19" lemma="und" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="und" case="--" morph="--" pos="KON"/>
+					<t id="s18786_20" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="die" case="Acc" morph="Acc.Sg.Fem" pos="ART"/>
+					<t id="s18786_21" lemma="industriell" person="--" degree="Pos" tense="--" mood="--" gender="Fem" number="Sg" word="industrielle" case="Acc" morph="Pos.Acc.Sg.Fem" pos="ADJA"/>
+					<t id="s18786_22" lemma="Erneuerung" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Erneuerung" case="Acc" morph="Acc.Sg.Fem" pos="NN"/>
+					<t id="s18786_23" lemma="in" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="im" case="Dat" morph="Dat.Sg.Masc" pos="APPRART"/>
+					<t id="s18786_24" lemma="Osten" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Osten" case="Dat" morph="Dat.Sg.Masc" pos="NN"/>
+					<t id="s18786_25" lemma="Deutschland" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="Deutschlands" case="Gen" morph="Gen.Sg.Neut" pos="NE"/>
+					<t id="s18786_26" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="." case="--" morph="--" pos="$."/>
+				</terminals>
+				<nonterminals>
+					<nt id="s18786_500" cat="PP">
+						<edge label="AC" idref="s18786_1"/>
+						<edge label="NK" idref="s18786_2"/>
+						<edge label="NK" idref="s18786_3"/>
+					</nt>
+					<nt id="s18786_501" cat="PN">
+						<edge label="PNC" idref="s18786_6"/>
+						<edge label="PNC" idref="s18786_7"/>
+					</nt>
+					<nt id="s18786_504" cat="NP">
+						<edge label="NK" idref="s18786_5"/>
+						<edge label="NK" idref="s18786_501"/>
+					</nt>
+					<nt id="s18786_502" cat="NP">
+						<edge label="NK" idref="s18786_10"/>
+						<edge label="NK" idref="s18786_11"/>
+					</nt>
+					<nt id="s18786_505" cat="NP">
+						<edge label="NK" idref="s18786_8"/>
+						<edge label="NK" idref="s18786_9"/>
+						<edge label="AG" idref="s18786_502"/>
+					</nt>
+					<nt id="s18786_503" cat="PP">
+						<edge label="AC" idref="s18786_23"/>
+						<edge label="NK" idref="s18786_24"/>
+						<edge label="AG" idref="s18786_25"/>
+					</nt>
+					<nt id="s18786_506" cat="NP">
+						<edge label="NK" idref="s18786_20"/>
+						<edge label="NK" idref="s18786_21"/>
+						<edge label="NK" idref="s18786_22"/>
+						<edge label="MNR" idref="s18786_503"/>
+					</nt>
+					<nt id="s18786_507" cat="CNP">
+						<edge label="CJ" idref="s18786_16"/>
+						<edge label="CJ" idref="s18786_18"/>
+						<edge label="CD" idref="s18786_19"/>
+						<edge label="CJ" idref="s18786_506"/>
+					</nt>
+					<nt id="s18786_508" cat="PP">
+						<edge label="AC" idref="s18786_15"/>
+						<edge label="NK" idref="s18786_507"/>
+					</nt>
+					<nt id="s18786_509" cat="PP">
+						<edge label="AC" idref="s18786_12"/>
+						<edge label="NK" idref="s18786_13"/>
+						<edge label="NK" idref="s18786_14"/>
+						<edge label="MNR" idref="s18786_508"/>
+					</nt>
+					<nt id="s18786_510" cat="S">
+						<edge label="MO" idref="s18786_500"/>
+						<edge label="HD" idref="s18786_4"/>
+						<edge label="SB" idref="s18786_504"/>
+						<edge label="OA" idref="s18786_505"/>
+						<edge label="MO" idref="s18786_509"/>
+					</nt>
+					<nt id="s18786_VROOT" cat="VROOT">
+						<edge label="--" idref="s18786_510"/>
+						<edge label="--" idref="s18786_17"/>
+						<edge label="--" idref="s18786_26"/>
+					</nt>
+				</nonterminals>
+			</graph>
+			<matches>
+			</matches>
+			<sem>
+				<globals>
+				</globals>
+				<frames>
+					<frame name="Judgment_communication" id="wuerdigen_s18786_f0">
+						<target lemma="würdigen">
+							<fenode idref="s18786_4"/>
+						</target>
+						<fe name="Role" id="wuerdigen_s18786_f0_e1">
+							<fenode idref="s18786_509"/>
+						</fe>
+						<fe name="Medium" id="wuerdigen_s18786_f0_e2">
+							<fenode idref="s18786_500"/>
+						</fe>
+						<fe name="Evaluee" id="wuerdigen_s18786_f0_e3">
+							<fenode idref="s18786_505"/>
+						</fe>
+						<fe name="Communicator" id="wuerdigen_s18786_f0_e4">
+							<fenode idref="s18786_504"/>
+						</fe>
+					</frame>
+				</frames>
+				<usp>
+				  <uspframes/>
+				  <uspfes/>
+				</usp>
+				<wordtags>
+				</wordtags>
+			</sem>
+		</s>
+		<s id="s18915">
+			<graph root="s18915_VROOT">
+				<terminals>
+					<t id="s18915_1" lemma="damit" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="Damit" case="--" morph="--" pos="PROAV"/>
+					<t id="s18915_2" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="," case="--" morph="--" pos="$,"/>
+					<t id="s18915_3" lemma="so" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="so" case="--" morph="--" pos="ADV"/>
+					<t id="s18915_4" lemma="heißen" person="3" degree="--" tense="Past" mood="Ind" gender="--" number="Sg" word="hieß" case="--" morph="3.Sg.Past.Ind" pos="VVFIN"/>
+					<t id="s18915_5" lemma="es" person="3" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="es" case="Nom" morph="3.Nom.Sg.Neut" pos="PPER"/>
+					<t id="s18915_6" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="," case="--" morph="--" pos="$,"/>
+					<t id="s18915_7" lemma="sollen" person="3" degree="--" tense="Pres" mood="Subj" gender="--" number="Sg" word="solle" case="--" morph="3.Sg.Pres.Subj" pos="VMFIN"/>
+					<t id="s18915_8" lemma="ihr" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="ihr" case="Nom" morph="Nom.Sg.Masc" pos="PPOSAT"/>
+					<t id="s18915_9" lemma="Einsatz" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Einsatz" case="Nom" morph="Nom.Sg.Masc" pos="NN"/>
+					<t id="s18915_10" lemma="gegen" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="gegen" case="--" morph="--" pos="APPR"/>
+					<t id="s18915_11" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="die" case="Acc" morph="Acc.Sg.Fem" pos="ART"/>
+					<t id="s18915_12" lemma="Folter" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Folter" case="Acc" morph="Acc.Sg.Fem" pos="NN"/>
+					<t id="s18915_13" lemma="und" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="und" case="--" morph="--" pos="KON"/>
+					<t id="s18915_14" lemma="für" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="für" case="--" morph="--" pos="APPR"/>
+					<t id="s18915_15" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="die" case="Acc" morph="Acc.Sg.Fem" pos="ART"/>
+					<t id="s18915_16" lemma="Achtung" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Achtung" case="Acc" morph="Acc.Sg.Fem" pos="NN"/>
+					<t id="s18915_17" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Pl" word="der" case="Gen" morph="Gen.Pl.Neut" pos="ART"/>
+					<t id="s18915_18" lemma="Menschenrecht" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Pl" word="Menschenrechte" case="Gen" morph="Gen.Pl.Neut" pos="NN"/>
+					<t id="s18915_19" lemma="würdigen" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="gewürdigt" case="--" morph="Psp" pos="VVPP"/>
+					<t id="s18915_20" lemma="werden" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="werden" case="--" morph="Inf" pos="VAINF"/>
+					<t id="s18915_21" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="." case="--" morph="--" pos="$."/>
+				</terminals>
+				<nonterminals>
+					<nt id="s18915_501" cat="VP">
+						<edge label="MO" idref="s18915_1"/>
+						<edge label="HD" idref="s18915_19"/>
+					</nt>
+					<nt id="s18915_504" cat="VP">
+						<edge label="OC" idref="s18915_501"/>
+						<edge label="HD" idref="s18915_20"/>
+					</nt>
+					<nt id="s18915_500" cat="PP">
+						<edge label="AC" idref="s18915_10"/>
+						<edge label="NK" idref="s18915_11"/>
+						<edge label="NK" idref="s18915_12"/>
+					</nt>
+					<nt id="s18915_502" cat="NP">
+						<edge label="NK" idref="s18915_17"/>
+						<edge label="NK" idref="s18915_18"/>
+					</nt>
+					<nt id="s18915_503" cat="PP">
+						<edge label="AC" idref="s18915_14"/>
+						<edge label="NK" idref="s18915_15"/>
+						<edge label="NK" idref="s18915_16"/>
+						<edge label="AG" idref="s18915_502"/>
+					</nt>
+					<nt id="s18915_505" cat="CPP">
+						<edge label="CJ" idref="s18915_500"/>
+						<edge label="CD" idref="s18915_13"/>
+						<edge label="CJ" idref="s18915_503"/>
+					</nt>
+					<nt id="s18915_506" cat="NP">
+						<edge label="NK" idref="s18915_8"/>
+						<edge label="NK" idref="s18915_9"/>
+						<edge label="MNR" idref="s18915_505"/>
+					</nt>
+					<nt id="s18915_507" cat="S">
+						<edge label="OC" idref="s18915_504"/>
+						<edge label="HD" idref="s18915_7"/>
+						<edge label="SB" idref="s18915_506"/>
+					</nt>
+					<nt id="s18915_508" cat="AVP">
+						<edge label="RE" idref="s18915_507"/>
+						<edge label="PH" idref="s18915_3"/>
+					</nt>
+					<nt id="s18915_509" cat="S">
+						<edge label="MO" idref="s18915_508"/>
+						<edge label="HD" idref="s18915_4"/>
+						<edge label="EP" idref="s18915_5"/>
+					</nt>
+					<nt id="s18915_VROOT" cat="VROOT">
+						<edge label="--" idref="s18915_509"/>
+						<edge label="--" idref="s18915_2"/>
+						<edge label="--" idref="s18915_6"/>
+						<edge label="--" idref="s18915_21"/>
+					</nt>
+				</nonterminals>
+			</graph>
+			<matches>
+			</matches>
+			<sem>
+				<globals>
+				</globals>
+				<frames>
+					<frame name="wuerdigen2-salsa" id="wuerdigen_s18915_f0">
+						<target lemma="würdigen">
+							<fenode idref="s18915_19"/>
+						</target>
+						<fe name="Award" id="wuerdigen_s18915_f0_e1">
+							<fenode idref="s18915_1"/>
+						</fe>
+						<fe name="Reason" id="wuerdigen_s18915_f0_e2">
+							<fenode idref="s18915_506"/>
+						</fe>
+					</frame>
+				</frames>
+				<usp>
+				  <uspframes/>
+				  <uspfes/>
+				</usp>
+				<wordtags>
+				</wordtags>
+			</sem>
+		</s>
+		<s id="s21339">
+			<graph root="s21339_502">
+				<terminals>
+					<t id="s21339_1" lemma="Regierungspartei" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Regierungspartei" case="Nom" morph="Nom.Sg.Fem" pos="NN"/>
+					<t id="s21339_2" lemma="in" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="in" case="--" morph="--" pos="APPR"/>
+					<t id="s21339_3" lemma="Belgrad" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="Belgrad" case="Dat" morph="Dat.Sg.Neut" pos="NE"/>
+					<t id="s21339_4" lemma="würdigen" person="3" degree="--" tense="Pres" mood="Ind" gender="--" number="Sg" word="würdigt" case="--" morph="3.Sg.Pres.Ind" pos="VVFIN"/>
+					<t id="s21339_5" lemma="Ostslawonien-Vertrag" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Ostslawonien-Vertrag" case="Acc" morph="Acc.Sg.Masc" pos="NN"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s21339_500" cat="PP">
+						<edge label="AC" idref="s21339_2"/>
+						<edge label="NK" idref="s21339_3"/>
+					</nt>
+					<nt id="s21339_501" cat="NP">
+						<edge label="NK" idref="s21339_1"/>
+						<edge label="MNR" idref="s21339_500"/>
+					</nt>
+					<nt id="s21339_502" cat="S">
+						<edge label="SB" idref="s21339_501"/>
+						<edge label="HD" idref="s21339_4"/>
+						<edge label="OA" idref="s21339_5"/>
+					</nt>
+				</nonterminals>
+			</graph>
+			<matches>
+			</matches>
+			<sem>
+				<globals>
+				</globals>
+				<frames>
+					<frame name="Judgment_communication" id="wuerdigen_s21339_f0">
+						<target lemma="würdigen">
+							<fenode idref="s21339_4"/>
+						</target>
+						<fe name="Evaluee" id="wuerdigen_s21339_f0_e1">
+							<fenode idref="s21339_5"/>
+						</fe>
+						<fe name="Communicator" id="wuerdigen_s21339_f0_e2">
+							<fenode idref="s21339_501"/>
+						</fe>
+					</frame>
+				</frames>
+				<usp>
+				  <uspframes/>
+				  <uspfes/>
+				</usp>
+				<wordtags>
+				</wordtags>
+			</sem>
+		</s>
+		<s id="s26969">
+			<graph root="s26969_VROOT">
+				<terminals>
+					<t id="s26969_1" lemma="selbst" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="Selbst" case="--" morph="--" pos="ADV"/>
+					<t id="s26969_2" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="der" case="Nom" morph="Nom.Sg.Masc" pos="ART"/>
+					<t id="s26969_3" lemma="berühmt" person="--" degree="Pos" tense="--" mood="--" gender="Masc" number="Sg" word="berühmte" case="Nom" morph="Pos.Nom.Sg.Masc" pos="ADJA"/>
+					<t id="s26969_4" lemma="US-Autor" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="US-Autor" case="Nom" morph="Nom.Sg.Masc" pos="NN"/>
+					<t id="s26969_5" lemma="Mark" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Mark" case="Nom" morph="Nom.Sg.Masc" pos="NE"/>
+					<t id="s26969_6" lemma="Twain" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Twain" case="Nom" morph="Nom.Sg.Masc" pos="NE"/>
+					<t id="s26969_7" lemma="haben" person="3" degree="--" tense="Pres" mood="Ind" gender="--" number="Sg" word="hat" case="--" morph="3.Sg.Pres.Ind" pos="VAFIN"/>
+					<t id="s26969_8" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="den" case="Acc" morph="Acc.Sg.Masc" pos="ART"/>
+					<t id="s26969_9" lemma="Klassiker" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Klassiker" case="Acc" morph="Acc.Sg.Masc" pos="NN"/>
+					<t id="s26969_10" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="des" case="Gen" morph="Gen.Sg.Masc" pos="ART"/>
+					<t id="s26969_11" lemma="Frankfurter" person="--" degree="Pos" tense="--" mood="--" gender="*" number="*" word="Frankfurter" case="*" morph="Pos.*.*.*" pos="ADJA"/>
+					<t id="s26969_12" lemma="Arzt" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Arztes" case="Gen" morph="Gen.Sg.Masc" pos="NN"/>
+					<t id="s26969_13" lemma="Heinrich" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Heinrich" case="Nom" morph="Nom.Sg.Masc" pos="NE"/>
+					<t id="s26969_14" lemma="Hoffmann" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Hoffmann" case="Nom" morph="Nom.Sg.Masc" pos="NE"/>
+					<t id="s26969_15" lemma="mit" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="mit" case="--" morph="--" pos="APPR"/>
+					<t id="s26969_16" lemma="ein" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="einer" case="Dat" morph="Dat.Sg.Fem" pos="ART"/>
+					<t id="s26969_17" lemma="originell" person="--" degree="Pos" tense="--" mood="--" gender="Fem" number="Sg" word="originellen" case="Dat" morph="Pos.Dat.Sg.Fem" pos="ADJA"/>
+					<t id="s26969_18" lemma="Übersetzung" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Übersetzung" case="Dat" morph="Dat.Sg.Fem" pos="NN"/>
+					<t id="s26969_19" lemma="würdigen" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="gewürdigt" case="--" morph="Psp" pos="VVPP"/>
+					<t id="s26969_20" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="." case="--" morph="--" pos="$."/>
+				</terminals>
+				<nonterminals>
+					<nt id="s26969_500" cat="PN">
+						<edge label="PNC" idref="s26969_5"/>
+						<edge label="PNC" idref="s26969_6"/>
+					</nt>
+					<nt id="s26969_503" cat="NP">
+						<edge label="MO" idref="s26969_1"/>
+						<edge label="NK" idref="s26969_2"/>
+						<edge label="NK" idref="s26969_3"/>
+						<edge label="NK" idref="s26969_4"/>
+						<edge label="NK" idref="s26969_500"/>
+					</nt>
+					<nt id="s26969_501" cat="PN">
+						<edge label="PNC" idref="s26969_13"/>
+						<edge label="PNC" idref="s26969_14"/>
+					</nt>
+					<nt id="s26969_504" cat="NP">
+						<edge label="NK" idref="s26969_10"/>
+						<edge label="NK" idref="s26969_11"/>
+						<edge label="NK" idref="s26969_12"/>
+						<edge label="NK" idref="s26969_501"/>
+					</nt>
+					<nt id="s26969_505" cat="NP">
+						<edge label="NK" idref="s26969_8"/>
+						<edge label="NK" idref="s26969_9"/>
+						<edge label="AG" idref="s26969_504"/>
+					</nt>
+					<nt id="s26969_502" cat="PP">
+						<edge label="AC" idref="s26969_15"/>
+						<edge label="NK" idref="s26969_16"/>
+						<edge label="NK" idref="s26969_17"/>
+						<edge label="NK" idref="s26969_18"/>
+					</nt>
+					<nt id="s26969_506" cat="VP">
+						<edge label="OA" idref="s26969_505"/>
+						<edge label="MO" idref="s26969_502"/>
+						<edge label="HD" idref="s26969_19"/>
+					</nt>
+					<nt id="s26969_507" cat="S">
+						<edge label="SB" idref="s26969_503"/>
+						<edge label="HD" idref="s26969_7"/>
+						<edge label="OC" idref="s26969_506"/>
+					</nt>
+					<nt id="s26969_VROOT" cat="VROOT">
+						<edge label="--" idref="s26969_507"/>
+						<edge label="--" idref="s26969_20"/>
+					</nt>
+				</nonterminals>
+			</graph>
+			<matches>
+			</matches>
+			<sem>
+				<globals>
+				</globals>
+				<frames>
+					<frame name="wuerdigen2-salsa" id="wuerdigen_s26969_f0">
+						<target lemma="würdigen">
+							<fenode idref="s26969_19"/>
+						</target>
+						<fe name="Agent" id="wuerdigen_s26969_f0_e1">
+							<fenode idref="s26969_503"/>
+						</fe>
+						<fe name="Evaluee" id="wuerdigen_s26969_f0_e2">
+							<fenode idref="s26969_505"/>
+						</fe>
+						<fe name="Reason" id="wuerdigen_s26969_f0_e3">
+							<fenode idref="s26969_502"/>
+						</fe>
+					</frame>
+				</frames>
+				<usp>
+				  <uspframes/>
+				  <uspfes/>
+				</usp>
+				<wordtags>
+				</wordtags>
+			</sem>
+		</s>
+		<s id="s33736">
+			<graph root="s33736_VROOT">
+				<terminals>
+					<t id="s33736_1" lemma="Ex-Parteichef" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Ex-Parteichef" case="Nom" morph="Nom.Sg.Masc" pos="NN"/>
+					<t id="s33736_2" lemma="Hans-Jochen" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Hans-Jochen" case="Nom" morph="Nom.Sg.Masc" pos="NE"/>
+					<t id="s33736_3" lemma="Vogel" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Vogel" case="Nom" morph="Nom.Sg.Masc" pos="NE"/>
+					<t id="s33736_4" lemma="würdigen" person="3" degree="--" tense="Past" mood="Ind" gender="--" number="Sg" word="würdigte" case="--" morph="3.Sg.Past.Ind" pos="VVFIN"/>
+					<t id="s33736_5" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Pl" word="die" case="Acc" morph="Acc.Pl.Masc" pos="ART"/>
+					<t id="s33736_6" lemma="Preisträger" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Pl" word="Preisträger" case="Acc" morph="Acc.Pl.Masc" pos="NN"/>
+					<t id="s33736_7" lemma="als" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="als" case="--" morph="--" pos="APPR"/>
+					<t id="s33736_8" lemma="Beispiel" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Pl" word="Beispiele" case="Acc" morph="Acc.Pl.Neut" pos="NN"/>
+					<t id="s33736_9" lemma="dafür" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="dafür" case="--" morph="--" pos="PROAV"/>
+					<t id="s33736_10" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="," case="--" morph="--" pos="$,"/>
+					<t id="s33736_11" lemma="daß" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="daß" case="--" morph="--" pos="KOUS"/>
+					<t id="s33736_12" lemma="trotz" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="trotz" case="--" morph="--" pos="APPR"/>
+					<t id="s33736_13" lemma="verbreitet" person="--" degree="Pos" tense="--" mood="--" gender="Fem" number="Pl" word="verbreiteter" case="Dat" morph="Pos.Dat.Pl.Fem" pos="ADJA"/>
+					<t id="s33736_14" lemma="Enttäuschung" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Enttäuschung" case="Dat" morph="Dat.Sg.Fem" pos="NN"/>
+					<t id="s33736_15" lemma="und" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="und" case="--" morph="--" pos="KON"/>
+					<t id="s33736_16" lemma="Empörung" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Empörung" case="Dat" morph="Dat.Sg.Fem" pos="NN"/>
+					<t id="s33736_17" lemma="über" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="über" case="--" morph="--" pos="APPR"/>
+					<t id="s33736_18" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="den" case="Acc" morph="Acc.Sg.Masc" pos="ART"/>
+					<t id="s33736_19" lemma="Führungsstreit" person="--" degree="--" tense="--" mood="--" gender="Masc" number="Sg" word="Führungsstreit" case="Acc" morph="Acc.Sg.Masc" pos="NN"/>
+					<t id="s33736_20" lemma="in" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="in" case="--" morph="--" pos="APPR"/>
+					<t id="s33736_21" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="der" case="Dat" morph="Dat.Sg.Fem" pos="ART"/>
+					<t id="s33736_22" lemma="Partei" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Partei" case="Dat" morph="Dat.Sg.Fem" pos="NN"/>
+					<t id="s33736_23" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="``" case="--" morph="--" pos="$("/>
+					<t id="s33736_24" lemma="der" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="die" case="Nom" morph="Nom.Sg.Fem" pos="ART"/>
+					<t id="s33736_25" lemma="Sozialdemokratie" person="--" degree="--" tense="--" mood="--" gender="Fem" number="Sg" word="Sozialdemokratie" case="Nom" morph="Nom.Sg.Fem" pos="NN"/>
+					<t id="s33736_26" lemma="in" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="in" case="--" morph="--" pos="APPR"/>
+					<t id="s33736_27" lemma="ihr" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="ihrem" case="Dat" morph="Dat.Sg.Neut" pos="PPOSAT"/>
+					<t id="s33736_28" lemma="Fundament" person="--" degree="--" tense="--" mood="--" gender="Neut" number="Sg" word="Fundament" case="Dat" morph="Dat.Sg.Neut" pos="NN"/>
+					<t id="s33736_29" lemma="gesund" person="--" degree="Pos" tense="--" mood="--" gender="--" number="--" word="gesund" case="--" morph="Pos" pos="ADJD"/>
+					<t id="s33736_30" lemma="und" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="und" case="--" morph="--" pos="KON"/>
+					<t id="s33736_31" lemma="lebendig" person="--" degree="Pos" tense="--" mood="--" gender="--" number="--" word="lebendig" case="--" morph="Pos" pos="ADJD"/>
+					<t id="s33736_32" lemma="sein" person="3" degree="--" tense="Pres" mood="Ind" gender="--" number="Sg" word="ist" case="--" morph="3.Sg.Pres.Ind" pos="VAFIN"/>
+					<t id="s33736_33" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="''" case="--" morph="--" pos="$("/>
+					<t id="s33736_34" lemma="--" person="--" degree="--" tense="--" mood="--" gender="--" number="--" word="." case="--" morph="--" pos="$."/>
+				</terminals>
+				<nonterminals>
+					<nt id="s33736_500" cat="PN">
+						<edge label="PNC" idref="s33736_2"/>
+						<edge label="PNC" idref="s33736_3"/>
+					</nt>
+					<nt id="s33736_507" cat="NP">
+						<edge label="NK" idref="s33736_1"/>
+						<edge label="NK" idref="s33736_500"/>
+					</nt>
+					<nt id="s33736_501" cat="NP">
+						<edge label="NK" idref="s33736_5"/>
+						<edge label="NK" idref="s33736_6"/>
+					</nt>
+					<nt id="s33736_502" cat="CNP">
+						<edge label="CJ" idref="s33736_14"/>
+						<edge label="CD" idref="s33736_15"/>
+						<edge label="CJ" idref="s33736_16"/>
+					</nt>
+					<nt id="s33736_503" cat="PP">
+						<edge label="AC" idref="s33736_20"/>
+						<edge label="NK" idref="s33736_21"/>
+						<edge label="NK" idref="s33736_22"/>
+					</nt>
+					<nt id="s33736_508" cat="PP">
+						<edge label="AC" idref="s33736_17"/>
+						<edge label="NK" idref="s33736_18"/>
+						<edge label="NK" idref="s33736_19"/>
+						<edge label="MNR" idref="s33736_503"/>
+					</nt>
+					<nt id="s33736_509" cat="PP">
+						<edge label="AC" idref="s33736_12"/>
+						<edge label="NK" idref="s33736_13"/>
+						<edge label="NK" idref="s33736_502"/>
+						<edge label="MNR" idref="s33736_508"/>
+					</nt>
+					<nt id="s33736_504" cat="NP">
+						<edge label="NK" idref="s33736_24"/>
+						<edge label="NK" idref="s33736_25"/>
+					</nt>
+					<nt id="s33736_505" cat="PP">
+						<edge label="AC" idref="s33736_26"/>
+						<edge label="NK" idref="s33736_27"/>
+						<edge label="NK" idref="s33736_28"/>
+					</nt>
+					<nt id="s33736_506" cat="CAP">
+						<edge label="CJ" idref="s33736_29"/>
+						<edge label="CD" idref="s33736_30"/>
+						<edge label="CJ" idref="s33736_31"/>
+					</nt>
+					<nt id="s33736_510" cat="S">
+						<edge label="CP" idref="s33736_11"/>
+						<edge label="MO" idref="s33736_509"/>
+						<edge label="SB" idref="s33736_504"/>
+						<edge label="MO" idref="s33736_505"/>
+						<edge label="PD" idref="s33736_506"/>
+						<edge label="HD" idref="s33736_32"/>
+					</nt>
+					<nt id="s33736_511" cat="PP">
+						<edge label="PH" idref="s33736_9"/>
+						<edge label="RE" idref="s33736_510"/>
+					</nt>
+					<nt id="s33736_512" cat="PP">
+						<edge label="AC" idref="s33736_7"/>
+						<edge label="NK" idref="s33736_8"/>
+						<edge label="MNR" idref="s33736_511"/>
+					</nt>
+					<nt id="s33736_513" cat="S">
+						<edge label="SB" idref="s33736_507"/>
+						<edge label="HD" idref="s33736_4"/>
+						<edge label="OA" idref="s33736_501"/>
+						<edge label="MO" idref="s33736_512"/>
+					</nt>
+					<nt id="s33736_VROOT" cat="VROOT">
+						<edge label="--" idref="s33736_513"/>
+						<edge label="--" idref="s33736_10"/>
+						<edge label="--" idref="s33736_23"/>
+						<edge label="--" idref="s33736_33"/>
+						<edge label="--" idref="s33736_34"/>
+					</nt>
+				</nonterminals>
+			</graph>
+			<matches>
+			</matches>
+			<sem>
+				<globals>
+				</globals>
+				<frames>
+					<frame name="wuerdigen2-salsa" id="wuerdigen_s33736_f0">
+						<target lemma="würdigen">
+							<fenode idref="s33736_4"/>
+						</target>
+						<fe name="Agent" id="wuerdigen_s33736_f0_e1">
+							<fenode idref="s33736_507"/>
+						</fe>
+						<fe name="Evaluee" id="wuerdigen_s33736_f0_e2">
+							<fenode idref="s33736_501"/>
+						</fe>
+						<fe name="Reason" id="wuerdigen_s33736_f0_e3">
+							<fenode idref="s33736_512"/>
+						</fe>
+					</frame>
+				</frames>
+				<usp>
+				  <uspframes/>
+				  <uspfes/>
+				</usp>
+				<wordtags>
+				</wordtags>
+			</sem>
+		</s>
+  </body>
+</corpus>

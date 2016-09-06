@@ -1,0 +1,241 @@
+#####################
+# SALSA Release 2.0 #
+#####################
+
+Thanks for your interest in the second corpus release of the
+Saarbruecken SALSA project. The data is provided subject to the
+licensing conditions found at this URL:
+www.coli.uni-saarland.de/projects/salsa/corpus/doc/license.html 
+
+Contents of this File
+=====================
+
+(A) Introduction
+(B) List of Files
+(C) Statistics on the Annotations
+(D) Useful Software
+(E) Acknowledgements
+
+
+(A) Introduction
+=================
+
+The data provided by this SALSA release add a layer of role-semantic
+information to TIGER (release 2.1), a syntactically annotated German
+newspaper corpus. More information on TIGER can be found here:
+
+http://www.ims.uni-stuttgart.de/projekte/TIGER/
+
+
+The role-semantic annotation follows the Berkeley FrameNet paradigm:
+
+http://framenet.icsi.berkeley.edu
+
+SALSA uses the frames of FrameNet releases 1.2 and 1.3 for the German
+annotation, wherever available and appropriate. In addition, SALSA
+has developed a number of "proto-frames", i.e., predicate-specific
+frames, to provide coverage for predicate instances currently not
+covered by FrameNet (see below for encoding details). The total size
+of the annotation is currently roughly 20.000 verbal instances and 
+more than 17.000 nominal instances. More information on SALSA can 
+be found on the website
+
+http://www.coli.uni-saarland.de/projects/salsa/
+
+The annotation scheme is described in 
+
+A. Burchardt, K. Erk, A. Frank, A. Kowalski, S. Padó and M. Pinkal
+The SALSA Corpus: a German Corpus Resource for Lexical Semantics.
+Proceedings of LREC 2006, Genoa, Italy.
+
+(http://www.coli.uni-saarland.de/%7Epado/pub/papers/lrec06_burchardt1.pdf)
+
+I. Rehbein, J. Ruppenhofer, C. Sporleder and M. Pinkal
+Adding nominal spice to SALSA - frame-semantic annotation of German nouns and verbs.
+Proceedings of KONVENS 2012, Vienna, Austria. 
+
+(http://www.oegai.at/konvens2012/proceedings/14_rehbein12o/14_rehbein12o.pdf)
+
+
+The format of the corpus/corpora is SALSA/TIGER XML, documented in:
+
+K. Erk and S. Padó
+A powerful and versatile XML Format for representing role-semantic annotation
+Proceedings of LREC-2004, Lisbon.
+(http://www.coli.uni-saarland.de/%7Epado/pub/papers/lrec04_erk.pdf)
+
+
+This 2nd release of the SALSA corpus differs from the 1st release as follows:
+ 
+* The second release includes many more annotations.
+* It has a  much larger share of nouns that are analyzed as frame-evoking elements.
+* In this second release, more non-core roles are annotated for the nominal frame-evoking elements that
+we mainly worked on than for the verbal predicates that were analyzed in the first phase of SALSA.
+* The second release uses the syntax trees of version 2.1 of the TIGER corpus--unlike release 1 of
+the SALSA corpus, which was based on version 1 of the TIGER corpus. 
+
+
+(B) List of Files
+=================
+
+The release is provided in the form of three packages (1a), (1b), and (2):
+
+
+(1a) The annotated corpora as individual files, one per lemma. 
+--------------------------------------------------------------
+
+- salsa-corpora/abfragen.xml 
+- salsa-corpora/abfuellen.xml
+...
+
+The files are in SALSA/TIGER XML format (see above) and can be viewed using the 
+SALTO tool (see below).
+
+
+(1b) The annotated corpus as one file.
+--------------------------------------
+
+- salsa-corpus.xml
+
+The file is in SALSA/TIGER XML format (see above) and can be viewed
+using the SALTO tool (see below). However, for its size, it can only
+be displayed on 64-bit machines with at least 3GB of main
+memory. Please use the startup scipts Salto_bigmemory.sh (unix) or
+Salto_bigmemory.bat (win) instead of the normal Salto.sh or Salto.bat
+here.
+
+
+(2) Auxiliaries
+---------------
+
+- html
+
+This folder contains detailed information on the individual frames and frame
+elements.
+
+- salsa_frames.xml
+
+This file contains the definitions of the frames used in the
+annotation. The file follows the format of the frames.xml file
+provided by Berkeley FrameNet. Each frame is labelled with a
+"source" attribute that indicates its status. We distinguish four
+sources:
+
+1. source="FrameNet1.2" 
+
+   These frames are identical to (i.e., original) FrameNet 1.2 frames.
+
+2. source="SALSA-FrameNet1.2"
+
+   These frames are slightly changed by SALSA, e.g. to account for richer realisation
+   possibilities in German.
+
+3. source="SALSA"
+
+   These frames are SALSA-constructed, lemma-specific proto-frames.
+
+4. source="FrameNet1.3"
+
+   These frames exist only on FrameNet 1.3. They are included whenever a frame missing
+   in FrameNet 1.2 exists in FrameNet 1.3. In that case, the proto-frame used for
+   annotation is identical to the release 1.3 frame, but kept separate for technical 
+   reasons.
+
+We additionally created one new semantic role, "Beneficient", which can
+occur in most frames (like the peripheral roles "Time" and "Place" in
+FrameNet), to account for German datives like in "Sie zapfte IHM ein
+Bier".
+
+
+
+For detailed information, please refer to the publication mentioned above.
+
+- guidelines.pdf
+
+The SALSA annotation guidelines.
+
+
+Each package also contains this README file and the license conditions.
+
+- README
+- license.html
+
+
+(C) Statistics on the Annotations
+===================
+
+The annotations are summarized by the following set of numbers. 
+	
+       		 salsa-release    sub-corpora
+sentences      		 24184   	36211
+frames         		 37697        	37697
+uspitem        		  2311        	 2311
+fee    	       		 37697    	37697
+fe             		 66486          66486
+fenode        		109210         109210
+
+The left column applies to the single-file version of the corpus, the right 
+column to the sum of all lemma-specific files. The only difference lies in 
+the sentence count because some sentences are repeated multiple times in various 
+lemma-specific files whereas each Tiger corpus sentence occurs only once in 
+the single-file version of the corpus.
+
+Note that the numbers above refer to tokens/instances rather than types. 
+
+Glossary:
+- uspitem: cases of Underspecification, where instances of more than one frame 
+  are evoked on the same lemma instance and said to co-apply.
+- fee: frame-evoking element (what FrameNet calls target instances)
+- fe: frame elements/semantic roles
+- fenode: nodes in the syntax tree which have been labeled as part of a frame 
+  element.
+
+
+The file salsa_frames.xml contains lexical-unit specific annotation statistics. 
+Consider this example:
+
+	<annotation>
+         <total type='instances'>112</total>
+         <total type='frames'>114</total>
+         <annotated type='frames'>1</annotated>
+       </annotation>
+
+* The instances total reports how many instances of the lemma in question evoke 
+  an instance of some frame.
+* The frames total reports how many frame instances are evoked on all the lemma 
+  instances taken together. This number may be larger than the previous one 
+  because of underspecification.
+* The last number reports how many frame instances are annotated for the frame 
+  to which the lexical unit belongs.
+
+
+(D) Useful Software
+===================
+
+SALSA also provides a graphical user interface, SALTO, for viewing and
+modifying semantic role annotation, available from:
+
+www.coli.uni-saarland.de/projects/salsa/page.php?id=software.
+
+This page also lists other related software.
+
+
+(E) Acknowledgements
+====================
+
+We are grateful to the German Science Foundation for funding part of
+the annotation project through the Leibniz program (grant Pi 154/8-1). 
+
+The second phase of the project has been supported by the Deutsche
+ Forschungsgemeinschaft  (DFG; German Research Foundation) under grant PI 154/9-3.
+
+We would also like to acknowledge the work of our annotators:
+
+Markus Dräger
+Lisa Fuchs
+Anreas Rebmann
+Gerald Schoch
+Corinna Schorr
+
+
+

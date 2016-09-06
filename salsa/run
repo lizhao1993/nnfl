@@ -1,0 +1,1 @@
+for i in *.xml; do echo -n "$i " >>log; x=`cat ../Release_Output_final/$i | grep "<s " | wc -l`; echo -n "$x " >>log; cat $i | grep "<s " | wc -l >>log; done
