@@ -53,6 +53,7 @@
 import xml.etree.ElementTree as ET
 import shutil
 import os
+import string
 
 corpora_path = "./salsa-corpora/"
 parsed_path = "./salsa-parsed/"
@@ -113,7 +114,10 @@ def parse_file(name):
 					#make the string
 					#format:
 					#Frame_label<tab>word1 word2keywordtag word3<tab>target_verb<tab>word4 word5
-					result = frameid + "\t"
+					#r"""This is a test"""
+					tags = frameid.split('_')
+					tag = tags[0]+"_"+tags[2]	
+					result = tag + "\t"
 
 					# finalresult = []
 					# for i in range((len(nodelist)*2)+2):
@@ -122,22 +126,28 @@ def parse_file(name):
 					# finalresult[1] = "\t"
 
 					#print (nodelist)
+					exclude = set(string.punctuation)
 					for node in nodelist:
-						if (node.attrib['id'] in finalrelatedwords):
+						if (node.attrib['word'] in exclude):
+							#pass if the node is punctuation
+							pass
+						elif (node.attrib['id']== targetwords[0].attrib['idref']):
+
+						#this is the target
+							# finalresult[(nodelist.index(node)*2)-1] = "\t"
+							# finalresult[(nodelist.index(node)*2)] = node.attrib['word']
+							# finalresult[(nodelist.index(node)*2)+2] = "\t"
+
+							result = result + "\t"+ node.attrib['word']+"keywordtag" 
+							result = result+ " \t" 	
+						elif (node.attrib['id'] in finalrelatedwords):
 						#this is a related word
 							result = result + node.attrib['word']+"keywordtag "	
 			
 							# finalresult[((nodelist.index(node))*2)] = node.attrib['word']+"keywordtag"
 							# finalresult[(nodelist.index(node)*2)+1] = " "
 
-						elif (node.attrib['id']== targetwords[0].attrib['idref']):
 
-						#this is the target
-							# finalresult[(nodelist.index(node)*2)-1] = "\t"
-							# finalresult[(nodelist.index(node)*2)] = node.attrib['word']
-							# finalresult[(nodelist.index(node)*2)+2] = "\t"								
-							result = result + "\t"+ node.attrib['word'] 
-							result = result+ " \t" 
 							#print(result)
 
 					# elif (node.attrib['id']== targetwords[0]):
