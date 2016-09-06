@@ -125,12 +125,11 @@ def parse_file(name):
 				for nonter in nonterminals:
 					if (nonter.attrib["id"]==nt):
 						multi = True
-				if (len(targetwords)==1 and (sentence.findall(".//frames/frame")!=[]) and (multi==False)):
+				if (len(targetwords)==1 and (len(list(sentence.findall(".//frames/frame")))==1) and (multi==False)):
 
 					#get the frame
 					frameid = sentence.findall(".//frames/frame")[0].attrib["id"]
-					#some do not have frames and have to be skipped
-					
+
 					#make the string
 					#format:
 					#Frame_label<tab>word1 word2keywordtag word3<tab>target_verb<tab>word4 word5
@@ -138,6 +137,10 @@ def parse_file(name):
 					tags = frameid.split('_')
 					tag = tags[0]+"_"+tags[2]	
 					result = tag + "\t"
+					#some do not have frames and have to be skipped
+					
+
+					
 
 					# finalresult = []
 					# for i in range((len(nodelist)*2)+2):
@@ -146,7 +149,10 @@ def parse_file(name):
 					# finalresult[1] = "\t"
 
 					#print (nodelist)
+					goodtargetid =True
 					exclude = set(string.punctuation)
+					if (len(targetwords[0].attrib['idref'].split('_'))!=2):
+						goodtargetid = False
 					for node in nodelist:
 						if (set(node.attrib['word'].split()).issubset(exclude)):
 							#pass if the node is punctuation
@@ -160,6 +166,8 @@ def parse_file(name):
 
 							result = result + "\t"+ node.attrib['word']+"keywordtag" 
 							result = result+ " \t" 	
+
+
 						elif (node.attrib['id'] in finalrelatedwords):
 						#this is a related word
 							result = result + node.attrib['word']+"keywordtag "	
@@ -192,14 +200,18 @@ def parse_file(name):
 					# item = ""
 					# for item in finalresult:
 					# 	result = result + item
-					result = result + os.linesep
-					result = "".join(r for r in result if r not in exclude)
-					#resultlist = re.split(r'(\s+)', result)
-					#for unit in resultlist:
-					#	unit
+					if (goodtargetid):
+						result = result + os.linesep
+						result = "".join(r for r in result if r not in exclude)
+						#resultlist = re.split(r'(\s+)', result)
+						#for unit in resultlist:
+						#	unit
 
-					datafile.write(result)
-					used = used +1
+						check = result.split("\t")
+						if len(check) != 4:
+	 						raise Exception(name + " "+ sentence.attrib["id"])
+						datafile.write(result)
+						used = used +1
 
 				else:
 					unused = unused + 1 			
